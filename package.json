@@ -3,7 +3,7 @@
     "node": ">=16.0.0"
   },
   "name": "fanqietc",
-  "version": "2026.07.17.1334",
+  "version": "2026.07.29.1725",
   "private": true,
   "type": "module",
   "scripts": {
@@ -20,14 +20,19 @@
     "opencc-js": "^1.0.5",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "react-router-dom": "^6.20.0",
+    "react-router-dom": "^6.30.4",
     "styled-components": "^6.1.8"
   },
   "devDependencies": {
-    "@vitejs/plugin-react": "^4.2.1",
+    "@vitejs/plugin-react": "^4.7.0",
     "eslint": "^8.48.0",
     "eslint-plugin-react": "^7.33.2",
     "eslint-plugin-react-hooks": "^4.6.0",
-    "vite": "^4.5.0"
+    "vite": "^7.3.6"
+  },
+  "overrides": {
+    "esbuild": "^0.25.0",
+    "minimatch": "^9.0.9",
+    "brace-expansion": "^5.0.8"
   }
 }
