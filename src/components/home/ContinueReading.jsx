@@ -25,6 +25,7 @@ const Hero = styled.section`
   backdrop-filter: blur(18px);
   -webkit-backdrop-filter: blur(18px);
   overflow: hidden;
+  animation: homeCardEntrance 0.52s cubic-bezier(0.22, 1, 0.36, 1) 0.05s both;
   @media (max-width: 480px) { grid-template-columns: minmax(0, 1fr) 100px; gap: 16px; min-height: 194px; padding: 18px; }
 `;
 const HeroContent = styled.div`display: flex; flex-direction: column; align-items: flex-start; justify-content: center; min-width: 0;`;

@@ -6,6 +6,10 @@ import { ROUTES } from '../../utils/navigation';
 import { GrayButton } from '../ui/GrayButton';
 import { HomeNotice, HomeNoticeLabel } from './HomeNotice';
 
+const Notice = styled(HomeNotice)`
+  margin-top: 12px;
+`;
+
 const Message = styled.p`
   margin: 0 0 12px;
 `;
@@ -26,7 +30,7 @@ function MigrationNotice() {
   if (!isLegacyOrigin()) return null;
 
   return (
-    <HomeNotice role="status">
+    <Notice role="status">
       <HomeNoticeLabel>網站搬家囉！</HomeNoticeLabel>
       <Message>
         我們已經搬到{' '}
@@ -38,7 +42,7 @@ function MigrationNotice() {
       <GrayButton type="button" onClick={() => navigate(ROUTES.export)}>
         前往匯出資料
       </GrayButton>
-    </HomeNotice>
+    </Notice>
   );
 }
 

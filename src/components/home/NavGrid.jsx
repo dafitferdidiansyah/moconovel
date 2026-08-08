@@ -22,6 +22,10 @@ const QuickGrid = styled.div`
   grid-template-columns: repeat(3, 1fr);
   gap: 12px;
 
+  > *:nth-child(1) { animation-delay: 0.14s; }
+  > *:nth-child(2) { animation-delay: 0.2s; }
+  > *:nth-child(3) { animation-delay: 0.26s; }
+
   @media (max-width: 480px) { gap: 8px; }
 `;
 
@@ -29,6 +33,13 @@ const UtilityGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 8px;
+
+  > *:nth-child(1) { animation-delay: 0.34s; }
+  > *:nth-child(2) { animation-delay: 0.39s; }
+  > *:nth-child(3) { animation-delay: 0.44s; }
+  > *:nth-child(4) { animation-delay: 0.49s; }
+  > *:nth-child(5) { animation-delay: 0.54s; }
+  > *:nth-child(6) { animation-delay: 0.59s; }
 
   @media (max-width: 480px) { grid-template-columns: repeat(2, 1fr); }
 `;
@@ -47,6 +58,7 @@ const sharedCard = `
   background: var(--surface-muted);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
+  animation: homeCardEntrance 0.46s cubic-bezier(0.22, 1, 0.36, 1) both;
   &:hover { border-color: color-mix(in srgb, var(--accent-color) 58%, var(--border-color)); background: var(--surface-raised); transform: translateY(-2px); box-shadow: var(--retro-shadow); }
   svg { flex-shrink: 0; color: var(--accent-color); }
 `;

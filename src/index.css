@@ -39,7 +39,7 @@
   --bg-wash-vignette: radial-gradient(ellipse 90% 80% at 50% 34%, transparent 0%, rgba(238, 231, 226, 0.18) 100%);
   --bg-wash-accent: radial-gradient(ellipse 72% 50% at 50% 0%, rgba(169, 86, 112, 0.05), transparent 70%);
   --selection-bg: rgba(169, 86, 112, 0.24);
-  --page-bg-photo: url('/library-light-anime.png');
+  --page-bg-photo: url('/bg-light.webp');
   --card-surface: linear-gradient(145deg, rgba(255, 252, 249, 0.86), rgba(246, 237, 235, 0.74));
 }
 
@@ -73,7 +73,7 @@
   --bg-wash-vignette: radial-gradient(ellipse 90% 80% at 50% 34%, transparent 0%, rgba(10, 7, 13, 0.35) 100%);
   --bg-wash-accent: radial-gradient(ellipse 72% 50% at 50% 0%, rgba(223, 128, 159, 0.06), transparent 70%);
   --selection-bg: rgba(223, 128, 159, 0.32);
-  --page-bg-photo: url('/library-dark-anime.png');
+  --page-bg-photo: url('/bg-dark.webp');
   --card-surface: linear-gradient(145deg, rgba(42, 34, 48, 0.86), rgba(30, 24, 35, 0.78));
 }
 
@@ -116,6 +116,7 @@ a, span, h1, h2, h3, h4, h5, h6, p, li { color: inherit; }
 button, a { -webkit-tap-highlight-color: transparent; touch-action: manipulation; }
 
 @keyframes fadeInUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes homeCardEntrance { from { transform: translateY(12px); } to { transform: translateY(0); } }
 @keyframes toastIn { from { opacity: 0; transform: translateX(12px); } to { opacity: 1; transform: translateX(0); } }
 
 @media (orientation: portrait) { html::before { background-position: center, center, center, center; } }
