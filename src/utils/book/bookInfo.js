@@ -11,6 +11,14 @@ function pickFirstNonEmpty(...values) {
   return values.find((value) => value != null && value !== '') ?? null;
 }
 
+function resolveCoverUrls(primary, secondary) {
+  const thumb_url = pickFirstNonEmpty(primary, secondary);
+  const fallback_thumb_url = thumb_url === primary
+    ? pickFirstNonEmpty(secondary)
+    : pickFirstNonEmpty(primary);
+  return { thumb_url, fallback_thumb_url: fallback_thumb_url === thumb_url ? null : fallback_thumb_url };
+}
+
 /** Normalize chapter count from directory length or API metadata. */
 export function resolveChapterCount(value) {
   return (value === 0 || value === '0' || value == null) ? null : value;
@@ -25,13 +33,13 @@ export function resolveBookDisplay(bookInfo, variant = 'new', bookId = null) {
   if (variant === 'old') {
     return {
       book_name: pickFirstNonEmpty(data.original_book_name, data.book_name, nameFallback),
-      thumb_url: pickFirstNonEmpty(data.audio_thumb_uri, data.thumb_url),
+      ...resolveCoverUrls(data.audio_thumb_uri, data.thumb_url),
     };
   }
 
   return {
     book_name: pickFirstNonEmpty(data.book_name, data.original_book_name, nameFallback),
-    thumb_url: pickFirstNonEmpty(data.thumb_url, data.audio_thumb_uri),
+    ...resolveCoverUrls(data.thumb_url, data.audio_thumb_uri),
   };
 }
 

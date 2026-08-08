@@ -9,7 +9,7 @@ import { ModalText } from '../ui/ModalBase';
 import { useToast } from '../../contexts/ToastContext';
 import { useDownloadManager } from '../../contexts/DownloadManager';
 import { useBookRefresh } from '../../hooks/book/useBookRefresh';
-import { buildCatalogUrl, ROUTES } from '../../utils/navigation';
+import { buildCatalogUrl, buildDefaultDiscoverUrl, ROUTES } from '../../utils/navigation';
 import { formatErrorMessage } from '../../utils/errors';
 import { getUncachedChaptersForBook } from '../../utils/export/startDownloadAllForBook';
 import { scrollPreservingUpdate } from '../../utils/scrollPreservingUpdate';
@@ -620,6 +620,7 @@ function BookshelfContent({ conversionMode = 'tw' }) {
             onBookAddToCollection={handleAddToCollection}
             onBookDownload={handleBookDownloadRequest}
             onBookExport={handleBookExport}
+            onDiscover={() => navigate(buildDefaultDiscoverUrl())}
           />
 
           {manageBarVisible && (

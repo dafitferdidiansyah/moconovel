@@ -69,7 +69,7 @@ const TermsLink = styled(Link)`
 function Footer() {
   return (
     <FooterWrapper>
-      FanqieTC · <Version>v{packageJson.version}</Version> · 僅供個人學習交流使用 · <TermsLink to={ROUTES.terms}>使用條款</TermsLink>
+      番閱 · FanqieTC · <Version>v{packageJson.version}</Version> · 僅供個人學習交流使用 · <TermsLink to={ROUTES.terms}>使用條款</TermsLink>
     </FooterWrapper>
   );
 }

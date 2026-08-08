@@ -12,8 +12,8 @@ const TopBarWrapper = styled.div`
   padding: 12px 24px;
   padding-top: calc(12px + env(safe-area-inset-top));
   background-color: var(--topbar-bg);
-  backdrop-filter: blur(12px);
-  border-bottom: var(--retro-border-width) dashed var(--border-color);
+  backdrop-filter: blur(18px);
+  border-bottom: 1px solid var(--border-color);
   position: fixed;
   top: 0;
   left: 0;
@@ -30,32 +30,28 @@ const TopBarWrapper = styled.div`
 const TitleGroup = styled.div`
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 10px;
   min-width: 0;
   flex: 1;
 `;
 
 const SiteTitle = styled(Link)`
   font-family: var(--display-font-family);
-  font-size: 17px;
+  font-size: 18px;
   font-weight: 600;
   color: var(--accent-color);
   text-decoration: none;
   white-space: nowrap;
-  border: var(--retro-border-width) solid var(--border-color);
-  border-radius: var(--border-radius-sm);
-  padding: 6px 12px;
-  background: var(--background-color2);
+  border: none;
+  border-radius: 0;
+  padding: 0;
+  background: transparent;
   flex-shrink: 0;
   transition: var(--transition-default);
-  box-shadow: var(--retro-shadow);
 
   @media (hover: hover) {
     &:hover {
-      background: var(--accent-color);
-      color: var(--text-on-accent);
-      border-color: var(--accent-color);
-      transform: rotate(-1deg);
+      color: var(--accent-hover);
     }
   }
 `;
@@ -63,7 +59,7 @@ const SiteTitle = styled(Link)`
 const TitleSep = styled.span`
   color: var(--text-color-secondary);
   font-size: 14px;
-  opacity: 0.4;
+  opacity: 0.55;
   flex-shrink: 0;
 `;
 
@@ -83,7 +79,7 @@ function TopBarBase({ pageTitle, children }) {
   return (
     <TopBarWrapper>
       <TitleGroup>
-        <SiteTitle to={ROUTES.home}>番茄閱讀</SiteTitle>
+        <SiteTitle to={ROUTES.home}>番閱</SiteTitle>
         {pageTitle && (
           <>
             <TitleSep>›</TitleSep>

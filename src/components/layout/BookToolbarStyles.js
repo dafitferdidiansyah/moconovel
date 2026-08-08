@@ -36,7 +36,7 @@ export const Tab = styled.button`
   text-transform: uppercase;
   letter-spacing: 0.05em;
   cursor: pointer;
-  transition: all 0.1s steps(2);
+  transition: var(--transition-default);
   white-space: nowrap;
   max-width: 180px;
   overflow: hidden;
@@ -76,14 +76,14 @@ export const SearchBar = styled.div`
   height: ${TOOLBAR_CONTROL_HEIGHT};
   box-sizing: border-box;
   padding: 0 12px;
-  background: color-mix(in srgb, var(--background-color2) 48%, transparent);
+  background: var(--surface-muted);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
   ${toolbarRetroUnit}
 
   &:focus-within {
     border-color: var(--accent-color);
-    transform: translate(-1px, -1px);
+    transform: none;
     box-shadow: var(--retro-shadow-hover);
   }
 
@@ -263,7 +263,7 @@ export const ToggleBtn = styled.button`
   font-weight: 700;
   font-family: var(--ui-font-family);
   line-height: 1;
-  transition: all 0.1s steps(2);
+  transition: var(--transition-default);
 
   svg {
     width: 16px;

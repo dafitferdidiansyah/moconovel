@@ -1,13 +1,13 @@
 import styled from 'styled-components';
 import { spin } from '../../utils/styled/animations';
 
-function actionVariantBg(variant) {
-  if (variant === 'delete') return '#e8a0a8';
-  if (variant === 'refresh') return '#a0c8e8';
-  if (variant === 'collection') return '#e8d0a0';
-  if (variant === 'download') return '#a8d8a8';
-  if (variant === 'export') return '#c8b8e8';
-  return 'var(--background-color2)';
+function actionVariantColor(variant) {
+  if (variant === 'delete') return '#c15f6a';
+  if (variant === 'refresh') return '#6397b9';
+  if (variant === 'collection') return '#b18045';
+  if (variant === 'download') return '#5f9974';
+  if (variant === 'export') return '#8772b2';
+  return 'var(--text-color-secondary)';
 }
 
 export const CardActionButton = styled.button`
@@ -21,20 +21,19 @@ export const CardActionButton = styled.button`
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  transition: all 0.1s steps(2);
-  background-color: ${(p) => actionVariantBg(p.$variant)};
-  color: ${(p) => (p.$variant ? 'var(--text-on-accent)' : 'var(--text-color)')};
-  box-shadow: var(--retro-shadow);
+  transition: var(--transition-default);
+  background: transparent;
+  color: ${(p) => actionVariantColor(p.$variant)};
+  box-shadow: none;
 
   &:hover {
-    transform: translate(-1px, -1px);
-    box-shadow: var(--retro-shadow-hover);
-    filter: brightness(1.08);
+    transform: none;
+    background: var(--accent-soft);
+    color: ${(p) => actionVariantColor(p.$variant)};
   }
 
   &:active {
-    transform: translate(1px, 1px);
-    box-shadow: none;
+    transform: none;
   }
 
   &:disabled {
@@ -60,7 +59,7 @@ export const CardLoadingOverlay = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(240, 233, 228, 0.88);
+  background: color-mix(in srgb, var(--background-color) 88%, transparent);
   backdrop-filter: blur(4px);
   border-radius: var(--border-radius-sm);
   z-index: 10;

@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Activity, BookImage, FileText, Globe, Languages, Moon, Sun } from 'lucide-react';
+import { Activity, BookImage, Globe, Languages, Moon, Sun } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { Modal, ModalTitleBar, ModalBody, ModalText } from '../ui/ModalBase';
 import { MODAL_SELECT_PROPS, Section, SectionHeader, SelectField } from '../ui/ModalFormSection';
@@ -199,22 +199,6 @@ function SettingsModal({ onClose }) {
           </SelectField>
         </Section>
 
-        <Section>
-          <SectionHeader>
-            <FileText size={16} strokeWidth={2.5} aria-hidden />
-            <span>關於</span>
-          </SectionHeader>
-          <StatusLink
-            type="button"
-            onClick={() => {
-              onClose();
-              navigate(ROUTES.terms);
-            }}
-          >
-            <FileText size={16} strokeWidth={2.5} aria-hidden />
-            使用條款
-          </StatusLink>
-        </Section>
       </ModalBody>
     </Modal>
   );

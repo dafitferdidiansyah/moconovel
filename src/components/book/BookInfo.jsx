@@ -205,7 +205,8 @@ const TitleBlock = styled.div`
     font-weight: 900;
     line-height: 1.3;
     margin: 0;
-    text-transform: uppercase;
+    font-family: var(--display-font-family);
+    text-transform: none;
     white-space: nowrap;
 
     @media (max-width: 480px) {
@@ -237,9 +238,10 @@ const TitleText = styled.span`
   flex-shrink: 0;
   color: var(--text-color);
   font-size: 22px;
-  font-weight: 900;
+  font-family: var(--display-font-family);
+  font-weight: 600;
   line-height: 1.3;
-  text-transform: uppercase;
+  text-transform: none;
 
   @media (max-width: 480px) {
     font-size: 18px;
@@ -340,13 +342,13 @@ const MetaTag = styled.span`
   display: inline-flex;
   align-items: center;
   padding: 4px 6px;
-  border-radius: 0;
+  border-radius: 999px;
   font-size: 11px;
   font-weight: 700;
   white-space: nowrap;
   flex-shrink: 0;
   border: 1px solid var(--border-color);
-  background: var(--background-color2);
+  background: var(--surface-muted);
   font-family: inherit;
 
   &.meta-score {
@@ -383,7 +385,7 @@ const Footer = styled.div`
   font-size: 14px;
   color: var(--text-color-secondary);
   font-family: inherit;
-  border-top: 1px dashed var(--border-color);
+  border-top: 1px solid var(--border-color);
   padding-top: 8px;
   width: 100%;
 `;
@@ -394,7 +396,7 @@ function BookInfo({ bookInfo, conversionMode = 'tw', variant, footer, showChapte
   const { variant: displayVariant } = useBookDisplayVariant();
   
   const bookInfoData = bookInfo?.book_info || bookInfo || {};
-  const { book_name, thumb_url } = resolveBookDisplay(bookInfoData, displayVariant);
+  const { book_name, thumb_url, fallback_thumb_url } = resolveBookDisplay(bookInfoData, displayVariant);
   const { author, abstract, tags, score, category, sub_info, word_number, creation_status, last_publish_time } = bookInfoData;
   const chapter_count = bookInfo?.chapter_count ?? null;
 
@@ -429,6 +431,7 @@ function BookInfo({ bookInfo, conversionMode = 'tw', variant, footer, showChapte
           ) : (
             <BookCoverImg
               url={thumb_url}
+              fallbackUrl={fallback_thumb_url}
               Placeholder={CoverPlaceholder}
               alt="書籍封面"
               width="128"

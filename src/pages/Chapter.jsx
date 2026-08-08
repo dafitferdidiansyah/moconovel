@@ -99,7 +99,6 @@ function Chapter() {
                 fontSize={fontSize}
                 fontFamily={fontFamily}
                 textBrightness={textBrightness}
-                readerBackground={readerBackgroundColor}
                 readerTextColor={readerTextColor}
                 conversionMode={conversionMode}
               />

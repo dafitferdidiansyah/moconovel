@@ -3,13 +3,14 @@ import { useCoverImageSrc } from '../../hooks/book/useCoverImageSrc';
 
 function BookCoverImg({
   url,
+  fallbackUrl = null,
   alt = '',
   ImgComponent = 'img',
   Placeholder = null,
   onFailed,
   ...props
 }) {
-  const { src, loading, failed, onError } = useCoverImageSrc(url);
+  const { src, loading, failed, onError } = useCoverImageSrc(url, fallbackUrl);
 
   useEffect(() => {
     if (failed) onFailed?.();

@@ -1,6 +1,6 @@
 {
-  "name": "番茄閱讀",
-  "short_name": "FanqieTC",
+  "name": "番閱",
+  "short_name": "番閱",
   "theme_color": "#f0e9e4",
   "background_color": "#121212",
   "display": "standalone",

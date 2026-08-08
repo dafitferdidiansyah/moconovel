@@ -293,7 +293,7 @@ function BookshelfBookGridCard({
   const { variant } = useBookDisplayVariant();
 
   const bookInfoData = bookInfo?.book_info || bookInfo || {};
-  const { book_name, thumb_url } = resolveBookDisplay(bookInfoData, variant, bookId);
+  const { book_name, thumb_url, fallback_thumb_url } = resolveBookDisplay(bookInfoData, variant, bookId);
   const {
     author,
     word_number,
@@ -396,6 +396,7 @@ function BookshelfBookGridCard({
         {thumb_url && !imgError ? (
           <BookCoverImg
             url={thumb_url}
+            fallbackUrl={fallback_thumb_url}
             ImgComponent={CoverImg}
             Placeholder={CoverPlaceholder}
             alt="書籍封面"

@@ -66,7 +66,7 @@ function parseBackupFile(text) {
     throw new Error(`檔案格式無效，請確認上傳的是 ${DATA_BACKUP_EXTENSION} 備份檔。`);
   }
   if (data?.app !== 'fanqietc' || typeof data.indexedDB !== 'object') {
-    throw new Error('此檔案不是有效的番茄閱讀備份。');
+    throw new Error('此檔案不是有效的番閱備份。');
   }
   if (data.version !== DATA_BACKUP_VERSION) {
     throw new Error(`不支援的備份版本（${data.version ?? '未知'}）。請更新網站後再試。`);

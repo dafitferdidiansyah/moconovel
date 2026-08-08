@@ -20,7 +20,7 @@ import {
 function DiscoverBookGridCard({ book, conversionMode, onClick, sortBy = 'default' }) {
   const info = normalizeDiscoverBookInfo(book);
   const { variant } = useBookDisplayVariant();
-  const { book_name, thumb_url } = resolveBookDisplay(info, variant, book?.book_id);
+  const { book_name, thumb_url, fallback_thumb_url } = resolveBookDisplay(info, variant, book?.book_id);
   const convertedName = useConvertedText(book_name, conversionMode);
   const convertedAuthor = useConvertedText(info.author, conversionMode);
   const convertedCategory = useConvertedText(info.category, conversionMode);
@@ -51,6 +51,7 @@ function DiscoverBookGridCard({ book, conversionMode, onClick, sortBy = 'default
         {thumb_url && !imgError ? (
           <BookCoverImg
             url={thumb_url}
+            fallbackUrl={fallback_thumb_url}
             ImgComponent={CoverImg}
             Placeholder={CoverPlaceholder}
             alt=""

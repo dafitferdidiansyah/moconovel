@@ -1,3 +1,4 @@
+import styled from 'styled-components';
 import EmptyHint from '../ui/EmptyHint';
 import BookshelfBookGridCard from './BookshelfBookGridCard';
 import BookshelfBookListCard from './BookshelfBookListCard';
@@ -5,6 +6,17 @@ import SortableBooks from '../ui/SortableBooks';
 import { useBookshelfQuickAction } from '../../contexts/BookshelfQuickActionContext';
 import { ALL_TAB } from './constants';
 import { GridLayout, ListLayout } from '../layout/BookListLayouts';
+
+const EmptyAction = styled.button`
+  border: 0;
+  border-radius: 999px;
+  padding: 9px 15px;
+  background: var(--accent-color);
+  color: var(--text-on-accent);
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+`;
 
 function BookshelfBookList({
   activeTab,
@@ -30,27 +42,24 @@ function BookshelfBookList({
   onBookAddToCollection,
   onBookDownload,
   onBookExport,
+  onDiscover,
 }) {
   const { enabled: bookshelfQuickAction } = useBookshelfQuickAction();
 
   if (sortedDisplayBooks.length === 0) {
     return (
       <EmptyHint>
-        {activeTab === ALL_TAB
-          ? '尚無閱讀歷史'
-          : '此收藏夾尚無書籍，可從「全部」分頁將書籍加入收藏'}
+        {activeTab === ALL_TAB ? '書架仍然是空的，從下一本故事開始吧。' : '這個收藏夾暫時沒有書籍。'}
+        {activeTab === ALL_TAB && <EmptyAction type="button" onClick={onDiscover}>開始找書</EmptyAction>}
       </EmptyHint>
     );
   }
 
-  if (booksForDisplay.length === 0) {
-    return <EmptyHint>沒有符合的書籍</EmptyHint>;
-  }
+  if (booksForDisplay.length === 0) return <EmptyHint>找不到符合目前搜尋或篩選條件的書籍。</EmptyHint>;
 
   const selectionMode = manageMode && !reorderMode;
   const showQuickActions = bookshelfQuickAction && !selectionMode && !reorderMode;
   const isAllTab = activeTab === ALL_TAB;
-
   const bookCardProps = (bookId) => ({
     bookId,
     onClick: () => onBookClick(bookId),
@@ -62,7 +71,6 @@ function BookshelfBookList({
     refreshError: bookRefreshErrors[bookId],
     bookDataVersion: bookDataVersions[bookId] || 0,
   });
-
   const gridCardProps = (bookId) => ({
     ...bookCardProps(bookId),
     sortBy,
@@ -75,7 +83,6 @@ function BookshelfBookList({
     onExport: onBookExport,
     isAllTab,
   });
-
   const listCardProps = (bookId) => ({
     ...bookCardProps(bookId),
     showActions: showQuickActions,
@@ -87,64 +94,28 @@ function BookshelfBookList({
     onExport: onBookExport,
     isAllTab,
   });
+  const renderListCard = ({ bookId }, sortable) => (
+    <BookshelfBookListCard {...listCardProps(bookId)} {...sortable} />
+  );
+  const renderGridCard = ({ bookId }, sortable) => (
+    <BookshelfBookGridCard {...gridCardProps(bookId)} {...sortable} />
+  );
 
   if (viewMode === 'list') {
-    if (canReorder && reorderMode) {
-      return (
-        <SortableBooks
-          key={`list-${activeTab}-${renderTick}`}
-          layout="list"
-          items={booksForDisplay}
-          getKey={({ bookId }) => bookId}
-          onReorder={onReorder}
-          renderItem={({ bookId }, sortable) => (
-            <BookshelfBookListCard
-              {...listCardProps(bookId)}
-              dragHandleProps={sortable.dragHandleProps}
-              isDragging={sortable.isDragging}
-              canClick={sortable.canClick}
-              reorderMode={sortable.reorderMode}
-            />
-          )}
-        />
-      );
-    }
-
-    return (
+    return canReorder && reorderMode ? (
+      <SortableBooks key={`list-${activeTab}-${renderTick}`} layout="list" items={booksForDisplay} getKey={({ bookId }) => bookId} onReorder={onReorder} renderItem={renderListCard} />
+    ) : (
       <ListLayout key={`list-${activeTab}-${renderTick}`}>
-        {booksForDisplay.map(({ bookId }) => (
-          <BookshelfBookListCard key={bookId} {...listCardProps(bookId)} />
-        ))}
+        {booksForDisplay.map(({ bookId }) => <BookshelfBookListCard key={bookId} {...listCardProps(bookId)} />)}
       </ListLayout>
     );
   }
 
-  if (canReorder && reorderMode) {
-    return (
-      <SortableBooks
-        key={`grid-${activeTab}-${renderTick}`}
-        layout="grid"
-        items={booksForDisplay}
-        getKey={({ bookId }) => bookId}
-        onReorder={onReorder}
-        renderItem={({ bookId }, sortable) => (
-            <BookshelfBookGridCard
-            {...gridCardProps(bookId)}
-            dragHandleProps={sortable.dragHandleProps}
-            isDragging={sortable.isDragging}
-            canClick={sortable.canClick}
-            reorderMode={sortable.reorderMode}
-          />
-        )}
-      />
-    );
-  }
-
-  return (
+  return canReorder && reorderMode ? (
+    <SortableBooks key={`grid-${activeTab}-${renderTick}`} layout="grid" items={booksForDisplay} getKey={({ bookId }) => bookId} onReorder={onReorder} renderItem={renderGridCard} />
+  ) : (
     <GridLayout key={`grid-${activeTab}-${renderTick}`}>
-      {booksForDisplay.map(({ bookId }) => (
-            <BookshelfBookGridCard key={bookId} {...gridCardProps(bookId)} />
-      ))}
+      {booksForDisplay.map(({ bookId }) => <BookshelfBookGridCard key={bookId} {...gridCardProps(bookId)} />)}
     </GridLayout>
   );
 }

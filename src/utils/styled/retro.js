@@ -12,7 +12,7 @@ export const retroGlassSurface = css`
 
 export const retroShadowUnit = css`
   box-shadow: var(--retro-shadow);
-  transition: all 0.1s steps(2);
+  transition: var(--transition-default);
 `;
 
 /** Shared border + shadow + hover lift for toolbar groupings (tabs, search bar). */
@@ -23,7 +23,7 @@ export const toolbarRetroUnit = css`
   @media (hover: hover) {
     &:hover {
       border-color: var(--accent-color);
-      transform: translate(-1px, -1px);
+      transform: translateY(-1px);
       box-shadow: var(--retro-shadow-hover);
     }
   }
@@ -41,13 +41,13 @@ export const retroGlassControlHover = css`
     background: color-mix(in srgb, var(--catalog-glass-hover) 75%, transparent);
     border-color: var(--accent-color);
     color: var(--accent-color);
-    transform: translate(-1px, -1px);
+    transform: translateY(-1px);
     box-shadow: var(--retro-shadow-hover);
   }
 
   &:active:not(:disabled) {
-    transform: translate(1px, 1px);
-    box-shadow: none;
+    transform: none;
+    box-shadow: var(--retro-shadow);
   }
 `;
 
@@ -58,12 +58,12 @@ export const retroGlassButtonStyles = css`
   &:hover,
   &:focus {
     border-color: var(--accent-color);
-    transform: translate(-1px, -1px);
+    transform: translateY(-1px);
     box-shadow: var(--retro-shadow-hover);
   }
 
   &:active {
-    transform: translate(1px, 1px);
+    transform: none;
     box-shadow: var(--retro-shadow);
   }
 `;
@@ -72,7 +72,7 @@ export const retroDashedCardStyles = css`
   padding: 18px 20px;
   background: var(--card-surface);
   border-radius: var(--border-radius-sm);
-  border: var(--retro-border-width) dashed var(--border-color);
+  border: var(--retro-border-width) solid var(--border-color);
   font-size: 14px;
   color: var(--text-color);
   line-height: 1.65;

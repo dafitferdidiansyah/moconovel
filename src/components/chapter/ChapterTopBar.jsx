@@ -9,13 +9,13 @@ import { useBookDisplayVariant } from '../../contexts/BookDisplayVariantContext'
 
 const TopBarWrapper = styled.div`
   display: flex;
-  padding: 16px 24px;
-  padding-top: calc(16px + env(safe-area-inset-top));
+  padding: 10px 24px;
+  padding-top: calc(10px + env(safe-area-inset-top));
   flex-direction: column;
   align-items: flex-start;
-  gap: 12px;
+  gap: 8px;
   background-color: var(--topbar-bg);
-  backdrop-filter: blur(12px);
+  backdrop-filter: blur(18px);
   position: fixed;
   top: 0;
   left: 0;
@@ -24,9 +24,9 @@ const TopBarWrapper = styled.div`
   border-bottom: 1px solid var(--border-color);
 
   @media (max-width: 480px) {
-    padding: 12px 16px;
-    padding-top: calc(12px + env(safe-area-inset-top));
-    gap: 10px;
+    padding: 9px 16px;
+    padding-top: calc(9px + env(safe-area-inset-top));
+    gap: 7px;
   }
 `;
 
@@ -45,7 +45,8 @@ const TitleBlock = styled.div`
 
   h1 {
     color: var(--text-color);
-    font-size: 16px;
+    font-family: var(--display-font-family);
+    font-size: 17px;
     font-weight: 600;
     margin: 0;
     white-space: nowrap;
@@ -81,7 +82,7 @@ const ProgressBox = styled.div`
 `;
 
 const ProgressBarContainer = styled.div`
-  height: 4px;
+  height: 3px;
   flex: 1;
   border-radius: 999px;
   background-color: var(--accent-soft);
