@@ -3,7 +3,7 @@
     "node": ">=16.0.0"
   },
   "name": "fanqietc",
-  "version": "2026.08.08.1459",
+  "version": "2026.08.08.2216",
   "private": true,
   "type": "module",
   "scripts": {

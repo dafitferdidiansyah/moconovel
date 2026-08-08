@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState, useCallback, useEffect } from 'react';
-import { getTheme, setTheme as persistTheme } from '../utils/storage';
-import { applyTheme } from '../utils/theme';
+import { getStoredTheme, setTheme as persistTheme } from '../utils/storage';
+import { applyTheme, getSystemTheme, getTheme, resolveTheme } from '../utils/theme';
 
 const ThemeContext = createContext(null);
 
@@ -10,6 +10,16 @@ export function ThemeProvider({ children }) {
   useEffect(() => {
     applyTheme(theme);
   }, [theme]);
+
+  useEffect(() => {
+    if (typeof window === 'undefined' || typeof window.matchMedia !== 'function') return undefined;
+    const media = window.matchMedia('(prefers-color-scheme: dark)');
+    const onChange = () => {
+      if (getStoredTheme() == null) setThemeState(getSystemTheme());
+    };
+    media.addEventListener('change', onChange);
+    return () => media.removeEventListener('change', onChange);
+  }, []);
 
   const setTheme = useCallback((next) => {
     const value = next === 'dark' ? 'dark' : 'light';
@@ -32,7 +42,7 @@ export function useTheme() {
   const ctx = useContext(ThemeContext);
   if (!ctx) {
     return {
-      theme: 'dark',
+      theme: resolveTheme(null),
       setTheme: () => {},
       toggleTheme: () => {},
     };

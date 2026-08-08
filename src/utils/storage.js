@@ -575,9 +575,10 @@ export function setDiscoverFilterState(state) {
   return setBookFilterState(DISCOVER_FILTERS_KEY, state);
 }
 
-/** @returns {'light'|'dark'} */
-export function getTheme() {
-  return safeGetItem(THEME_KEY) === 'light' ? 'light' : 'dark';
+/** @returns {'light'|'dark'|null} Explicit user choice, or null to follow system. */
+export function getStoredTheme() {
+  const raw = safeGetItem(THEME_KEY);
+  return raw === 'light' || raw === 'dark' ? raw : null;
 }
 
 export function setTheme(theme) {

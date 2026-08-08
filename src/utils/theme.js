@@ -1,7 +1,25 @@
+import { getStoredTheme } from './storage';
+
 const THEME_COLORS = {
-  light: '#f0e9e4',
-  dark: '#2a2230',
+  light: '#eee7e2',
+  dark: '#19151e',
 };
+
+/** @returns {'light'|'dark'} */
+export function getSystemTheme() {
+  if (typeof window === 'undefined' || typeof window.matchMedia !== 'function') return 'light';
+  return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+}
+
+/** @param {'light'|'dark'|null|undefined} stored */
+export function resolveTheme(stored) {
+  return stored === 'light' || stored === 'dark' ? stored : getSystemTheme();
+}
+
+/** Resolved theme: explicit stored preference, else OS preference. */
+export function getTheme() {
+  return resolveTheme(getStoredTheme());
+}
 
 export function applyTheme(theme) {
   if (typeof document === 'undefined') return;
