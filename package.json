@@ -3,7 +3,7 @@
     "node": ">=16.0.0"
   },
   "name": "fanqietc",
-  "version": "2026.07.29.1725",
+  "version": "2026.08.08.1459",
   "private": true,
   "type": "module",
   "scripts": {
@@ -20,7 +20,7 @@
     "opencc-js": "^1.0.5",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "react-router-dom": "^6.30.4",
+    "react-router-dom": "^7.18.2",
     "styled-components": "^6.1.8"
   },
   "devDependencies": {

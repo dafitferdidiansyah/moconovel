@@ -17,6 +17,7 @@ import Download from './pages/Download';
 import Status from './pages/Status';
 import Export from './pages/Export';
 import Import from './pages/Import';
+import Terms from './pages/Terms';
 
 function DiscoverRootRedirect() {
   return <Navigate to={buildDefaultDiscoverUrl()} replace />;
@@ -43,6 +44,7 @@ function App() {
                   <Route path={ROUTES.comments} element={<Comments />} />
                   <Route path={ROUTES.export} element={<Export />} />
                   <Route path={ROUTES.import} element={<Import />} />
+                  <Route path={ROUTES.terms} element={<Terms />} />
                   <Route path="*" element={<Navigate to={ROUTES.home} replace />} />
                 </Routes>
               </DownloadManagerProvider>

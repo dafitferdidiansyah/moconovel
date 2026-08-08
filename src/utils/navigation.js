@@ -12,6 +12,7 @@ export const ROUTES = {
   comments: '/comments',
   export: '/export',
   import: '/import',
+  terms: '/terms',
 };
 
 export const DISCOVER_SEARCH_QUERY_KEY = 'q';

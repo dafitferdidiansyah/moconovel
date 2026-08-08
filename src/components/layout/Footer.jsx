@@ -1,5 +1,7 @@
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import packageJson from '../../../package.json';
+import { ROUTES } from '../../utils/navigation';
 
 const FooterWrapper = styled.footer`
   width: 100%;
@@ -58,10 +60,16 @@ const Version = styled.span`
   opacity: 0.85;
 `;
 
+const TermsLink = styled(Link)`
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+`;
+
 function Footer() {
   return (
     <FooterWrapper>
-      FanqieTC · <Version>v{packageJson.version}</Version> · 僅供個人學習交流使用
+      FanqieTC · <Version>v{packageJson.version}</Version> · 僅供個人學習交流使用 · <TermsLink to={ROUTES.terms}>使用條款</TermsLink>
     </FooterWrapper>
   );
 }
