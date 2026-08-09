@@ -2,10 +2,16 @@ import NavPageLayout from '../components/layout/NavPageLayout';
 import NavTopBar from '../components/layout/NavTopBar';
 import PageContent from '../components/layout/PageContent';
 import styled from 'styled-components';
+import { retroTagCardStyles } from '../utils/styled/retro';
 
 const Section = styled.section`
+  ${retroTagCardStyles}
   margin-bottom: 28px;
   &:last-child { margin-bottom: 0; }
+
+  @media (max-width: 480px) {
+    padding: 16px;
+  }
 `;
 
 const SectionTitle = styled.h2`
