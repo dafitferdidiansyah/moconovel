@@ -133,4 +133,7 @@ export const REQUEST_TIMEOUT_MS = 45000;
 export const RATE_LIMIT_RPM = 60;
 export const AUTO_BAN_DURATION_MINUTES = 10;
 
-export const TOAST_DURATION_MS = 2000;
+export const TOAST_DURATION_SUCCESS_MS = 2500;
+export const TOAST_DURATION_ERROR_MS = 4000;
+export const TOAST_DURATION_WARNING_MS = 4000;
+export const TOAST_DURATION_INFO_MS = 2500;

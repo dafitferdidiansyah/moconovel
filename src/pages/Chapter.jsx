@@ -11,7 +11,6 @@ import { useConversionMode } from '../hooks/useConversionMode';
 import { useFontSize, useFontFamily, useTextBrightness, useReaderBackground } from '../hooks/useTextSettings';
 import { useChapterLoader } from '../hooks/book/useChapterLoader';
 import { buildCatalogUrl, ROUTES } from '../utils/navigation';
-import { useErrorToast } from '../hooks/useErrorToast';
 
 function Chapter() {
   const [searchParams] = useSearchParams();
@@ -47,8 +46,6 @@ function Chapter() {
   useEffect(() => {
     setReaderControlsOpen(false);
   }, [itemId]);
-
-  useErrorToast(error);
 
   if (!itemId) {
     return bookId ? <Navigate to={buildCatalogUrl(bookId)} replace /> : <Navigate to={ROUTES.home} replace />;

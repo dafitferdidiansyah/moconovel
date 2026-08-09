@@ -2,7 +2,6 @@ import React, { createContext, useContext, useCallback, useReducer, useRef, useE
 import { fetchItem } from '../services/api';
 import { MAX_CONCURRENT_DOWNLOADS, BATCH_COOLDOWN_MS, RETRY_DELAY_MS } from '../utils/constants';
 import { getUncachedItemIds } from '../utils/storage';
-import { formatErrorMessage } from '../utils/errors';
 import { useToast } from './ToastContext';
 
 const DownloadManagerContext = createContext(null);
@@ -71,7 +70,7 @@ export function DownloadManagerProvider({ children }) {
   const activeCountRef = useRef(0);
   const batchCooldownRef = useRef(null);
   const abortControllersRef = useRef(new Map());
-  const { showToast } = useToast();
+  const { notifyError } = useToast();
 
   const syncQueueLength = useCallback(() => {
     setQueueLength(queueRef.current.length);
@@ -104,7 +103,7 @@ export function DownloadManagerProvider({ children }) {
         .catch((err) => {
           if (err.name === 'AbortError') return;
           console.error('章節下載失敗：', itemId, err);
-          showToast(formatErrorMessage(err, '章節下載失敗，請稍後再試。'));
+          notifyError(err, '章節下載失敗，請稍後再試。');
         })
         .finally(() => {
           abortControllersRef.current.delete(itemId);
@@ -114,7 +113,7 @@ export function DownloadManagerProvider({ children }) {
         });
     }
     syncQueueLength();
-  }, [state.downloading, showToast, syncQueueLength]);
+  }, [state.downloading, notifyError, syncQueueLength]);
 
   const addToQueue = useCallback((itemId, forceRefresh = false) => {
     if (!itemId) return;

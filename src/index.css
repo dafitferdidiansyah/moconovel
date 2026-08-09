@@ -41,6 +41,10 @@
   --selection-bg: rgba(169, 86, 112, 0.24);
   --page-bg-photo: url('/bg-light.webp');
   --card-surface: linear-gradient(145deg, rgba(255, 252, 249, 0.86), rgba(246, 237, 235, 0.74));
+  --toast-info-color: var(--accent-color);
+  --toast-success-color: #4d7a57;
+  --toast-error-color: #b84a4a;
+  --toast-warning-color: #9a7340;
 }
 
 [data-theme="dark"] {
@@ -75,6 +79,10 @@
   --selection-bg: rgba(223, 128, 159, 0.32);
   --page-bg-photo: url('/bg-dark.webp');
   --card-surface: linear-gradient(145deg, rgba(42, 34, 48, 0.86), rgba(30, 24, 35, 0.78));
+  --toast-info-color: var(--accent-color);
+  --toast-success-color: #6faa7a;
+  --toast-error-color: #e07a7a;
+  --toast-warning-color: #c9a05a;
 }
 
 html::before {

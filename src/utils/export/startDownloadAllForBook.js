@@ -1,6 +1,6 @@
 import { getCachedOrFetchDirectory } from '../api-helpers';
 import { getUncachedItemIds } from '../storage';
-import { formatErrorMessage } from '../errors';
+import { createToastHelpers } from '../toast';
 
 export async function getUncachedChaptersForBook(bookId) {
   const directory = await getCachedOrFetchDirectory(bookId);
@@ -18,16 +18,17 @@ export async function getUncachedChaptersForBook(bookId) {
  * @returns {{ started: boolean, uncachedCount: number, ok: boolean }}
  */
 export async function startDownloadAllForBook({ bookId, startDownloadAll, showToast }) {
+  const { notifyError, notifyInfo } = createToastHelpers(showToast ?? (() => {}));
   const { ok, uncachedItemIds, uncachedCount } = await getUncachedChaptersForBook(bookId);
   if (!ok) {
-    showToast('無法取得章節目錄');
+    notifyError(null, '無法取得章節目錄');
     return { started: false, uncachedCount: 0, ok: false };
   }
 
   if (uncachedCount > 0) {
     startDownloadAll(bookId, uncachedItemIds);
   } else {
-    showToast('所有章節已下載');
+    notifyInfo('所有章節已下載');
   }
 
   return { started: uncachedCount > 0, uncachedCount, ok: true };
@@ -42,10 +43,11 @@ export async function startDownloadAllForBookSafe({
   showToast,
   errorMessage = '無法開始下載，請稍後再試。',
 }) {
+  const { notifyError } = createToastHelpers(showToast ?? (() => {}));
   try {
     return await startDownloadAllForBook({ bookId, startDownloadAll, showToast });
   } catch (err) {
-    showToast(formatErrorMessage(err, errorMessage));
+    notifyError(err, errorMessage);
     return { started: false, uncachedCount: 0, ok: false };
   }
 }

@@ -7,7 +7,7 @@ import { setLastReadChapter } from '../../utils/storage';
 import { formatErrorMessage } from '../../utils/errors';
 
 export function useChapterLoader(itemId, bookId) {
-  const { showToast } = useToast();
+  const { notifyWarning } = useToast();
   const [error, setError] = useState(null);
   const [chapterData, setChapterData] = useState(null);
   const [bookInfo, setBookInfo] = useState(null);
@@ -54,7 +54,7 @@ export function useChapterLoader(itemId, bookId) {
         if (requestId !== requestIdRef.current) return;
         setChapterData(data);
         setBookInfo(info);
-        if (partialLoadMessage) showToast(partialLoadMessage);
+        if (partialLoadMessage) notifyWarning(partialLoadMessage);
         if (bookId && itemId) {
           void setLastReadChapter(bookId, itemId);
         }
@@ -69,7 +69,7 @@ export function useChapterLoader(itemId, bookId) {
         );
         setLoading(false);
       });
-  }, [itemId, bookId, showToast]);
+  }, [itemId, bookId, notifyWarning]);
 
   useEffect(() => {
     return () => userFetchAbortRef.current?.abort();

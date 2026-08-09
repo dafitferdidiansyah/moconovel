@@ -1,11 +1,11 @@
 import { useEffect } from 'react';
 import { useToast } from '../contexts/ToastContext';
 
-/** Shows a toast whenever `error` becomes truthy. */
+/** Shows an error toast whenever `error` becomes truthy. */
 export function useErrorToast(error) {
-  const { showToast } = useToast();
+  const { notifyError } = useToast();
 
   useEffect(() => {
-    if (error) showToast(error);
-  }, [error, showToast]);
+    if (error) notifyError(null, error);
+  }, [error, notifyError]);
 }

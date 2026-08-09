@@ -14,7 +14,7 @@ import { exportUserData, isLegacyOrigin } from '../../utils/dataMigration';
 import { ActionRow, Hint, Section, SectionTitle, StepCard } from './styles';
 
 function ExportContent() {
-  const { showToast } = useToast();
+  const { notifyError, notifyInfo, notifySuccess } = useToast();
   const [exporting, setExporting] = useState(false);
   const onLegacySite = isLegacyOrigin();
 
@@ -23,14 +23,14 @@ function ExportContent() {
     try {
       const summary = await exportUserData();
       if (summary.totalKeys === 0) {
-        showToast('備份檔已下載，但目前沒有可遷移的資料。');
+        notifyInfo('備份檔已下載，但目前沒有可遷移的資料。');
       } else {
-        showToast(
-          `已匯出備份檔（${summary.chapters} 章節、${summary.directories} 本目錄、${summary.details} 本書籍）。`
+        notifySuccess(
+          `已匯出備份檔（${summary.chapters} 章節、${summary.directories} 本目錄、${summary.details} 本書籍）。`,
         );
       }
-    } catch {
-      showToast('匯出失敗，請稍後再試。');
+    } catch (err) {
+      notifyError(err, '匯出失敗，請稍後再試。');
     } finally {
       setExporting(false);
     }

@@ -155,29 +155,6 @@ export const DiscoverListCardBody = styled.div`
   }
 `;
 
-export const DiscoverListCardActionOverlay = styled.div`
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  z-index: 11;
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  max-width: calc(100% - 20px);
-  pointer-events: auto;
-`;
-
-export const DiscoverListCardActionFooter = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  flex-shrink: 0;
-  padding: 6px 10px;
-  border-top: 1px solid var(--border-color);
-  background: var(--background-color);
-  z-index: 11;
-`;
-
 export const DiscoverListSkeletonCard = styled.div`
   display: flex;
   width: 100%;

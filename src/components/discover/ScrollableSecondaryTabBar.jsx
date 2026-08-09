@@ -1,10 +1,10 @@
-import { HorizontalScrollArea } from '../ui/HorizontalScrollArea';
+import { ScrollableTabBar } from '../layout/ScrollableTabBar';
 import { SecondaryTabBar } from './styles';
 
 export function ScrollableSecondaryTabBar({ children, ...rest }) {
   return (
-    <HorizontalScrollArea as={SecondaryTabBar} {...rest}>
+    <ScrollableTabBar as={SecondaryTabBar} {...rest}>
       {children}
-    </HorizontalScrollArea>
+    </ScrollableTabBar>
   );
 }

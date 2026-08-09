@@ -10,7 +10,6 @@ import { useToast } from '../../contexts/ToastContext';
 import { useDownloadManager } from '../../contexts/DownloadManager';
 import { useBookRefresh } from '../../hooks/book/useBookRefresh';
 import { buildCatalogUrl, buildDefaultDiscoverUrl, ROUTES } from '../../utils/navigation';
-import { formatErrorMessage } from '../../utils/errors';
 import { getUncachedChaptersForBook } from '../../utils/export/startDownloadAllForBook';
 import { scrollPreservingUpdate } from '../../utils/scrollPreservingUpdate';
 import {
@@ -31,7 +30,6 @@ import {
   createCollection,
   deleteCollection,
   renameCollection,
-  addBooksToCollection,
   removeBooksFromCollection,
   reorderCollectionBooks,
   reorderCollections,
@@ -43,6 +41,8 @@ import { useBookDisplayVariant } from '../../contexts/BookDisplayVariantContext'
 import { useBookshelfSortMeta } from '../../hooks/bookshelf/useBookshelfSortMeta';
 import { useBookshelfSearchMeta, bookMatchesBookshelfSearch } from '../../hooks/bookshelf/useBookshelfSearchMeta';
 import { usePersistedBookFilters } from '../../hooks/usePersistedBookFilters';
+import { usePersistedListPrefs } from '../../hooks/usePersistedListPrefs';
+import { useCollectionModalActions } from '../../hooks/useCollectionModalActions';
 import {
   bookMatchesFilters,
 } from '../../utils/book/bookFilters';
@@ -53,21 +53,16 @@ import { Wrapper, ReorderHint } from './styles';
 
 function BookshelfContent({ conversionMode = 'tw' }) {
   const navigate = useNavigate();
-  const { showToast } = useToast();
+  const { notifyError, notifyInfo, notifySuccess, notifyWarning, showToast } = useToast();
   const { startDownloadAll } = useDownloadManager();
   const { variant } = useBookDisplayVariant();
 
   const [activeTab, setActiveTab] = useState(getBookshelfActiveTab);
-  const [viewMode, setViewModeState] = useState(getBookshelfViewMode);
-  const [sortBy, setSortByState] = useState(getBookshelfSort);
-  const [sortDirection, setSortDirectionState] = useState(getBookshelfSortDirection);
   const [refreshKey, setRefreshKey] = useState(0);
   const [renderTick, setRenderTick] = useState(0);
   const [readingHistory, setReadingHistory] = useState([]);
   const [collections, setCollections] = useState([]);
   const [dataLoaded, setDataLoaded] = useState(false);
-  const [addToCollectionBookIds, setAddToCollectionBookIds] = useState(null);
-  const [newCollectionName, setNewCollectionName] = useState('');
   const [showCollectionManagement, setShowCollectionManagement] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [reorderMode, setReorderMode] = useState(false);
@@ -108,6 +103,39 @@ function BookshelfContent({ conversionMode = 'tw' }) {
   useEffect(() => {
     reloadData();
   }, [refreshKey, reloadData]);
+
+  const {
+    viewMode,
+    sortBy,
+    sortDirection,
+    handleViewModeChange,
+    handleSortChange,
+    handleSortDirectionToggle,
+  } = usePersistedListPrefs({
+    getViewMode: getBookshelfViewMode,
+    setViewMode: setBookshelfViewMode,
+    getSort: getBookshelfSort,
+    setSort: setBookshelfSort,
+    getSortDirection: getBookshelfSortDirection,
+    setSortDirection: setBookshelfSortDirection,
+    onSortChange: (next) => {
+      if (next !== 'manual') setReorderMode(false);
+    },
+  });
+
+  const {
+    addToCollectionBookIds,
+    newCollectionName,
+    setNewCollectionName,
+    openAddToCollection,
+    closeAddToCollection,
+    handleToggleBooksInCollection,
+    handleCreateCollectionFromModal,
+  } = useCollectionModalActions({
+    collections,
+    onReload: reloadDataKeepingScroll,
+    notifyError,
+  });
 
   const activeCollection = activeTab !== ALL_TAB
     ? collections.find((c) => c.id === activeTab)
@@ -195,23 +223,6 @@ function BookshelfContent({ conversionMode = 'tw' }) {
     && selectableBookIds.every((bookId) => selectedBookIds.has(bookId));
 
   const goToCatalog = useCallback((bookId) => navigate(buildCatalogUrl(bookId)), [navigate]);
-
-  const handleViewModeChange = (mode) => {
-    setViewModeState(mode);
-    setBookshelfViewMode(mode);
-  };
-
-  const handleSortChange = (next) => {
-    setSortByState(next);
-    setBookshelfSort(next);
-    if (next !== 'manual') setReorderMode(false);
-  };
-
-  const handleSortDirectionToggle = () => {
-    const next = sortDirection === 'desc' ? 'asc' : 'desc';
-    setSortDirectionState(next);
-    setBookshelfSortDirection(next);
-  };
 
   const handleReorderModeToggle = () => {
     setReorderMode((v) => {
@@ -306,15 +317,11 @@ function BookshelfContent({ conversionMode = 'tw' }) {
       await confirmDialog.onConfirm();
       setConfirmDialog(null);
     } catch (err) {
-      showToast(formatErrorMessage(err, confirmDialog.errorMessage ?? '操作失敗，請稍後再試。'));
+      notifyError(err, confirmDialog.errorMessage ?? '操作失敗，請稍後再試。');
     }
   };
 
-  const handleAddToCollection = useCallback((bookIds) => {
-    const ids = Array.isArray(bookIds) ? bookIds : [bookIds];
-    setAddToCollectionBookIds(ids);
-    setNewCollectionName('');
-  }, []);
+  const handleAddToCollection = openAddToCollection;
 
   const handleDeleteBook = useCallback((e, bookId, bookInfo) => {
     e.stopPropagation();
@@ -374,18 +381,18 @@ function BookshelfContent({ conversionMode = 'tw' }) {
     try {
       const { ok, uncachedItemIds, uncachedCount } = await getUncachedChaptersForBook(bookId);
       if (!ok) {
-        showToast('無法取得章節目錄');
+        notifyError(null, '無法取得章節目錄');
         return;
       }
       if (uncachedCount === 0) {
-        showToast('所有章節已下載');
+        notifyInfo('所有章節已下載');
         return;
       }
       setDownloadConfirm({ bookId, chapterCount: uncachedCount, uncachedItemIds });
     } catch (err) {
-      showToast(formatErrorMessage(err, '無法開始下載，請稍後再試。'));
+      notifyError(err, '無法開始下載，請稍後再試。');
     }
-  }, [showToast]);
+  }, [notifyError, notifyInfo]);
 
   const handleStartDownloadAll = useCallback((navigateToDownloadPage) => {
     if (!downloadConfirm) return;
@@ -412,7 +419,7 @@ function BookshelfContent({ conversionMode = 'tw' }) {
   };
 
   const onBulkRefresh = () => {
-    handleBulkRefresh(Array.from(selectedBookIds), showToast);
+    handleBulkRefresh(Array.from(selectedBookIds), { notifySuccess, notifyError, notifyWarning });
   };
 
   const handleBulkDelete = () => {
@@ -478,24 +485,6 @@ function BookshelfContent({ conversionMode = 'tw' }) {
         await reloadDataKeepingScroll();
       },
     });
-  };
-
-  const handleToggleBooksInCollection = async (collectionId, bookIds, shouldInclude) => {
-    const ids = (Array.isArray(bookIds) ? bookIds : [bookIds]).map(String);
-
-    if (shouldInclude) {
-      await addBooksToCollection(collectionId, ids);
-    } else {
-      await removeBooksFromCollection(collectionId, ids);
-    }
-    await reloadDataKeepingScroll();
-  };
-
-  const handleCreateCollectionFromModal = async () => {
-    if (!newCollectionName.trim()) return;
-    await createCollection(newCollectionName.trim());
-    await reloadDataKeepingScroll();
-    setNewCollectionName('');
   };
 
   const handleCreateCollectionInManagement = async (name) => {
@@ -654,7 +643,7 @@ function BookshelfContent({ conversionMode = 'tw' }) {
             addToCollectionBookIds={addToCollectionBookIds}
             newCollectionName={newCollectionName}
             onNewCollectionNameChange={setNewCollectionName}
-            onCloseAddToCollection={() => setAddToCollectionBookIds(null)}
+            onCloseAddToCollection={closeAddToCollection}
             onToggleBooksInCollection={handleToggleBooksInCollection}
             onCreateCollectionFromModal={handleCreateCollectionFromModal}
             confirmDialog={confirmDialog}

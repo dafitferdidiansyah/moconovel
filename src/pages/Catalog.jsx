@@ -18,7 +18,6 @@ import { CHAPTERS_PER_PAGE, getTotalPages } from '../utils/book/catalogPaginatio
 import { buildCatalogUrl, ROUTES } from '../utils/navigation';
 import DownloadAllConfirmModal from '../components/catalog/DownloadAllConfirmModal';
 import ExportBookModalHost from '../components/export/ExportBookModalHost';
-import { useErrorToast } from '../hooks/useErrorToast';
 
 function Catalog() {
   const [searchParams] = useSearchParams();
@@ -74,7 +73,6 @@ function Catalog() {
     getUncachedItemIds(list.map((item) => item.item_id)).then(setUncachedItemIds);
   }, [bookInfo, completedDownloads]);
 
-  useErrorToast(error);
   const hasUncachedChapters = uncachedItemIds.length > 0;
   const downloadingAll = isDownloadingAll(bookId);
 

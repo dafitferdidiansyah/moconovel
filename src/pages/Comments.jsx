@@ -11,7 +11,6 @@ import NavTopBar from '../components/layout/NavTopBar';
 import CommentsContent from '../components/comments/CommentsContent';
 import { useConversionMode } from '../hooks/useConversionMode';
 import { useConvertedText } from '../hooks/useConvertedText';
-import { useErrorToast } from '../hooks/useErrorToast';
 
 function Comments() {
   const [searchParams] = useSearchParams();
@@ -61,8 +60,6 @@ function Comments() {
   const canGoPrev = page > 1;
 
   const convertedContext = useConvertedText(context, conversionMode);
-
-  useErrorToast(error);
 
   const handlePrevPage = () => {
     if (!canGoPrev) return;

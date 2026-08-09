@@ -1,6 +1,5 @@
 import { useEffect } from 'react';
-import styled from 'styled-components';
-import { TOAST_DURATION_MS } from '../../utils/constants';
+import styled, { css } from 'styled-components';
 
 const ToastWrapper = styled.div`
   position: fixed;
@@ -12,9 +11,9 @@ const ToastWrapper = styled.div`
   gap: 12px;
   padding: 12px 20px;
   background: var(--card-surface);
-  border: var(--retro-border-width) solid var(--accent-color);
+  border: var(--retro-border-width) solid var(--toast-color, var(--accent-color));
   border-radius: var(--border-radius-sm);
-  color: var(--accent-color);
+  color: var(--toast-color, var(--accent-color));
   font-size: 14px;
   box-shadow: var(--retro-shadow-hover);
   z-index: 9999;
@@ -23,6 +22,19 @@ const ToastWrapper = styled.div`
   font-weight: 500;
   letter-spacing: 0.03em;
   animation: toastIn 0.35s cubic-bezier(0.34, 1.4, 0.64, 1) backwards;
+
+  ${(p) => p.$type === 'success' && css`
+    --toast-color: var(--toast-success-color);
+  `}
+  ${(p) => p.$type === 'error' && css`
+    --toast-color: var(--toast-error-color);
+  `}
+  ${(p) => p.$type === 'warning' && css`
+    --toast-color: var(--toast-warning-color);
+  `}
+  ${(p) => p.$type === 'info' && css`
+    --toast-color: var(--toast-info-color);
+  `}
 `;
 
 const CloseButton = styled.button`
@@ -33,7 +45,7 @@ const CloseButton = styled.button`
   margin: -8px -8px -8px 0;
   background: none;
   border: none;
-  color: var(--accent-color);
+  color: inherit;
   cursor: pointer;
   font-size: 20px;
   line-height: 1;
@@ -48,18 +60,24 @@ const CloseButton = styled.button`
   }
 `;
 
-function Toast({ message, onExpire }) {
+function Toast({ toast, onExpire }) {
   useEffect(() => {
-    if (!message || !onExpire) return;
-    const id = setTimeout(onExpire, TOAST_DURATION_MS);
+    if (!toast || !onExpire) return;
+    const id = setTimeout(onExpire, toast.duration);
     return () => clearTimeout(id);
-  }, [message, onExpire]);
+  }, [toast, onExpire]);
 
-  if (!message) return null;
+  if (!toast) return null;
+
+  const isError = toast.type === 'error';
 
   return (
-    <ToastWrapper role="status" aria-live="polite">
-      <span>{message}</span>
+    <ToastWrapper
+      $type={toast.type}
+      role={isError ? 'alert' : 'status'}
+      aria-live={isError ? 'assertive' : 'polite'}
+    >
+      <span>{toast.message}</span>
       <CloseButton type="button" onClick={onExpire} aria-label="關閉">
         ×
       </CloseButton>

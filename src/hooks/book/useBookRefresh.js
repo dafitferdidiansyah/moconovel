@@ -74,7 +74,7 @@ export function useBookRefresh() {
     }
   }, [refreshingBookIds, applyRefreshOutcome]);
 
-  const handleBulkRefresh = useCallback(async (bookIds, showToast) => {
+  const handleBulkRefresh = useCallback(async (bookIds, { notifySuccess, notifyError, notifyWarning }) => {
     if (bookIds.length === 0 || refreshingBookIds.size > 0) return;
 
     setRefreshingBookIds(new Set(bookIds));
@@ -111,11 +111,11 @@ export function useBookRefresh() {
     const failed = outcomes.length - succeeded;
 
     if (failed === 0) {
-      showToast(`已刷新 ${bookIds.length} 本書籍`);
+      notifySuccess(`已刷新 ${bookIds.length} 本書籍`);
     } else if (succeeded === 0) {
-      showToast(`全部 ${failed} 本刷新失敗`);
+      notifyError(null, `全部 ${failed} 本刷新失敗`);
     } else {
-      showToast(`${succeeded} 本刷新成功，${failed} 本失敗`);
+      notifyWarning(`${succeeded} 本刷新成功，${failed} 本失敗`);
     }
   }, [refreshingBookIds, applyRefreshOutcome]);
 

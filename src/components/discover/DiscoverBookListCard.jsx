@@ -5,10 +5,13 @@ import { useMediaQuery } from '../../hooks/useMediaQuery';
 import { normalizeDiscoverBookPayload } from '../../utils/book/bookInfo';
 import { cardKeyDownHandler } from '../../utils/cardInteraction';
 import {
+  CardActionOverlay,
+  CardActionFooter,
+  cardActionBarHandlers,
+} from '../layout/CardActionBarLayout';
+import {
   DiscoverListCard,
   DiscoverListCardBody,
-  DiscoverListCardActionOverlay,
-  DiscoverListCardActionFooter,
 } from './styles';
 
 function DiscoverBookListCard({ book, conversionMode, onClick, onAddToCollection }) {
@@ -30,11 +33,6 @@ function DiscoverBookListCard({ book, conversionMode, onClick, onAddToCollection
     </CardActionButton>
   ) : null;
 
-  const actionHandlers = {
-    onClick: (e) => e.stopPropagation(),
-    onTouchStart: (e) => e.stopPropagation(),
-  };
-
   return (
     <DiscoverListCard
       onClick={onClick}
@@ -43,9 +41,9 @@ function DiscoverBookListCard({ book, conversionMode, onClick, onAddToCollection
       onKeyDown={cardKeyDownHandler(onClick)}
     >
       {actionButton && !isMobile && (
-        <DiscoverListCardActionOverlay {...actionHandlers}>
+        <CardActionOverlay {...cardActionBarHandlers}>
           {actionButton}
-        </DiscoverListCardActionOverlay>
+        </CardActionOverlay>
       )}
       <DiscoverListCardBody>
         <BookInfo
@@ -55,9 +53,9 @@ function DiscoverBookListCard({ book, conversionMode, onClick, onAddToCollection
         />
       </DiscoverListCardBody>
       {actionButton && isMobile && (
-        <DiscoverListCardActionFooter {...actionHandlers}>
+        <CardActionFooter {...cardActionBarHandlers}>
           {actionButton}
-        </DiscoverListCardActionFooter>
+        </CardActionFooter>
       )}
     </DiscoverListCard>
   );

@@ -4,7 +4,7 @@ import { getCachedOrFetchDirectory } from '../api-helpers';
 import { exportBookToTxt } from './exportBookTxt';
 import { exportBookToEpub } from './exportBookEpub';
 import { EXPORT_NO_CACHED_CHAPTERS_MSG } from './exportBookCommon';
-import { formatErrorMessage } from '../errors';
+import { createToastHelpers } from '../toast';
 
 async function resolveExportBookData(bookId, bookInfo) {
   if (bookInfo?.item_data_list?.length) {
@@ -33,6 +33,8 @@ async function runBookExport({
   exportFn,
   errorMessage,
 }) {
+  const { notifyError, notifyWarning } = createToastHelpers(showToast ?? (() => {}));
+
   try {
     const resolved = await resolveExportBookData(bookId, bookInfo);
     const result = await exportFn({
@@ -44,11 +46,11 @@ async function runBookExport({
       displayVariant,
     });
     if (result?.exportedCount === 0) {
-      showToast?.(EXPORT_NO_CACHED_CHAPTERS_MSG);
+      notifyWarning(EXPORT_NO_CACHED_CHAPTERS_MSG);
     }
     return result;
   } catch (err) {
-    showToast?.(formatErrorMessage(err, errorMessage));
+    notifyError(err, errorMessage);
     return { exportedCount: 0 };
   }
 }
@@ -57,7 +59,7 @@ async function runBookExport({
  * @param {Object} params
  * @param {string} params.bookId
  * @param {Object} [params.bookInfo]
- * @param {(message: string) => void} [params.showToast]
+ * @param {(input: string | import('../toast').ToastOptions) => void} [params.showToast]
  * @param {'ascending'|'descending'} [params.sortOrder]
  * @param {string} [params.conversionMode]
  */
@@ -85,7 +87,7 @@ export function runBookTxtExport({
  * @param {Object} params
  * @param {string} params.bookId
  * @param {Object} [params.bookInfo]
- * @param {(message: string) => void} [params.showToast]
+ * @param {(input: string | import('../toast').ToastOptions) => void} [params.showToast]
  * @param {'ascending'|'descending'} [params.sortOrder]
  * @param {string} [params.conversionMode]
  * @param {'new'|'old'} [params.displayVariant]

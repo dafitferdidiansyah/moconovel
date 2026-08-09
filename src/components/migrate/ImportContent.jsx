@@ -13,7 +13,7 @@ import { importUserData, isCanonicalOrigin, hasBackupExtension } from '../../uti
 import { ActionRow, FileInput, FileLabel, Hint, Section, SectionTitle, StepCard } from './styles';
 
 function ImportContent() {
-  const { showToast } = useToast();
+  const { notifyError, notifySuccess, notifyWarning } = useToast();
   const fileInputRef = useRef(null);
   const [selectedFile, setSelectedFile] = useState(null);
   const [importing, setImporting] = useState(false);
@@ -26,7 +26,7 @@ function ImportContent() {
       return;
     }
     if (!hasBackupExtension(file.name)) {
-      showToast(`請選擇 ${DATA_BACKUP_EXTENSION} 結尾的備份檔。`);
+      notifyWarning(`請選擇 ${DATA_BACKUP_EXTENSION} 結尾的備份檔。`);
       event.target.value = '';
       setSelectedFile(null);
       return;
@@ -36,19 +36,19 @@ function ImportContent() {
 
   const handleImport = async () => {
     if (!selectedFile) {
-      showToast('請先選擇備份檔案。');
+      notifyWarning('請先選擇備份檔案。');
       return;
     }
     setImporting(true);
     try {
       const summary = await importUserData(selectedFile);
-      showToast(
-        `匯入完成：${summary.chapters} 章節、${summary.directories} 本目錄、${summary.details} 本書籍。`
+      notifySuccess(
+        `匯入完成：${summary.chapters} 章節、${summary.directories} 本目錄、${summary.details} 本書籍。`,
       );
       setSelectedFile(null);
       if (fileInputRef.current) fileInputRef.current.value = '';
     } catch (error) {
-      showToast(error?.message || '匯入失敗，請確認檔案是否正確。');
+      notifyError(null, error?.message || '匯入失敗，請確認檔案是否正確。');
     } finally {
       setImporting(false);
     }

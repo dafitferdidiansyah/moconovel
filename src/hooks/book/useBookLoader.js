@@ -13,14 +13,14 @@ function handleBookError(err, setError) {
   );
 }
 
-function applyDirectoryLoadResult({ merged, partialLoadMessage }, bookId, setBookInfo, setError, showToast) {
+function applyDirectoryLoadResult({ merged, partialLoadMessage }, bookId, setBookInfo, setError, notifyWarning) {
   setError(null);
   setBookInfo(normalizeBookInfo(merged, bookId));
-  if (partialLoadMessage) showToast(partialLoadMessage);
+  if (partialLoadMessage) notifyWarning(partialLoadMessage);
 }
 
 export function useBookLoader(bookId, { detailOnly = false, bookDataVersion = 0 } = {}) {
-  const { showToast } = useToast();
+  const { notifyWarning } = useToast();
   const [error, setError] = useState(null);
   const [bookInfo, setBookInfo] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -36,9 +36,9 @@ export function useBookLoader(bookId, { detailOnly = false, bookDataVersion = 0 
     }
 
     fetchBookDetailAndDirectory(bookId, { forceRefresh, signal })
-      .then((result) => applyDirectoryLoadResult(result, bookId, setBookInfo, setError, showToast))
+      .then((result) => applyDirectoryLoadResult(result, bookId, setBookInfo, setError, notifyWarning))
       .catch((err) => handleBookError(err, setError));
-  }, [bookId, detailOnly, showToast]);
+  }, [bookId, detailOnly, notifyWarning]);
 
   useEffect(() => {
     if (!bookId || detailOnly) return;
@@ -57,7 +57,7 @@ export function useBookLoader(bookId, { detailOnly = false, bookDataVersion = 0 
     setError(null);
     fetchBookDetailAndDirectory(bookId, { forceRefresh: true, signal: controller.signal })
       .then((result) => {
-        applyDirectoryLoadResult(result, bookId, setBookInfo, setError, showToast);
+        applyDirectoryLoadResult(result, bookId, setBookInfo, setError, notifyWarning);
         if (refetchAbortRef.current === controller) refetchAbortRef.current = null;
         setIsRefreshing(false);
       })
@@ -68,7 +68,7 @@ export function useBookLoader(bookId, { detailOnly = false, bookDataVersion = 0 
           setIsRefreshing(false);
         }
       });
-  }, [bookId, detailOnly, showToast]);
+  }, [bookId, detailOnly, notifyWarning]);
 
   useEffect(() => {
     return () => refetchAbortRef.current?.abort();
