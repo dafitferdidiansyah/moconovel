@@ -98,6 +98,7 @@ export const API_OPTIONS = [
   { value: 'sg-1', label: 'sg-1' },
   { value: 'sg-2', label: 'sg-2' },
   // { value: 'old-1', label: 'old-1' },
+  { value: 'custom', label: 'Custom Server URL' },
 ];
 
 /** Chinese fonts for reader: { value: CSS font-family, label: display name, fontFamily: preview in dropdown } */

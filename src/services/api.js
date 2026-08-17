@@ -2,11 +2,11 @@ import { fetchNovels, fetchNovel, fetchChapter } from '../backendApi';
 
 // Mock API Service toggles
 export function getApiService() {
-  return "wtr_django";
+  return localStorage.getItem('apiService') || 'custom';
 }
 
 export function setApiService(apiId) {
-  // no-op
+  localStorage.setItem('apiService', apiId);
 }
 
 // Mappers

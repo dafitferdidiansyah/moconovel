@@ -81,6 +81,9 @@ function renderThemeOption(opt) {
   );
 }
 
+import { useState, useEffect } from 'react';
+import { getApiConfig, saveApiConfig } from '../../backendApi';
+
 function SettingsModal({ onClose }) {
   const navigate = useNavigate();
   const [apiBase, handleApiChange] = useApiBase();
@@ -89,6 +92,15 @@ function SettingsModal({ onClose }) {
   const { enabled: bookshelfQuickAction, setEnabled: setBookshelfQuickAction } = useBookshelfQuickAction();
   const [conversionMode, setConversionMode] = useConversionMode();
   const { theme, setTheme } = useTheme();
+
+  const [customUrl, setCustomUrl] = useState(() => getApiConfig().localApiUrl || '');
+
+  const handleCustomUrlChange = (val) => {
+    setCustomUrl(val);
+    const config = getApiConfig();
+    config.localApiUrl = val;
+    saveApiConfig(config);
+  };
 
   const apiOptions = API_OPTIONS.map((opt) => ({
     ...opt,
@@ -152,6 +164,24 @@ function SettingsModal({ onClose }) {
               )}
             />
           </SelectField>
+          
+          {apiBase === 'custom' && (
+            <div style={{ marginTop: '12px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
+              <span style={{ fontSize: '13px', color: 'var(--text-color-secondary)' }}>Custom Ngrok / Local API URL:</span>
+              <input
+                type="url"
+                value={customUrl}
+                onChange={(e) => handleCustomUrlChange(e.target.value)}
+                placeholder="https://abcd-1234.ngrok-free.app"
+                style={{
+                  width: '100%', padding: '8px 12px', fontSize: '14px',
+                  borderRadius: 'var(--border-radius-sm)', border: '1px solid var(--border-color)',
+                  background: 'var(--background-color-secondary)', color: 'var(--text-color)'
+                }}
+              />
+            </div>
+          )}
+
           <StatusLink
             type="button"
             onClick={() => {
