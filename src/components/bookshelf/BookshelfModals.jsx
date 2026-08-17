@@ -72,7 +72,7 @@ function BookshelfModals({
       {downloadConfirm && (
         <DownloadAllConfirmModal
           chapterCount={downloadConfirm.chapterCount}
-          stayLabel="留在書架"
+          stayLabel="Stay on Bookshelf"
           onStay={onStartDownloadStay}
           onGoToDownloadPage={onStartDownloadGoToPage}
           onClose={onCloseDownloadConfirm}

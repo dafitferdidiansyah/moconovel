@@ -5,7 +5,7 @@ import ExportContent from '../components/migrate/ExportContent';
 function Export() {
   return (
     <NavPageLayout>
-      <NavTopBar pageTitle="匯出資料" />
+      <NavTopBar pageTitle="Export Data" />
       <ExportContent />
     </NavPageLayout>
   );

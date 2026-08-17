@@ -53,8 +53,8 @@ function HomeHeader() {
         <SettingsButton />
       </SettingsButtonSlot>
       <Header>
-        <Title>番閱</Title>
-        <Subtitle>留一段安靜時間，讀你想讀的故事。</Subtitle>
+        <Title>Reader</Title>
+        <Subtitle>Leave some quiet time, read the story you want.</Subtitle>
       </Header>
     </>
   );

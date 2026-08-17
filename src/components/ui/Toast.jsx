@@ -78,7 +78,7 @@ function Toast({ toast, onExpire }) {
       aria-live={isError ? 'assertive' : 'polite'}
     >
       <span>{toast.message}</span>
-      <CloseButton type="button" onClick={onExpire} aria-label="關閉">
+      <CloseButton type="button" onClick={onExpire} aria-label="Close">
         ×
       </CloseButton>
     </ToastWrapper>

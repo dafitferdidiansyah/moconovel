@@ -10,7 +10,7 @@ function Download() {
 
   return (
     <NavPageLayout>
-      <NavTopBar pageTitle="下載" />
+      <NavTopBar pageTitle="Download" />
       <PageContent $paddingBottom={48} $paddingBottomMobile={32}>
         <DownloadProgress conversionMode={conversionMode} />
         <DownloadGuide />

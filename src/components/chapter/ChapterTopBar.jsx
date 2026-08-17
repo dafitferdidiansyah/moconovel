@@ -134,7 +134,7 @@ function ChapterTopBar({
 
   if (!chapterData) return null;
 
-  const displayTitle = convertedTitle || (itemId ? `第 ${itemId} 章` : '章節');
+  const displayTitle = convertedTitle || (itemId ? `No. ${itemId}  chapters` : 'Chapter');
   const { order, serial_count } = novelData ?? {};
   const progress = order && serial_count
     ? ((parseInt(order, 10) / parseInt(serial_count, 10)) * 100).toFixed(1)

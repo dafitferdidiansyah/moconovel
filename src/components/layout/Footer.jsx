@@ -61,7 +61,7 @@ const Version = styled.span`
 function Footer() {
   return (
     <FooterWrapper>
-      番閱 · <Version>v{packageJson.version}</Version> · 僅供個人學習交流使用
+      Reader · <Version>v{packageJson.version}</Version> · For personal learning and exchange only
     </FooterWrapper>
   );
 }

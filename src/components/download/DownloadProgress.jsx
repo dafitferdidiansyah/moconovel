@@ -226,10 +226,10 @@ function DownloadProgress({ conversionMode = 'tw' }) {
   if (!isAnyActive) {
     return (
       <Section>
-        <SectionTitle>下載狀態</SectionTitle>
+        <SectionTitle>Download Status</SectionTitle>
         <IdleCard>
           <DownloadIcon size={32} strokeWidth={2} aria-hidden />
-          <StatusLine>目前沒有正在下載的書籍喔</StatusLine>
+          <StatusLine>No books currently downloading</StatusLine>
         </IdleCard>
       </Section>
     );
@@ -238,7 +238,7 @@ function DownloadProgress({ conversionMode = 'tw' }) {
   return (
     <>
       <Section>
-        <SectionTitle>下載狀態</SectionTitle>
+        <SectionTitle>Download Status</SectionTitle>
         <StatusCard>
         {isBatchActive ? (
           <>
@@ -254,55 +254,55 @@ function DownloadProgress({ conversionMode = 'tw' }) {
               )}
               <BookMeta>
                 <TitleLink type="button" onClick={() => navigate(buildCatalogUrl(downloadAllBookId))}>
-                  {convertedBookTitle || '載入書名中…'}
+                  {convertedBookTitle || 'Loading Title...'}
                 </TitleLink>
                 <BookId>ID：{downloadAllBookId}</BookId>
               </BookMeta>
             </BookRow>
             <StatusLine>
               {isBatchComplete
-                ? `下載完成 · 共 ${progress.total} 章`
+                ? `Download Complete · Total ${progress.total}  chapters`
                 : isBatchStopped
-                  ? `已停止下載 · 已完成 ${progress.done} / ${progress.total} 章（${percent}%）`
-                  : `正在下載全書 · 已完成 ${progress.done} / ${progress.total} 章（${percent}%）`}
+                  ? `Download Stopped · Completed ${progress.done} / ${progress.total}  chapters (${percent}%）`
+                  : `Downloading full book · Completed ${progress.done} / ${progress.total}  chapters (${percent}%）`}
             </StatusLine>
             <ProgressTrack aria-hidden>
               <ProgressFill $percent={displayPercent} />
             </ProgressTrack>
             <StatGrid>
               <StatItem>
-                <StatLabel>已完成</StatLabel>
+                <StatLabel>Completed</StatLabel>
                 <StatValue>{isBatchComplete ? progress.total : progress.done}</StatValue>
               </StatItem>
               <StatItem>
-                <StatLabel>進行中</StatLabel>
+                <StatLabel>In Progress</StatLabel>
                 <StatValue>{isBatchInProgress ? progress.active : 0}</StatValue>
               </StatItem>
               <StatItem>
-                <StatLabel>待下載</StatLabel>
+                <StatLabel>Pending Download</StatLabel>
                 <StatValue>{isBatchInProgress ? waitingCount : isBatchComplete ? 0 : Math.max(0, progress.total - progress.done)}</StatValue>
               </StatItem>
             </StatGrid>
             <ActionRow>
               <GrayButton type="button" onClick={() => navigate(buildCatalogUrl(downloadAllBookId))}>
-                前往目錄
+                Go to Index
               </GrayButton>
               <GrayButton type="button" onClick={() => setExportBookOpen(true)}>
-                匯出書籍
+                Export Books
               </GrayButton>
               {isBatchInProgress ? (
                 <GrayButton type="button" onClick={stopDownloadAll}>
-                  停止下載
+                  Stop Download
                 </GrayButton>
               ) : (
                 <>
                   {isBatchStopped && (
                     <GrayButton type="button" onClick={resumeDownloadAll}>
-                      繼續下載
+                      Continue Download
                     </GrayButton>
                   )}
                   <GrayButton type="button" onClick={dismissDownloadAll}>
-                    清除記錄
+                    Clear History
                   </GrayButton>
                 </>
               )}
@@ -315,13 +315,13 @@ function DownloadProgress({ conversionMode = 'tw' }) {
                 <Loader2 size={22} color="var(--accent-color)" aria-hidden />
               </CardSpinningIcon>
               <BookMeta>
-                <TitleText>手動章節下載</TitleText>
-                <BookId>這是您手動點擊的單章下載</BookId>
+                <TitleText>Manual Chapter Download</TitleText>
+                <BookId>This is your manual single chapter download</BookId>
               </BookMeta>
             </BookRow>
             <StatusLine>
-              正在下載 {activeCount} 個章節
-              {queueLength > 0 ? `，還有 ${queueLength} 章在排隊喔` : ''}
+              Downloading {activeCount}  chapters
+              {queueLength > 0 ? `, and ${queueLength}  chapters in queue` : ''}
             </StatusLine>
           </>
         )}
@@ -329,11 +329,11 @@ function DownloadProgress({ conversionMode = 'tw' }) {
         {!isBatchActive && (activeCount > 0 || queueLength > 0) && (
           <StatGrid>
             <StatItem>
-              <StatLabel>進行中</StatLabel>
+              <StatLabel>In Progress</StatLabel>
               <StatValue>{activeCount}</StatValue>
             </StatItem>
             <StatItem>
-              <StatLabel>佇列中</StatLabel>
+              <StatLabel>Queued</StatLabel>
               <StatValue>{queueLength}</StatValue>
             </StatItem>
           </StatGrid>

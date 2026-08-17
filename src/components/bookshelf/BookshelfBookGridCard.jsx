@@ -387,7 +387,7 @@ function BookshelfBookGridCard({
       )}
 
       {dragHandleProps && (
-        <DragHandleTop {...dragHandleProps} aria-label="拖曳排序">
+        <DragHandleTop {...dragHandleProps} aria-label="Drag to Reorder">
           <GripHorizontal />
         </DragHandleTop>
       )}
@@ -399,11 +399,11 @@ function BookshelfBookGridCard({
             fallbackUrl={fallback_thumb_url}
             ImgComponent={CoverImg}
             Placeholder={CoverPlaceholder}
-            alt="書籍封面"
+            alt="Book Cover"
             onFailed={() => setImgError(true)}
           />
         ) : (
-          <CoverPlaceholder>無封面</CoverPlaceholder>
+          <CoverPlaceholder>No Cover</CoverPlaceholder>
         )}
         {coverOverlayBottom}
         {selectionMode && (

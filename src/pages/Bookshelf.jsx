@@ -16,7 +16,7 @@ function Bookshelf() {
 
   return (
     <NavPageLayout>
-      <NavTopBar pageTitle="書架" />
+      <NavTopBar pageTitle="Bookshelf" />
       <BookshelfContent conversionMode={conversionMode} />
     </NavPageLayout>
   );

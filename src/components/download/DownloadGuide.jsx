@@ -24,35 +24,35 @@ const batchCooldownSec = BATCH_COOLDOWN_MS / 1000;
 
 const GUIDE_ITEMS = [
   {
-    tag: '下載全部',
-    body: '一次只能排程一本書喔！如果在別本書點了「下載全部」，會取代目前的排程。',
+    tag: 'Download All',
+    body: 'Only one book can be scheduled at a time! If you click "Download All" on another book, it will replace the current schedule.',
   },
   {
-    tag: '單章下載',
-    body: `手動點擊單章下載時，最多可以同時下載 ${MAX_CONCURRENT_DOWNLOADS} 章，不同書也可以一起下。`,
+    tag: 'Single Chapter Download',
+    body: `For manual single chapter downloads, maximum concurrent is ${MAX_CONCURRENT_DOWNLOADS}  chapters, can be downloaded across different books.`,
   },
   {
-    tag: '速率限制',
-    body: `為了讓大家都能順暢使用，每分鐘最多請求 ${RATE_LIMIT_RPM} 次。使用「下載全部」時，每批會稍微休息 ${batchCooldownSec} 秒。`,
+    tag: 'Rate Limit',
+    body: `To ensure smooth use for everyone, maximum requests per minute is ${RATE_LIMIT_RPM}  times. When using "Download All", each batch will rest briefly ${batchCooldownSec}  seconds.`,
   },
   {
-    tag: '離線閱讀',
-    body: '下載好的章節會安全地存在您的裝置裡，不用擔心瀏覽器容量不夠喔！',
+    tag: 'Offline Reading',
+    body: 'Downloaded chapters are safely stored on your device, no need to worry about browser storage!',
   },
   {
-    tag: '匯出書籍',
-    body: '您可以把下載好的章節匯出成 .txt 或 .epub 檔。匯出前可選擇章節順序、書名封面版本與繁簡轉換。',
+    tag: 'Export Books',
+    body: 'You can export downloaded chapters as .txt Or .epub file. Before exporting, select chapter order, title/cover version, and conversion.',
   },
   {
-    tag: '溫柔使用',
-    body: '大家的下載都是透過共用伺服器處理的，請酌量下載，留點頻寬給其他書友喔！',
+    tag: 'Use Gently',
+    body: 'Downloads go through a shared server. Please download reasonably and save bandwidth for others!',
   },
 ];
 
 function DownloadGuide() {
   return (
     <Section>
-      <SectionTitle>使用說明</SectionTitle>
+      <SectionTitle>Instructions</SectionTitle>
       {GUIDE_ITEMS.map((item) => (
         <InfoCard key={item.tag}>
           <b>{item.tag}</b> {item.body}

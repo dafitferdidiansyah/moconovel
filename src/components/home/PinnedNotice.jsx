@@ -29,7 +29,7 @@ function PinnedNotice() {
 
   return pinnedNotices.map((notice, index) => (
     <HomeNotice key={`${notice.date}-${index}`} role="alert">
-      <HomeNoticeLabel>置頂公告（{notice.date}）</HomeNoticeLabel>
+      <HomeNoticeLabel>Pinned Announcement ({notice.date}）</HomeNoticeLabel>
       <Message>{notice.message}</Message>
     </HomeNotice>
   ));

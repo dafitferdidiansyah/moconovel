@@ -12,10 +12,10 @@ import { thinScrollbarStyles } from '../../utils/styled/scrollbars';
 import ApiOverallBadge from '../settings/ApiOverallBadge';
 
 const ENDPOINTS = [
-  { key: 'detail', label: '詳情' },
-  { key: 'directory', label: '目錄' },
-  { key: 'content', label: '章節' },
-  { key: 'comment', label: '評論' },
+  { key: 'detail', label: 'Details' },
+  { key: 'directory', label: 'Index' },
+  { key: 'content', label: 'Chapter' },
+  { key: 'comment', label: 'Comments' },
 ];
 
 const MetaCard = styled.div`
@@ -201,7 +201,7 @@ const Latency = styled.span`
 `;
 
 function formatCheckedAt(iso) {
-  if (!iso) return '尚未檢測';
+  if (!iso) return 'Not Yet Checked';
   const date = new Date(iso);
   if (Number.isNaN(date.getTime())) return '—';
   return date.toLocaleString('zh-TW', {
@@ -228,20 +228,20 @@ function StatusContent() {
         <MetaCard>
           <MetaRow>
             <span>
-              後端每 {intervalMin} 分鐘對各鏡像源發送詳情、目錄、章節、評論請求。
+              Backend every  {intervalMin}  minutes to send details, index, chapter, and comment requests to mirror sources.
               <br />
-              可點擊「設定」切換鏡像源。
+              Click "Settings" to switch mirror sources.
               <br />
-              上次檢測：<CheckedAt>{formatCheckedAt(data?.checked_at)}</CheckedAt>
+              Last Check: <CheckedAt>{formatCheckedAt(data?.checked_at)}</CheckedAt>
             </span>
             <ControlsRow>
               <MetaActionButton
                 type="button"
-                title="設定"
+                title="Settings"
                 onClick={() => setSettingsOpen(true)}
               >
                 <Settings size={16} strokeWidth={2.5} />
-                設定
+                Settings
               </MetaActionButton>
               <MetaActionButton
                 type="button"
@@ -255,7 +255,7 @@ function StatusContent() {
                 ) : (
                   <RefreshCw size={16} strokeWidth={2.5} />
                 )}
-                重新整理
+                Refresh
               </MetaActionButton>
             </ControlsRow>
           </MetaRow>
@@ -267,7 +267,7 @@ function StatusContent() {
             <thead>
               <tr>
                 <th>API</th>
-                <th>整體</th>
+                <th>Overall</th>
                 {ENDPOINTS.map((ep) => (
                   <th key={ep.key}>{ep.label}</th>
                 ))}
@@ -277,7 +277,7 @@ function StatusContent() {
               {apis.length === 0 ? (
                 <tr>
                   <td colSpan={2 + ENDPOINTS.length} style={{ textAlign: 'center', color: 'var(--text-color-secondary)' }}>
-                    首次檢測進行中，請稍候…
+                    Initial check in progress, please wait...
                   </td>
                 </tr>
               ) : (
@@ -300,7 +300,7 @@ function StatusContent() {
                               title={errorDetail || undefined}
                             >
                               {ok ? <Check size={14} strokeWidth={2.5} color={STATUS_GREEN} /> : <X size={14} strokeWidth={2.5} />}
-                              {ok ? '正常' : '失敗'}
+                              {ok ? 'Normal' : 'Failed'}
                             </StatusRow>
                             {result?.latency_ms != null && (
                               <Latency>{result.latency_ms} ms</Latency>

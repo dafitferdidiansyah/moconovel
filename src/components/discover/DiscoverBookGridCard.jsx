@@ -59,7 +59,7 @@ function DiscoverBookGridCard({ book, conversionMode, onClick, sortBy = 'default
             onFailed={() => setImgError(true)}
           />
         ) : (
-          <CoverPlaceholder>無封面</CoverPlaceholder>
+          <CoverPlaceholder>No Cover</CoverPlaceholder>
         )}
         {coverMetaLines.length > 0 && (
           <CoverMetaOverlayBottom>

@@ -1,4 +1,4 @@
-function HostCodeList({ hostnames, separator = ' 或 ' }) {
+function HostCodeList({ hostnames, separator = ' Or ' }) {
   return hostnames.map((host, index) => (
     <span key={host}>
       {index > 0 ? separator : ''}

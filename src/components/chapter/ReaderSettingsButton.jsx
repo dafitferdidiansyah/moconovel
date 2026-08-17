@@ -1,7 +1,7 @@
 import { SlidersHorizontal } from 'lucide-react';
 import { IconButton } from '../ui/IconButton';
 
-export const READER_SETTINGS_BUTTON_TITLE = '閱讀設定';
+export const READER_SETTINGS_BUTTON_TITLE = 'Reading Settings';
 
 function ReaderSettingsButton({
   active = false,
@@ -22,6 +22,6 @@ function ReaderSettingsButton({
   );
 }
 
-ReaderSettingsButton.toolLabel = '閱讀';
+ReaderSettingsButton.toolLabel = 'Read';
 
 export default ReaderSettingsButton;

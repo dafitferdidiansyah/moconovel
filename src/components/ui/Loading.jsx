@@ -65,11 +65,11 @@ function Loading({ onAbort }) {
         <Dot $delay={0.15} />
         <Dot $delay={0.3} />
       </DotsRow>
-      <p>載入中…</p>
-      <p className="counter">{seconds} 秒</p>
+      <p>Loading...</p>
+      <p className="counter">{seconds}  seconds</p>
       {onAbort && (
         <AbortButton type="button" onClick={onAbort}>
-          取消載入
+          Cancel Loading
         </AbortButton>
       )}
     </LoadingWrapper>

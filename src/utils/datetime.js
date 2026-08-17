@@ -17,7 +17,7 @@ function formatDateParts(d) {
   const day = d.getDate();
   const h = String(d.getHours()).padStart(2, '0');
   const min = String(d.getMinutes()).padStart(2, '0');
-  return `${y}年${m}月${day}日 ${h}:${min}`;
+  return `${y}Year${m}Month${day}Day ${h}:${min}`;
 }
 
 /** @param {string|number} ts Unix timestamp in seconds */

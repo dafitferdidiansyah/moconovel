@@ -5,9 +5,9 @@ const STATUS_AMBER = '#c80';
 const STATUS_RED = '#d44';
 
 export function overallStatusLabel(status) {
-  if (status === 'up') return '正常';
-  if (status === 'degraded') return '部分異常';
-  return '離線';
+  if (status === 'up') return 'Normal';
+  if (status === 'degraded') return 'Partial Error';
+  return 'Offline';
 }
 
 const Badge = styled.span`

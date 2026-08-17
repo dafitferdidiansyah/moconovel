@@ -427,13 +427,13 @@ function BookInfo({ bookInfo, conversionMode = 'tw', variant, footer, showChapte
       {thumb_url && (
           <CoverWrapper>
           {imgError ? (
-            <CoverPlaceholder>無封面</CoverPlaceholder>
+            <CoverPlaceholder>No Cover</CoverPlaceholder>
           ) : (
             <BookCoverImg
               url={thumb_url}
               fallbackUrl={fallback_thumb_url}
               Placeholder={CoverPlaceholder}
-              alt="書籍封面"
+              alt="Book Cover"
               width="128"
               height="128"
               onFailed={() => setImgError(true)}
@@ -441,7 +441,7 @@ function BookInfo({ bookInfo, conversionMode = 'tw', variant, footer, showChapte
           )}
           {showChapterCount && (
             <CoverMeta>
-              {chapter_count ? `共 ${chapter_count} 章節` : '暫無章節資訊'}
+              {chapter_count ? `Total ${chapter_count} Chapter` : 'No chapter information'}
             </CoverMeta>
           )}
         </CoverWrapper>
@@ -455,7 +455,7 @@ function BookInfo({ bookInfo, conversionMode = 'tw', variant, footer, showChapte
             </>
           ) : (
             <>
-              <HorizontalScrollArea as={HorizontalScrollRow} role="group" aria-label="書名">
+              <HorizontalScrollArea as={HorizontalScrollRow} role="group" aria-label="Title">
                 <TitleText>{convertedBookName}</TitleText>
               </HorizontalScrollArea>
               {convertedAuthor && <AuthorText>{convertedAuthor}</AuthorText>}
@@ -466,7 +466,7 @@ function BookInfo({ bookInfo, conversionMode = 'tw', variant, footer, showChapte
           isCompact ? (
             <Tags>{convertedTags}</Tags>
           ) : (
-            <HorizontalScrollArea as={HorizontalScrollRow} role="group" aria-label="標籤">
+            <HorizontalScrollArea as={HorizontalScrollRow} role="group" aria-label="Tags">
               <ScrollableTagText>{convertedTags}</ScrollableTagText>
             </HorizontalScrollArea>
           )
@@ -474,23 +474,23 @@ function BookInfo({ bookInfo, conversionMode = 'tw', variant, footer, showChapte
         <Abstract>
           {!isCompact && (
             <ShowMore type="button" onClick={() => setShowFullAbstract(true)}>
-              展開
+              Expand
             </ShowMore>
           )}
           {convertedAbstract}
         </Abstract>
         <HorizontalScrollArea as={MetaRow} {...scrollCaptureProps}>
           {showChapterCount && !thumb_url && (
-            <MetaTag className="meta-chapters">{chapter_count ? `共 ${chapter_count} 章節` : '暫無章節資訊'}</MetaTag>
+            <MetaTag className="meta-chapters">{chapter_count ? `Total ${chapter_count} Chapter` : 'No chapter information'}</MetaTag>
           )}
           {score && (
-            <MetaTag className="meta-score">評分 {score}</MetaTag>
+            <MetaTag className="meta-score">Rating {score}</MetaTag>
           )}
           {category && <MetaTag className="meta-category">{convertedCategory}</MetaTag>}
           {sub_info && <MetaTag className="meta-subinfo">{convertedSubInfo}</MetaTag>}
-          {word_number && <MetaTag className="meta-word-number">{convertedWordNumber}字</MetaTag>}
+          {word_number && <MetaTag className="meta-word-number">{convertedWordNumber} words</MetaTag>}
           {creation_status && <MetaTag className="meta-creation-status">{convertedCreationStatus}</MetaTag>}
-          {last_publish_time && <MetaTag className="meta-publish-time">更新 {last_publish_time}</MetaTag>}
+          {last_publish_time && <MetaTag className="meta-publish-time">Update {last_publish_time}</MetaTag>}
         </HorizontalScrollArea>
         {!isCompact && footer && <Footer>{footer}</Footer>}
       </TextBlock>

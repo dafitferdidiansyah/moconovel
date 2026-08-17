@@ -3,7 +3,7 @@ import { Home } from 'lucide-react';
 import { IconButton } from '../ui/IconButton';
 import { ROUTES } from '../../utils/navigation';
 
-export const HOME_BUTTON_TITLE = '返回首頁';
+export const HOME_BUTTON_TITLE = 'Back to Home';
 
 function HomeButton({ title = HOME_BUTTON_TITLE }) {
   const navigate = useNavigate();
@@ -14,6 +14,6 @@ function HomeButton({ title = HOME_BUTTON_TITLE }) {
   );
 }
 
-HomeButton.toolLabel = '首頁';
+HomeButton.toolLabel = 'Home';
 
 export default HomeButton;

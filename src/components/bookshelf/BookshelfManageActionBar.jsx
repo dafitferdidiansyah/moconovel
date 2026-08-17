@@ -40,20 +40,20 @@ function BookshelfManageActionBar({
   onExitManageMode,
 }) {
   const isAllTab = activeTab === ALL_TAB;
-  const bulkDeleteLabel = isAllTab ? '刪除所選書籍' : getRemoveFromCollectionLabel();
+  const bulkDeleteLabel = isAllTab ? 'Delete Selected Books' : getRemoveFromCollectionLabel();
   const bulkDeleteLocalDataLabel = getDeleteLocalDataLabel();
 
   return (
     <BookshelfManageActionBarRoot>
       <BookshelfManageSelectionRow>
-        <BookshelfManageActionCount>{selectedCount} 已選</BookshelfManageActionCount>
+        <BookshelfManageActionCount>{selectedCount} Selected</BookshelfManageActionCount>
         <BookshelfManageSelectionButtons>
           <BookshelfManageSelectionButton
             type="button"
             disabled={allBooksSelected || selectableBookIds.length === 0}
             onClick={onSelectAll}
-            title="全選"
-            aria-label="全選"
+            title="Select All"
+            aria-label="Select All"
           >
             <SquareCheckBig />
           </BookshelfManageSelectionButton>
@@ -61,8 +61,8 @@ function BookshelfManageActionBar({
             type="button"
             disabled={selectedCount === 0}
             onClick={onDeselectAll}
-            title="全不選"
-            aria-label="全不選"
+            title="Deselect All"
+            aria-label="Deselect All"
           >
             <SquareX />
           </BookshelfManageSelectionButton>
@@ -74,8 +74,8 @@ function BookshelfManageActionBar({
           $variant="collection"
           disabled={selectedCount === 0}
           onClick={onBulkAddToCollection}
-          title="加入收藏夾"
-          aria-label="加入收藏夾"
+          title="Add to Collection"
+          aria-label="Add to Collection"
         >
           <FolderInput />
         </BookshelfManageBarButton>
@@ -85,8 +85,8 @@ function BookshelfManageActionBar({
               type="button"
               $variant="download"
               onClick={onGoToDownload}
-              title="下載全部"
-              aria-label="下載全部"
+              title="Download All"
+              aria-label="Download All"
             >
               <Download />
             </BookshelfManageBarButton>
@@ -94,8 +94,8 @@ function BookshelfManageActionBar({
               type="button"
               $variant="export"
               onClick={onGoToExport}
-              title="匯出書籍"
-              aria-label="匯出書籍"
+              title="Export Books"
+              aria-label="Export Books"
             >
               <FileText />
             </BookshelfManageBarButton>
@@ -106,8 +106,8 @@ function BookshelfManageActionBar({
           $variant="refresh"
           disabled={selectedCount === 0 || isRefreshing}
           onClick={onBulkRefresh}
-          title="刷新目錄與書籍資料"
-          aria-label="刷新目錄與書籍資料"
+          title="Refresh Index and Book Data"
+          aria-label="Refresh Index and Book Data"
         >
           {isRefreshing ? (
             <CardSpinningIcon><Loader2 size={18} /></CardSpinningIcon>
@@ -140,8 +140,8 @@ function BookshelfManageActionBar({
         <BookshelfManageBarButton
           type="button"
           onClick={onExitManageMode}
-          title="退出管理"
-          aria-label="退出管理"
+          title="Exit Manage"
+          aria-label="Exit Manage"
         >
           <X strokeWidth={2.25} />
         </BookshelfManageBarButton>

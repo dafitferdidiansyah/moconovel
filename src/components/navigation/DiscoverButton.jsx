@@ -3,7 +3,7 @@ import { Compass } from 'lucide-react';
 import { IconButton } from '../ui/IconButton';
 import { buildDefaultDiscoverUrl, isDiscoverPath } from '../../utils/navigation';
 
-export const DISCOVER_BUTTON_TITLE = '新增書籍';
+export const DISCOVER_BUTTON_TITLE = 'Add Book';
 
 function DiscoverButton({ title = DISCOVER_BUTTON_TITLE, disabled: disabledProp }) {
   const navigate = useNavigate();
@@ -22,6 +22,6 @@ function DiscoverButton({ title = DISCOVER_BUTTON_TITLE, disabled: disabledProp 
   );
 }
 
-DiscoverButton.toolLabel = '新書';
+DiscoverButton.toolLabel = 'New Book';
 
 export default DiscoverButton;

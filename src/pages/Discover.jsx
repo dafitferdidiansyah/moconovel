@@ -9,7 +9,7 @@ function Discover() {
 
   return (
     <NavPageLayout>
-      <NavTopBar pageTitle="新書" />
+      <NavTopBar pageTitle="New Book" />
       <PageContent>
         <DiscoverBooks conversionMode={conversionMode} />
       </PageContent>

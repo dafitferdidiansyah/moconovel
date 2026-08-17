@@ -34,30 +34,30 @@ const ExternalLink = styled.a`
 function Terms() {
   return (
     <NavPageLayout>
-      <NavTopBar pageTitle="使用條款" />
+      <NavTopBar pageTitle="Terms of Use" />
       <PageContent $paddingBottom={48} $paddingBottomMobile={32}>
         <Section>
-          <SectionTitle>專案性質</SectionTitle>
-          <Paragraph>本專案為非商業性質之個人學習與技術交流專案，不含廣告，亦不進行任何形式的營利或訂閱收費。</Paragraph>
+          <SectionTitle>Project Nature</SectionTitle>
+          <Paragraph>This is a non-commercial project for personal learning and technical exchange. No ads, profit, or subscriptions.</Paragraph>
         </Section>
         <Section>
-          <SectionTitle>內容來源與著作權</SectionTitle>
-          <Paragraph>本站內容取自第三方公開 API，僅供個人閱讀時顯示與繁簡轉換。章節可按需要暫存於本機，以便離線閱讀或匯出個人備份。本專案不會在伺服器託管小說原文，亦不作任何商業再散佈。所有小說內容之著作權均歸原作者及番茄小說所有，請支持正版閱讀。</Paragraph>
+          <SectionTitle>Content Source & Copyright</SectionTitle>
+          <Paragraph>Content sourced from third-party public  API, for personal display and conversion only. Chapters can be cached locally for offline reading or backups. This project does not host originals or redistribute commercially. Copyright belongs to original author and Tomato Novel, please support original.</Paragraph>
         </Section>
         <Section>
-          <SectionTitle>隱私與資料儲存</SectionTitle>
-          <Paragraph>閱讀紀錄、書架及已下載章節等資料僅儲存於使用者本機瀏覽器，不會上傳至本專案伺服器。</Paragraph>
+          <SectionTitle>Privacy & Data Storage</SectionTitle>
+          <Paragraph>Reading history, bookshelf, and downloaded chapters are only stored in local browser, not uploaded to servers.</Paragraph>
         </Section>
         <Section>
-          <SectionTitle>使用者責任</SectionTitle>
-          <Paragraph>使用者應自行遵守當地法律法規及番茄小說服務條款，因使用本站所生之法律責任由使用者自行承擔。</Paragraph>
+          <SectionTitle>User Responsibility</SectionTitle>
+          <Paragraph>Users must comply with local laws and Tomato Novel's terms of service; legal responsibilities arising from use of this site are borne by the user.</Paragraph>
         </Section>
         <Section>
-          <SectionTitle>著作權侵權通知</SectionTitle>
+          <SectionTitle>Copyright Infringement Notice</SectionTitle>
           <Paragraph>
-            若您是著作權人並認為本站內容侵害您的權益，請透過{' '}
+            If you are a copyright owner and believe content infringes your rights, please use{' '}
             <ExternalLink href="https://github.com/denniemok/fanqie-novel-reader/issues" target="_blank" rel="noreferrer">GitHub Issues</ExternalLink>{' '}
-            與我們聯繫，我們將儘速處理相關內容或功能。
+            Contact us, we will process relevant content or features ASAP.
           </Paragraph>
         </Section>
       </PageContent>

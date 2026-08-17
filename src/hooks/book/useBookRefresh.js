@@ -63,7 +63,7 @@ export function useBookRefresh() {
       applyRefreshOutcome(
         bookId,
         null,
-        formatErrorMessage(err, '刷新失敗，請稍後再試。'),
+        formatErrorMessage(err, 'Refresh failed, please try again later.'),
       );
     } finally {
       setRefreshingBookIds((prev) => {
@@ -94,7 +94,7 @@ export function useBookRefresh() {
           applyRefreshOutcome(
             bookId,
             null,
-            formatErrorMessage(err, '刷新失敗，請稍後再試。'),
+            formatErrorMessage(err, 'Refresh failed, please try again later.'),
           );
           return { bookId, ok: false, partialLoadMessage: null, error: err };
         } finally {
@@ -111,11 +111,11 @@ export function useBookRefresh() {
     const failed = outcomes.length - succeeded;
 
     if (failed === 0) {
-      notifySuccess(`已刷新 ${bookIds.length} 本書籍`);
+      notifySuccess(`Refreshed ${bookIds.length}  books`);
     } else if (succeeded === 0) {
-      notifyError(null, `全部 ${failed} 本刷新失敗`);
+      notifyError(null, `All ${failed}  failed to refresh`);
     } else {
-      notifyWarning(`${succeeded} 本刷新成功，${failed} 本失敗`);
+      notifyWarning(`${succeeded}  successfully refreshed, ${failed}  failed`);
     }
   }, [refreshingBookIds, applyRefreshOutcome]);
 

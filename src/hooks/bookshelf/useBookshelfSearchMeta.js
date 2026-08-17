@@ -3,8 +3,8 @@ import { detailCache } from '../../utils/cache';
 import { maybeConvert } from '../../utils/text/zh-convert';
 
 function resolveCreationStatusLabel(creationStatus) {
-  if (creationStatus === '0') return '已完結';
-  if (creationStatus) return '連載中';
+  if (creationStatus === '0') return 'Completed';
+  if (creationStatus) return 'Ongoing';
   return '';
 }
 

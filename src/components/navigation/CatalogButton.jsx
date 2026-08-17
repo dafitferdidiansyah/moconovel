@@ -3,7 +3,7 @@ import { List } from 'lucide-react';
 import { IconButton } from '../ui/IconButton';
 import { buildCatalogUrl } from '../../utils/navigation';
 
-export const CATALOG_BUTTON_TITLE = '返回目錄';
+export const CATALOG_BUTTON_TITLE = 'Back to Index';
 
 function CatalogButton({ bookId, title = CATALOG_BUTTON_TITLE }) {
   const navigate = useNavigate();

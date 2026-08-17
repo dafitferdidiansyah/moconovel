@@ -6,11 +6,11 @@ function SortDirectionButton({ sortDirection, onToggle }) {
     <SortTrailingBtn
       type="button"
       onClick={onToggle}
-      title={sortDirection === 'desc' ? '由高到低（點擊切換）' : '由低到高（點擊切換）'}
-      aria-label={sortDirection === 'desc' ? '降序排列' : '升序排列'}
+      title={sortDirection === 'desc' ? 'High to Low (Click to toggle)' : 'Low to High (Click to toggle)'}
+      aria-label={sortDirection === 'desc' ? 'Sort Descending' : 'Sort Ascending'}
     >
       {sortDirection === 'desc' ? <ArrowDownZA /> : <ArrowUpAZ />}
-      <BtnLabel>{sortDirection === 'desc' ? '降序' : '升序'}</BtnLabel>
+      <BtnLabel>{sortDirection === 'desc' ? 'Descending' : 'Ascending'}</BtnLabel>
     </SortTrailingBtn>
   );
 }

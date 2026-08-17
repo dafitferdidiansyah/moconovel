@@ -19,7 +19,7 @@ function BookCoverImg({
   if (!url || failed) return null;
 
   if (loading && Placeholder) {
-    return <Placeholder aria-busy="true">轉換中</Placeholder>;
+    return <Placeholder aria-busy="true">Converting</Placeholder>;
   }
 
   if (!src) return null;

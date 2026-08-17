@@ -26,7 +26,7 @@ function ImportContent() {
       return;
     }
     if (!hasBackupExtension(file.name)) {
-      notifyWarning(`請選擇 ${DATA_BACKUP_EXTENSION} 結尾的備份檔。`);
+      notifyWarning(`Please select ${DATA_BACKUP_EXTENSION} ending backup file.`);
       event.target.value = '';
       setSelectedFile(null);
       return;
@@ -36,19 +36,19 @@ function ImportContent() {
 
   const handleImport = async () => {
     if (!selectedFile) {
-      notifyWarning('請先選擇備份檔案。');
+      notifyWarning('Please select a backup file first.');
       return;
     }
     setImporting(true);
     try {
       const summary = await importUserData(selectedFile);
       notifySuccess(
-        `匯入完成：${summary.chapters} 章節、${summary.directories} 本目錄、${summary.details} 本書籍。`,
+        `Import Complete:${summary.chapters}  chapters, ${summary.directories}  indexes, ${summary.details}  books.`,
       );
       setSelectedFile(null);
       if (fileInputRef.current) fileInputRef.current.value = '';
     } catch (error) {
-      notifyError(null, error?.message || '匯入失敗，請確認檔案是否正確。');
+      notifyError(null, error?.message || 'Import failed, please ensure the file is correct.');
     } finally {
       setImporting(false);
     }
@@ -57,36 +57,36 @@ function ImportContent() {
   return (
     <PageContent $paddingBottom={48} $paddingBottomMobile={32}>
       <Section>
-        <SectionTitle>資料遷移 — 匯入</SectionTitle>
+        <SectionTitle>Data Migration — Import</SectionTitle>
 
         <StepCard>
-          <b>匯入前的小提醒</b>
+          <b>Reminder Before Importing</b>
           <ol>
             <li>
-              請確認您已經在舊站（<HostCodeList hostnames={LEGACY_HOSTNAMES} />）下載好備份檔。
+              Please confirm you are on the old site (<HostCodeList hostnames={LEGACY_HOSTNAMES} />) downloaded backup file.
             </li>
-            <li>備份檔的副檔名應該要是 <code>{DATA_BACKUP_EXTENSION}</code>。</li>
+            <li>The backup file extension should be <code>{DATA_BACKUP_EXTENSION}</code>。</li>
             <li>
-              建議您在 <code>{CANONICAL_HOSTNAME}</code> 進行匯入，資料才會寫進新站喔！
+              We suggest you <code>{CANONICAL_HOSTNAME}</code> Proceed with import, data will then be written to new site!
             </li>
           </ol>
           {!onCanonicalSite && (
             <Hint>
-              提醒您：您目前不在 {CANONICAL_HOSTNAME}。在這裡匯入只會把資料寫進<strong>目前的網址</strong>；如果要搬家到新站，請在{' '}
-              {CANONICAL_IMPORT_URL.replace('https://', '')} 打開這個頁面。
+              Reminder: You are currently not in {CANONICAL_HOSTNAME}. Importing here will only write data to<strong>Current URL</strong>; if moving to new site, please at{' '}
+              {CANONICAL_IMPORT_URL.replace('https://', '')} open this page.
             </Hint>
           )}
         </StepCard>
 
         <StepCard>
-          <b>上傳備份檔</b>
-          <p>請選擇從舊站下載的備份檔。匯入後，相同的書籍資料會被覆蓋更新（不會變更本機的閱讀設定）。</p>
+          <b>Upload Backup File</b>
+          <p>Select backup file downloaded from old site. After import, matching book data will be overwritten (reading settings will not be changed).</p>
           <ActionRow>
             <GrayButton type="button" onClick={() => fileInputRef.current?.click()}>
-              選擇檔案
+              Select File
             </GrayButton>
             <GrayButton type="button" onClick={handleImport} disabled={!selectedFile || importing}>
-              {importing ? '搬運中…' : '開始匯入'}
+              {importing ? 'Transferring...' : 'Start Import'}
             </GrayButton>
           </ActionRow>
           <FileInput
@@ -95,7 +95,7 @@ function ImportContent() {
             accept={DATA_BACKUP_EXTENSION}
             onChange={handleFileChange}
           />
-          {selectedFile && <FileLabel>已選擇：{selectedFile.name}</FileLabel>}
+          {selectedFile && <FileLabel>Selected: {selectedFile.name}</FileLabel>}
         </StepCard>
       </Section>
     </PageContent>

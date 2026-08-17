@@ -100,8 +100,8 @@ function DiscoverToolbar({
           </ScrollableSecondaryTabBar>
           <SecondaryRefreshBtn
             type="button"
-            title="刷新列表"
-            aria-label="刷新列表"
+            title="Refresh List"
+            aria-label="Refresh List"
             disabled={loading}
             onClick={onRefresh}
           >
@@ -139,7 +139,7 @@ function DiscoverToolbar({
                 options={DISCOVER_SORT_OPTIONS}
                 value={sortBy}
                 onChange={onSortChange}
-                ariaLabel="探索排序方式"
+                ariaLabel="Explore Sort Methods"
                 hasTrailing={sortBy !== 'default'}
                 {...TOOLBAR_SORT_DROPDOWN_PROPS}
               />

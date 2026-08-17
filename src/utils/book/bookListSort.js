@@ -1,16 +1,16 @@
 export const BOOKSHELF_SORT_OPTIONS = [
-  { value: 'manual', label: '手動' },
-  { value: 'rating', label: '評分' },
-  { value: 'update', label: '更新日期' },
-  { value: 'chapters', label: '章節數' },
-  { value: 'words', label: '字數' },
+  { value: 'manual', label: 'Manual' },
+  { value: 'rating', label: 'Rating' },
+  { value: 'update', label: 'Updated Date' },
+  { value: 'chapters', label: 'Chapter Count' },
+  { value: 'words', label: 'Word Count' },
 ];
 
 export const DISCOVER_SORT_OPTIONS = [
-  { value: 'default', label: '預設' },
-  { value: 'rating', label: '評分' },
-  { value: 'update', label: '更新日期' },
-  { value: 'words', label: '字數' },
+  { value: 'default', label: 'Default' },
+  { value: 'rating', label: 'Rating' },
+  { value: 'update', label: 'Updated Date' },
+  { value: 'words', label: 'Word Count' },
 ];
 
 const SORT_FIELD = {

@@ -14,7 +14,7 @@ function CatalogActionBar({
   onExportBook,
   lastReadItemId,
 }) {
-  const downloadText = downloadingAll ? '停止下載' : hasUncachedChapters ? '下載全部' : '已下載';
+  const downloadText = downloadingAll ? 'Stop Download' : hasUncachedChapters ? 'Download All' : 'Downloaded';
 
   return (
     <BookActionBar>
@@ -31,24 +31,24 @@ function CatalogActionBar({
       </LabeledIconButton>
       <LabeledIconButton
         type="button"
-        label="匯出書籍"
-        title="匯出書籍"
+        label="Export Books"
+        title="Export Books"
         onClick={onExportBook}
       >
         <FileText size={20} strokeWidth={2.5} />
       </LabeledIconButton>
       <LabeledIconButton
         type="button"
-        label="刷新目錄"
-        title="刷新目錄"
+        label="Refresh Index"
+        title="Refresh Index"
         onClick={onRefresh}
       >
         <RefreshCw size={20} strokeWidth={2.5} />
       </LabeledIconButton>
       <LabeledIconButton
         type="button"
-        label="查看評論"
-        title="查看評論"
+        label="View Comments"
+        title="View Comments"
         onClick={() => navigate(buildCommentsUrl(bookId))}
       >
         <MessageCircle size={20} strokeWidth={2.5} />

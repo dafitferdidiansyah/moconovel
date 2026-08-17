@@ -45,8 +45,8 @@ function Comments() {
       })
       .catch((err) => {
         if (err.name === 'AbortError') return;
-        console.error('獲取評論失敗：', bookId, err);
-        setCommentsError(formatErrorMessage(err, '獲取評論失敗，請稍後再試。'));
+        console.error('Failed to get comments:', bookId, err);
+        setCommentsError(formatErrorMessage(err, 'Failed to get comments, please try again later.'));
         setLoading(false);
       });
     return () => controller.abort();
@@ -91,7 +91,7 @@ function Comments() {
         <Loading onAbort={() => navigate(buildCatalogUrl(bookId))} />
       ) : (
         <>
-          <NavTopBar pageTitle="評論" navVariant="comments" bookId={bookId} />
+          <NavTopBar pageTitle="Comments" navVariant="comments" bookId={bookId} />
           <CommentsContent
             bookId={bookId}
             bookInfo={bookInfo}

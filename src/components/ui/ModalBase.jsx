@@ -280,7 +280,7 @@ export function ModalTitleBar({ title, onClose }) {
     <ModalHeader>
       <span>{title}</span>
       {onClose && (
-        <ModalCloseButton type="button" onClick={onClose} title="關閉" aria-label="關閉">
+        <ModalCloseButton type="button" onClick={onClose} title="Close" aria-label="Close">
           <X />
         </ModalCloseButton>
       )}

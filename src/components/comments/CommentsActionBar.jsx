@@ -10,7 +10,7 @@ function CommentsActionBar({ bookId, onRefresh }) {
 
   return (
     <BookActionBar>
-      <LabeledIconButton type="button" label="刷新評論" title="刷新評論" onClick={onRefresh}>
+      <LabeledIconButton type="button" label="Refresh Comments" title="Refresh Comments" onClick={onRefresh}>
         <RefreshCw size={20} strokeWidth={2.5} />
       </LabeledIconButton>
       {bookId && (

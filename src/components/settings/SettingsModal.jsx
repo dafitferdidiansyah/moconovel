@@ -67,8 +67,8 @@ const StatusLink = styled.button`
 `;
 
 const THEME_OPTIONS = [
-  { value: 'light', label: '淺色模式', icon: Sun },
-  { value: 'dark', label: '深色模式', icon: Moon },
+  { value: 'light', label: 'Light Mode', icon: Sun },
+  { value: 'dark', label: 'Dark Mode', icon: Moon },
 ];
 
 function renderThemeOption(opt) {
@@ -97,20 +97,20 @@ function SettingsModal({ onClose }) {
 
   return (
     <Modal onClose={onClose} maxWidth="420px">
-      <ModalTitleBar title="設定" onClose={onClose} />
+      <ModalTitleBar title="Settings" onClose={onClose} />
       <ModalBody>
         <Section>
           <SectionHeader>
             <BookImage size={16} strokeWidth={2.5} aria-hidden />
-            <span>顯示</span>
+            <span>Show</span>
           </SectionHeader>
           <SelectField>
             <SelectDropdown
               options={BOOK_DISPLAY_VARIANT_OPTIONS}
               value={variant}
               onChange={setVariant}
-              attachedLabel="書名與封面"
-              ariaLabel="選擇書名與封面版本"
+              attachedLabel="Title and Cover"
+              ariaLabel="Select Title & Cover Version"
               {...MODAL_SELECT_PROPS}
             />
           </SelectField>
@@ -119,8 +119,8 @@ function SettingsModal({ onClose }) {
               options={BOOKSHELF_QUICK_ACTION_OPTIONS}
               value={bookshelfQuickAction}
               onChange={setBookshelfQuickAction}
-              attachedLabel="書架快捷操作"
-              ariaLabel="選擇書架快捷操作"
+              attachedLabel="Bookshelf Shortcuts"
+              ariaLabel="Select Bookshelf Shortcut"
               {...MODAL_SELECT_PROPS}
             />
           </SelectField>
@@ -129,14 +129,14 @@ function SettingsModal({ onClose }) {
         <Section>
           <SectionHeader>
             <Globe size={16} strokeWidth={2.5} aria-hidden />
-            <span>API 服務</span>
+            <span>API Services</span>
           </SectionHeader>
           <SelectField>
             <SelectDropdown
               options={apiOptions}
               value={apiBase}
               onChange={handleApiChange}
-              ariaLabel="選擇 API 服務"
+              ariaLabel="Select API Services"
               {...MODAL_SELECT_PROPS}
               renderOption={(opt) => (
                 <ApiOptionRow>
@@ -160,38 +160,38 @@ function SettingsModal({ onClose }) {
             }}
           >
             <Activity size={16} strokeWidth={2.5} aria-hidden />
-            API 狀態
+            API Status
           </StatusLink>
         </Section>
 
         <Section>
           <SectionHeader>
             <Languages size={16} strokeWidth={2.5} aria-hidden />
-            <span>繁簡轉換</span>
+            <span>Chinese Conversion</span>
           </SectionHeader>
           <SelectField>
             <SelectDropdown
               options={ZH_CONVERSION_OPTIONS}
               value={conversionMode}
               onChange={setConversionMode}
-              ariaLabel="選擇繁簡轉換"
+              ariaLabel="Select Conversion"
               {...MODAL_SELECT_PROPS}
             />
           </SelectField>
-          <ModalText>僅影響閱讀內容（書名、正文、評論等），不影響介面。</ModalText>
+          <ModalText>Only affects reading content (title, text, comments, etc.), interface remains unchanged.</ModalText>
         </Section>
 
         <Section>
           <SectionHeader>
             <Moon size={16} strokeWidth={2.5} aria-hidden />
-            <span>主題</span>
+            <span>Theme</span>
           </SectionHeader>
           <SelectField>
             <SelectDropdown
               options={THEME_OPTIONS}
               value={theme}
               onChange={setTheme}
-              ariaLabel="選擇主題"
+              ariaLabel="Select Theme"
               {...MODAL_SELECT_PROPS}
               renderOption={renderThemeOption}
               renderValue={renderThemeOption}

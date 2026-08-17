@@ -269,7 +269,7 @@ function BookshelfBookListCard({
       )}
       <CardMainRow>
         {dragHandleProps && (
-          <DragHandle {...dragHandleProps} aria-label="拖曳排序">
+          <DragHandle {...dragHandleProps} aria-label="Drag to Reorder">
             <GripVertical />
           </DragHandle>
         )}

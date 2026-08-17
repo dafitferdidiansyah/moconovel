@@ -31,27 +31,27 @@ function ExportBookModal({
   const optionSections = [
     {
       icon: BookImage,
-      label: '書名與封面',
+      label: 'Title and Cover',
       options: BOOK_DISPLAY_VARIANT_OPTIONS,
       value: displayVariant,
       onChange: setDisplayVariant,
-      ariaLabel: '選擇書名與封面版本',
+      ariaLabel: 'Select Title & Cover Version',
     },
     {
       icon: ArrowDownUp,
-      label: '章節順序',
+      label: 'Chapter Order',
       options: EXPORT_CHAPTER_ORDER_OPTIONS,
       value: sortOrder,
       onChange: setSortOrder,
-      ariaLabel: '選擇章節順序',
+      ariaLabel: 'Select Chapter Order',
     },
     {
       icon: Languages,
-      label: '繁簡轉換',
+      label: 'Chinese Conversion',
       options: ZH_CONVERSION_OPTIONS,
       value: conversionMode,
       onChange: setConversionMode,
-      ariaLabel: '選擇繁簡轉換',
+      ariaLabel: 'Select Conversion',
     },
   ];
 
@@ -91,9 +91,9 @@ function ExportBookModal({
 
   return (
     <Modal onClose={onClose} maxWidth="420px">
-      <ModalTitleBar title="匯出書籍" onClose={onClose} />
+      <ModalTitleBar title="Export Books" onClose={onClose} />
       <ModalBody>
-        <ModalText>僅匯出已下載的章節。請選擇章節順序、書名封面版本與繁簡轉換後再匯出。</ModalText>
+        <ModalText>Export downloaded chapters only. Please select chapter order, title/cover version, and conversion before exporting.</ModalText>
 
         {optionSections.map(({ icon: Icon, label, options, value, onChange, ariaLabel }) => (
           <Section key={label}>
@@ -119,14 +119,14 @@ function ExportBookModal({
           onClick={handleExportTxt}
           disabled={Boolean(exporting)}
         >
-          {exporting === 'txt' ? '匯出中…' : '匯出 TXT'}
+          {exporting === 'txt' ? 'Exporting...' : 'Export TXT'}
         </ModalSecondaryButton>
         <ModalPrimaryButton
           type="button"
           onClick={handleExportEpub}
           disabled={Boolean(exporting)}
         >
-          {exporting === 'epub' ? '匯出中…' : '匯出 EPUB'}
+          {exporting === 'epub' ? 'Exporting...' : 'Export EPUB'}
         </ModalPrimaryButton>
       </ModalFooter>
     </Modal>

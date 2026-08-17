@@ -141,12 +141,12 @@ function ReaderControlsPanel({
   return createPortal(
     <>
       <Overlay onClick={onClose} aria-hidden="false" />
-      <Panel $open role="dialog" aria-modal="true" aria-label="閱讀設定">
+      <Panel $open role="dialog" aria-modal="true" aria-label="Reading Settings">
         <Section>
           {onFontSizeChange && (
             <IconButton
               type="button"
-              title="減小字號"
+              title="Decrease Font Size"
               disabled={fontSize <= FONT_SIZE_MIN}
               onClick={() => onFontSizeChange(-1)}
             >
@@ -156,7 +156,7 @@ function ReaderControlsPanel({
           {onFontSizeChange && (
             <IconButton
               type="button"
-              title="增大字號"
+              title="Increase Font Size"
               disabled={fontSize >= FONT_SIZE_MAX}
               onClick={() => onFontSizeChange(1)}
             >
@@ -166,8 +166,8 @@ function ReaderControlsPanel({
           {onFontFamilyChange && (
             <IconDropdown
               icon={<Type size={20} strokeWidth={2.5} />}
-              title="字體"
-              ariaLabel="選擇字體"
+              title="Font"
+              ariaLabel="Select Font"
               options={CHINESE_FONTS}
               value={fontFamily}
               onChange={onFontFamilyChange}
@@ -177,7 +177,7 @@ function ReaderControlsPanel({
           {onTextBrightnessChange && (
             <IconButton
               type="button"
-              title="變暗"
+              title="Darken"
               disabled={textBrightness <= TEXT_BRIGHTNESS_MIN}
               onClick={() => onTextBrightnessChange(-1)}
             >
@@ -187,7 +187,7 @@ function ReaderControlsPanel({
           {onTextBrightnessChange && (
             <IconButton
               type="button"
-              title="變亮"
+              title="Brighten"
               disabled={textBrightness >= TEXT_BRIGHTNESS_MAX}
               onClick={() => onTextBrightnessChange(1)}
             >
@@ -197,8 +197,8 @@ function ReaderControlsPanel({
           {onReaderBackgroundChange && (
             <IconDropdown
               icon={<Palette size={20} strokeWidth={2.5} />}
-              title="閱讀背景"
-              ariaLabel="選擇閱讀背景顏色"
+              title="Reading Background"
+              ariaLabel="Select Reading Background Color"
               options={READER_BACKGROUND_OPTIONS}
               value={readerBackground}
               onChange={onReaderBackgroundChange}
@@ -208,29 +208,29 @@ function ReaderControlsPanel({
         </Section>
         {isCustom && onCustomBgChange && onCustomTextChange && (
           <Section>
-            <ColorPickerLabel title="背景顏色">
+            <ColorPickerLabel title="Background Color">
               <ColorSwatch $color={readerCustomBg} aria-hidden="true" />
               <ColorInput
                 type="color"
                 value={readerCustomBg}
                 onChange={(e) => onCustomBgChange(e.target.value)}
-                aria-label="自訂背景顏色"
+                aria-label="Custom Background Color"
               />
             </ColorPickerLabel>
-            <ColorPickerLabel title="文字顏色">
+            <ColorPickerLabel title="Text Color">
               <ColorSwatch $color={readerCustomText} aria-hidden="true" />
               <ColorInput
                 type="color"
                 value={readerCustomText}
                 onChange={(e) => onCustomTextChange(e.target.value)}
-                aria-label="自訂文字顏色"
+                aria-label="Custom Text Color"
               />
             </ColorPickerLabel>
           </Section>
         )}
         <Section>
           {onRefresh && (
-            <IconButton type="button" title="刷新章節" onClick={onRefresh}>
+            <IconButton type="button" title="Refresh Chapter" onClick={onRefresh}>
               <RefreshCw size={20} strokeWidth={2.5} />
             </IconButton>
           )}

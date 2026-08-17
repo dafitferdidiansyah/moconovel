@@ -14,16 +14,16 @@ function DownloadAllConfirmModal({
   onStay,
   onGoToDownloadPage,
   onClose,
-  stayLabel = '留在目錄',
+  stayLabel = 'Stay on Index',
 }) {
   return (
     <Modal onClose={onClose}>
-      <ModalTitleBar title="開始下載全部" onClose={onClose} />
+      <ModalTitleBar title="Start Download All" onClose={onClose} />
       <ModalBody>
         <ModalText>
-          即將下載 <strong>{chapterCount}</strong> 章未快取的章節。下載全部一次只會排程一本書，可在下載頁查看進度。
+          Starting Download <strong>{chapterCount}</strong>  uncached chapters. Download All schedules one book at a time, check progress on download page.
           {'\n\n'}
-          是否前往下載頁？
+          Go to download page?
         </ModalText>
       </ModalBody>
       <ModalFooter>
@@ -31,7 +31,7 @@ function DownloadAllConfirmModal({
           {stayLabel}
         </ModalSecondaryButton>
         <ModalPrimaryButton type="button" onClick={onGoToDownloadPage}>
-          前往下載頁
+          Go to Download Page
         </ModalPrimaryButton>
       </ModalFooter>
     </Modal>

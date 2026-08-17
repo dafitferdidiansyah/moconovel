@@ -207,15 +207,15 @@ function ChapterActions({ item, manageMode, onChapterDeleted }) {
   };
 
   const getActionTitle = () => {
-    if (downloading) return '下載中';
-    if (cached) return '刷新章節';
-    return '下載';
+    if (downloading) return 'Downloading';
+    if (cached) return 'Refresh Chapter';
+    return 'Download';
   };
 
   const getStatusTitle = () => {
-    if (downloading) return '下載中';
-    if (cached) return '已下載';
-    return '未下載';
+    if (downloading) return 'Downloading';
+    if (cached) return 'Downloaded';
+    return 'Not Downloaded';
   };
 
   const handleClick = () => {
@@ -247,7 +247,7 @@ function ChapterActions({ item, manageMode, onChapterDeleted }) {
             {getActionIcon()}
           </IconButton>
           {cached && (
-            <IconButton type="button" title="刪除章節" onClick={handleDelete}>
+            <IconButton type="button" title="Delete Chapter" onClick={handleDelete}>
               <Trash2 size={18} />
             </IconButton>
           )}

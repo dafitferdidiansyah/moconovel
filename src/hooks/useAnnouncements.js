@@ -3,7 +3,7 @@ import { createLazyResourceStore } from './api/createLazyResourceStore';
 
 const { useStore, refresh } = createLazyResourceStore({
   fetch: fetchAnnouncements,
-  errorMessage: '無法載入公告',
+  errorMessage: 'Failed to load announcements',
   dataKey: 'announcements',
   normalize: (items) => (Array.isArray(items) ? items : []),
   isLoaded: (state) => state.announcements !== null,

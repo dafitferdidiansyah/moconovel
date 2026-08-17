@@ -317,7 +317,7 @@ function BookshelfContent({ conversionMode = 'tw' }) {
       await confirmDialog.onConfirm();
       setConfirmDialog(null);
     } catch (err) {
-      notifyError(err, confirmDialog.errorMessage ?? '操作失敗，請稍後再試。');
+      notifyError(err, confirmDialog.errorMessage ?? 'Operation failed, please try again later.');
     }
   };
 
@@ -328,14 +328,14 @@ function BookshelfContent({ conversionMode = 'tw' }) {
     const { book_name: bookName } = resolveBookDisplay(bookInfo, variant, bookId);
     const convertedName = maybeConvert(bookName, conversionMode) || bookId;
     setConfirmDialog({
-      title: '刪除書籍',
+      title: 'Delete Book',
       message: (
         <ModalText>
-          確定要刪除 <strong>{convertedName}</strong> 的所有本地資料嗎？此操作無法復原。
+          Are you sure you want to delete <strong>{convertedName}</strong> 's local data? This cannot be undone.
         </ModalText>
       ),
-      confirmLabel: '刪除',
-      errorMessage: '刪除書籍失敗，請稍後再試。',
+      confirmLabel: 'Delete',
+      errorMessage: 'Failed to delete book, please try again later.',
       onConfirm: async () => {
         await deleteBooksData([bookId]);
         clearBookRefreshErrors(bookId);
@@ -354,14 +354,14 @@ function BookshelfContent({ conversionMode = 'tw' }) {
     const { book_name: bookName } = resolveBookDisplay(bookInfo, variant, bookId);
     const convertedName = maybeConvert(bookName, conversionMode) || bookId;
     setConfirmDialog({
-      title: '移除書籍',
+      title: 'Remove Book',
       message: (
         <ModalText>
-          確定要從「<strong>{activeCollection.name}</strong>」收藏中移除 <strong>{convertedName}</strong> 嗎？
+          Are you sure you want to remove from "<strong>{activeCollection.name}</strong>' removed from collection <strong>{convertedName}</strong> ?
         </ModalText>
       ),
-      confirmLabel: '移除',
-      errorMessage: '移除書籍失敗，請稍後再試。',
+      confirmLabel: 'Remove',
+      errorMessage: 'Failed to remove book, please try again later.',
       onConfirm: async () => {
         await removeBooksFromCollection(activeTab, [bookId]);
         clearBookRefreshErrors(bookId);
@@ -381,16 +381,16 @@ function BookshelfContent({ conversionMode = 'tw' }) {
     try {
       const { ok, uncachedItemIds, uncachedCount } = await getUncachedChaptersForBook(bookId);
       if (!ok) {
-        notifyError(null, '無法取得章節目錄');
+        notifyError(null, 'Failed to get chapter index');
         return;
       }
       if (uncachedCount === 0) {
-        notifyInfo('所有章節已下載');
+        notifyInfo('All chapters downloaded');
         return;
       }
       setDownloadConfirm({ bookId, chapterCount: uncachedCount, uncachedItemIds });
     } catch (err) {
-      notifyError(err, '無法開始下載，請稍後再試。');
+      notifyError(err, 'Failed to start download, please try again later.');
     }
   }, [notifyError, notifyInfo]);
 
@@ -429,14 +429,14 @@ function BookshelfContent({ conversionMode = 'tw' }) {
 
     if (isAllTab) {
       setConfirmDialog({
-        title: '刪除書籍',
+        title: 'Delete Book',
         message: (
           <ModalText>
-            確定要刪除已選的 <strong>{ids.length}</strong> 本書籍的所有本地資料嗎？此操作無法復原。
+            Are you sure you want to delete selected <strong>{ids.length}</strong>  of this book's local data? This cannot be undone.
           </ModalText>
         ),
-        confirmLabel: '刪除',
-        errorMessage: '刪除書籍失敗，請稍後再試。',
+        confirmLabel: 'Delete',
+        errorMessage: 'Failed to delete book, please try again later.',
         onConfirm: async () => {
           await deleteBooksData(ids);
           clearBookRefreshErrors(ids);
@@ -449,14 +449,14 @@ function BookshelfContent({ conversionMode = 'tw' }) {
 
     if (!activeCollection) return;
     setConfirmDialog({
-      title: '移除書籍',
+      title: 'Remove Book',
       message: (
         <ModalText>
-          確定要從「<strong>{activeCollection.name}</strong>」收藏中移除已選的 <strong>{ids.length}</strong> 本書籍嗎？
+          Are you sure you want to remove from "<strong>{activeCollection.name}</strong>' removed selected from collection <strong>{ids.length}</strong>  books?
         </ModalText>
       ),
-      confirmLabel: '移除',
-      errorMessage: '移除書籍失敗，請稍後再試。',
+      confirmLabel: 'Remove',
+      errorMessage: 'Failed to remove book, please try again later.',
       onConfirm: async () => {
         await removeBooksFromCollection(activeTab, ids);
         clearBookRefreshErrors(ids);
@@ -470,14 +470,14 @@ function BookshelfContent({ conversionMode = 'tw' }) {
     if (selectedBookIds.size === 0) return;
     const ids = Array.from(selectedBookIds);
     setConfirmDialog({
-      title: '刪除書籍',
+      title: 'Delete Book',
       message: (
         <ModalText>
-          確定要刪除已選的 <strong>{ids.length}</strong> 本書籍的所有本地資料嗎？此操作無法復原。
+          Are you sure you want to delete selected <strong>{ids.length}</strong>  of this book's local data? This cannot be undone.
         </ModalText>
       ),
-      confirmLabel: '刪除',
-      errorMessage: '刪除書籍失敗，請稍後再試。',
+      confirmLabel: 'Delete',
+      errorMessage: 'Failed to delete book, please try again later.',
       onConfirm: async () => {
         await deleteBooksData(ids);
         clearBookRefreshErrors(ids);
@@ -537,7 +537,7 @@ function BookshelfContent({ conversionMode = 'tw' }) {
       $paddingBottomMobile={manageBarVisible ? 116 : undefined}
     >
       {!dataLoaded ? (
-        <EmptyHint>載入中…</EmptyHint>
+        <EmptyHint>Loading...</EmptyHint>
       ) : (
         <>
           <BookshelfToolbar
@@ -576,13 +576,13 @@ function BookshelfContent({ conversionMode = 'tw' }) {
           {reorderMode && canReorder && (
             <ReorderHint>
               {viewMode === 'grid'
-                ? '拖曳書籍頂部的握把以調整順序，完成後再次點擊「調序」退出'
-                : '拖曳書籍左側的握把以調整順序，完成後再次點擊「調序」退出'}
+                ? 'Drag top handle on book to reorder, click "Reorder" again when done'
+                : 'Drag left handle on book to reorder, click "Reorder" again when done'}
             </ReorderHint>
           )}
 
           {manageMode && !reorderMode && (
-            <ReorderHint>點擊書籍以選取，使用底部工具列進行管理，完成後再次點擊「管理」退出</ReorderHint>
+            <ReorderHint>Click book to select, use bottom toolbar to manage, click "Manage" again when done</ReorderHint>
           )}
 
           <BookshelfBookList

@@ -188,7 +188,7 @@ function DiscoverBooks({ conversionMode = 'tw' }) {
       }
       await reloadCollectionData();
     } catch (err) {
-      notifyError(err, '更新「全部」失敗，請稍後再試。');
+      notifyError(err, 'Failed to update All, please try again later.');
     }
   }, [reloadCollectionData, notifyError]);
 
@@ -264,7 +264,7 @@ function DiscoverBooks({ conversionMode = 'tw' }) {
       )}
 
       {showSearchContent && !submittedQuery && (
-        <EmptyHint>輸入關鍵字後按搜尋</EmptyHint>
+        <EmptyHint>Enter keyword and press Search</EmptyHint>
       )}
 
       {showListContent && loading && (
@@ -278,15 +278,15 @@ function DiscoverBooks({ conversionMode = 'tw' }) {
       )}
 
       {showSearchContent && submittedQuery && !loading && !error && filteredBooks.length === 0 && (
-        <EmptyHint>找不到相關書籍</EmptyHint>
+        <EmptyHint>No related books found</EmptyHint>
       )}
 
       {showDiscoverContent && !loading && !error && books.length === 0 && (
-        <EmptyHint>暫無書籍</EmptyHint>
+        <EmptyHint>No books</EmptyHint>
       )}
 
       {showListContent && !loading && !error && books.length > 0 && filteredBooks.length === 0 && (
-        <EmptyHint>沒有符合的書籍</EmptyHint>
+        <EmptyHint>No matching books</EmptyHint>
       )}
 
       {showListContent && !loading && !error && sortedBooks.length > 0 && (
@@ -300,7 +300,7 @@ function DiscoverBooks({ conversionMode = 'tw' }) {
 
       {showSearchContent && submittedQuery && !loading && !error && books.length >= SEARCH_RESULT_LIMIT && sortedBooks.length > 0 && (
         <SearchResultCapHint>
-          顯示前 {SEARCH_RESULT_LIMIT} 筆結果，請嘗試更精確的關鍵字
+          Show top {SEARCH_RESULT_LIMIT}  results, try more precise keywords
         </SearchResultCapHint>
       )}
 

@@ -30,7 +30,7 @@ export async function fetchBookDetailAndDirectory(bookId, { forceRefresh = false
     dirSettled,
     directoryCache,
     bookId,
-    '獲取書籍目錄失敗',
+    'Failed to get book index',
     { item_data_list: [] },
   );
 
@@ -38,7 +38,7 @@ export async function fetchBookDetailAndDirectory(bookId, { forceRefresh = false
     detailSettled,
     detailCache,
     bookId,
-    '獲取書籍詳情失敗',
+    'Failed to get book details',
     {},
   );
 
@@ -56,7 +56,7 @@ export async function fetchBookDetailAndDirectory(bookId, { forceRefresh = false
     !hadDirectoryCache &&
     !(bookData.item_data_list?.length)
   ) {
-    throw dirSettled.reason ?? new Error('獲取書籍目錄失敗，請檢查 bookId 是否正確，或者稍後再試。');
+    throw dirSettled.reason ?? new Error('Failed to get book index, please check bookId is correct, or try again later.');
   }
 
   const merged = {
@@ -70,11 +70,11 @@ export async function fetchBookDetailAndDirectory(bookId, { forceRefresh = false
     const detailFail = detailSettled.status === 'rejected' && detailSettled.reason?.name !== 'AbortError';
 
     if (dirFail && detailFail) {
-      partialLoadMessage = '目錄與書籍詳情均無法更新，已顯示快取內容';
+      partialLoadMessage = 'Index and details could not update, showing cached content';
     } else if (dirFail) {
-      partialLoadMessage = hadDirectoryCache ? '目錄無法更新，已顯示快取章節' : '目錄載入失敗';
+      partialLoadMessage = hadDirectoryCache ? 'Index could not update, showing cached chapters' : 'Failed to load index';
     } else if (detailFail) {
-      partialLoadMessage = hadDetailCache ? '書籍詳情無法更新，已顯示快取資訊' : '書籍詳情載入失敗';
+      partialLoadMessage = hadDetailCache ? 'Book details could not update, showing cached info' : 'Failed to load book details';
     }
   }
 

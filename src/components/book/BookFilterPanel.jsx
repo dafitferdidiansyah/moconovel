@@ -213,7 +213,7 @@ function BookFilterPanel({
   filteredCount,
 }) {
   const categoryOptions = [
-    { value: '', label: '全部' },
+    { value: '', label: 'All' },
     ...categories.map((category) => ({
       value: category,
       label: maybeConvert(category, conversionMode),
@@ -278,13 +278,13 @@ function BookFilterPanel({
           aria-controls="book-filter-panel"
         >
           <SlidersHorizontal aria-hidden />
-          篩選
+          Filter
           {filteredCount != null && ` (${filteredCount})`}
           <ChevronDown className={`chevron${expanded ? ' open' : ''}`} aria-hidden />
         </ToggleBtn>
 
         {showActiveFilters && (
-          <HorizontalScrollArea as={ActiveFilters} aria-label="已選篩選">
+          <HorizontalScrollArea as={ActiveFilters} aria-label="Selected Filters">
             {activeFilterLabels.map((label) => (
               <ActiveTag key={label}>{label}</ActiveTag>
             ))}
@@ -295,8 +295,8 @@ function BookFilterPanel({
           <ClearBtn
             type="button"
             onClick={clearFilters}
-            title="清除篩選"
-            aria-label="清除篩選"
+            title="Clear Filters"
+            aria-label="Clear Filters"
           >
             <X aria-hidden />
           </ClearBtn>
@@ -306,21 +306,21 @@ function BookFilterPanel({
       {expanded && (
         <Body id="book-filter-panel">
           <FilterRow
-            label="分類"
+            label="Category"
             options={categoryOptions}
             value={filters.category}
             onChange={(value) => setFilter('category', value)}
             optionCounts={categoryCounts}
           />
           <FilterRow
-            label="狀態"
+            label="Status"
             options={STATUS_FILTER_OPTIONS}
             value={filters.status}
             onChange={(value) => setFilter('status', value)}
             optionCounts={statusCounts}
           />
           <FilterRow
-            label="字數"
+            label="Word Count"
             options={WORD_COUNT_FILTER_OPTIONS}
             value={filters.wordCount}
             onChange={(value) => setFilter('wordCount', value)}

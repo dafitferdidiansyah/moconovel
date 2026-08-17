@@ -23,15 +23,15 @@ function DiscoverSearchForm({
           type="search"
           value={searchInput}
           onChange={onSearchInputChange}
-          placeholder="輸入書名、作者或關鍵字"
-          aria-label="搜尋書籍"
+          placeholder="Enter title, author, or keywords"
+          aria-label="Search Books"
         />
         {searchInput && (
           <SearchClearIconBtn
             type="button"
             onClick={onClear}
-            title="清除搜尋"
-            aria-label="清除搜尋"
+            title="Clear Search"
+            aria-label="Clear Search"
           >
             <X aria-hidden />
           </SearchClearIconBtn>
@@ -41,7 +41,7 @@ function DiscoverSearchForm({
         type="submit"
         disabled={!searchInput.trim() || loading || searchInput.trim() === submittedQuery}
       >
-        搜尋
+        Search
       </SearchSubmitBtn>
     </SearchForm>
   );

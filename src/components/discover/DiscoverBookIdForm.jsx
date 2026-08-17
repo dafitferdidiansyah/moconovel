@@ -96,11 +96,11 @@ function DiscoverBookIdForm({ embedded = false, autoFocus = false }) {
         <input
           ref={inputRef}
           type="text"
-          placeholder="貼上書籍 ID 或網址（番茄小說 / Tomato MTL）"
+          placeholder="Paste book ID or URL (Tomato Novel / Tomato MTL）"
           defaultValue=""
           autoFocus={autoFocus}
         />
-        <button type="submit">開始閱讀</button>
+        <button type="submit">Start Reading</button>
       </FormEl>
     </InputGroup>
   );

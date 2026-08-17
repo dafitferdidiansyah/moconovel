@@ -59,7 +59,7 @@ function BottomBar({ chapterData, bookId }) {
   return (
     <BottomBarWrapper>
       {pre_item_id ? (
-        <Link to={buildChapterUrl(pre_item_id, bookId)} title="上一章">
+        <Link to={buildChapterUrl(pre_item_id, bookId)} title="Previous Chapter">
           <IconWrapper>
             <ChevronLeft size={28} strokeWidth={2} />
           </IconWrapper>
@@ -72,7 +72,7 @@ function BottomBar({ chapterData, bookId }) {
         </span>
       )}
       {next_item_id ? (
-        <Link to={buildChapterUrl(next_item_id, bookId)} title="下一章">
+        <Link to={buildChapterUrl(next_item_id, bookId)} title="Next Chapter">
           <IconWrapper>
             <ChevronRight size={28} strokeWidth={2} />
           </IconWrapper>

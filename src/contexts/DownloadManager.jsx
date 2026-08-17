@@ -102,8 +102,8 @@ export function DownloadManagerProvider({ children }) {
         })
         .catch((err) => {
           if (err.name === 'AbortError') return;
-          console.error('章節下載失敗：', itemId, err);
-          notifyError(err, '章節下載失敗，請稍後再試。');
+          console.error('Chapter download failed:', itemId, err);
+          notifyError(err, 'Chapter download failed, please try again later.');
         })
         .finally(() => {
           abortControllersRef.current.delete(itemId);

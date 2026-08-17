@@ -72,10 +72,10 @@ function BookshelfToolbar({
         <Tab
           $active={activeTab === ALL_TAB}
           onClick={() => onActiveTabChange(ALL_TAB)}
-          title={`全部 (${readingHistory.length})`}
+          title={`All (${readingHistory.length})`}
         >
           <TabInner>
-            <TabName>全部</TabName>
+            <TabName>All</TabName>
             <TabCount>({readingHistory.length})</TabCount>
           </TabInner>
         </Tab>
@@ -101,15 +101,15 @@ function BookshelfToolbar({
             type="search"
             value={searchQuery}
             onChange={(e) => onSearchQueryChange(e.target.value)}
-            placeholder="搜尋書名、作者、簡介、標籤等"
-            aria-label="搜尋書名、作者、簡介、標籤等"
+            placeholder="Search title, author, description, tags, etc."
+            aria-label="Search title, author, description, tags, etc."
           />
           {searchQuery && (
             <SearchClearBtn
               type="button"
               onClick={() => onSearchQueryChange('')}
-              title="清除搜尋"
-              aria-label="清除搜尋"
+              title="Clear Search"
+              aria-label="Clear Search"
             >
               <X />
             </SearchClearBtn>
@@ -119,11 +119,11 @@ function BookshelfToolbar({
           <ToggleBtn
             type="button"
             onClick={onOpenCollectionManagement}
-            title="管理收藏夾"
-            aria-label="管理收藏夾"
+            title="Manage Collections"
+            aria-label="Manage Collections"
           >
             <Folders />
-            <BtnLabel>收藏夾</BtnLabel>
+            <BtnLabel>Collections</BtnLabel>
           </ToggleBtn>
         </ViewToggle>
       </SearchRow>
@@ -147,7 +147,7 @@ function BookshelfToolbar({
               options={BOOKSHELF_SORT_OPTIONS}
               value={sortBy}
               onChange={onSortChange}
-              ariaLabel="書架排序方式"
+              ariaLabel="Bookshelf Sort Method"
               hasTrailing={sortBy !== 'manual' || canReorder}
               {...TOOLBAR_SORT_DROPDOWN_PROPS}
             />
@@ -161,12 +161,12 @@ function BookshelfToolbar({
                 type="button"
                 $active={reorderMode}
                 onClick={onReorderModeToggle}
-                title="調整排序"
-                aria-label="調整排序"
+                title="Adjust Order"
+                aria-label="Adjust Order"
                 aria-pressed={reorderMode}
               >
                 <Hand />
-                <BtnLabel>調序</BtnLabel>
+                <BtnLabel>Reorder</BtnLabel>
               </SortTrailingBtn>
             ) : null}
           </SortUnit>
@@ -174,23 +174,23 @@ function BookshelfToolbar({
             <ToggleBtn
               $active={manageMode}
               onClick={onManageModeToggle}
-              title="管理書籍"
-              aria-label="管理書籍"
+              title="Manage Books"
+              aria-label="Manage Books"
               aria-pressed={manageMode}
             >
               <ListChecks />
-              <BtnLabel>管理</BtnLabel>
+              <BtnLabel>Manage</BtnLabel>
             </ToggleBtn>
           </ViewToggle>
           <ViewToggle>
             <ToggleBtn
               type="button"
               onClick={() => navigate(buildDefaultDiscoverUrl())}
-              title="新增書籍"
-              aria-label="新增書籍"
+              title="Add Book"
+              aria-label="Add Book"
             >
               <Plus />
-              <BtnLabel>新書</BtnLabel>
+              <BtnLabel>New Book</BtnLabel>
             </ToggleBtn>
           </ViewToggle>
           <ListGridViewToggle viewMode={viewMode} onViewModeChange={onViewModeChange} />

@@ -3,7 +3,7 @@ import { createLazyResourceStore } from './createLazyResourceStore';
 
 const { useStore, refresh } = createLazyResourceStore({
   fetch: fetchApiStatus,
-  errorMessage: '無法載入 API 狀態',
+  errorMessage: 'Failed to load API Status',
   dataKey: 'data',
   isLoaded: (state) => Boolean(state.data),
 });

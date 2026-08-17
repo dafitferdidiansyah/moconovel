@@ -93,12 +93,12 @@ function DiscoverHelp({ embedded = false }) {
   const content = (
     <HelpGrid>
       <HelpCard>
-        <h3>尋找書籍</h3>
-        <p>造訪 <span>番茄小說網</span> 或 <span>Tomato MTL</span> 找到想閱讀的小說。</p>
+        <h3>Find Books</h3>
+        <p>Visit <span>Tomato Novel Network</span> Or <span>Tomato MTL</span> find the novel you want to read.</p>
         <LinkButtonRow>
           <ExternalLinkButton href="https://fanqienovel.com" target="_blank" rel="noopener noreferrer">
             <Globe aria-hidden />
-            番茄小說網
+            Tomato Novel Network
           </ExternalLinkButton>
           <ExternalLinkButton href="https://tomatomtl.com" target="_blank" rel="noopener noreferrer">
             <Library aria-hidden />
@@ -107,8 +107,8 @@ function DiscoverHelp({ embedded = false }) {
         </LinkButtonRow>
       </HelpCard>
       <HelpCard>
-        <h3>獲取書籍 ID</h3>
-        <p>在小說詳情頁的網址中找到那一串數字：</p>
+        <h3>Get Book ID</h3>
+        <p>Find the string of numbers in the novel's URL:</p>
         <div className="code-box">
           https://fanqienovel.com/page/<span>123456789</span>?...
         </div>

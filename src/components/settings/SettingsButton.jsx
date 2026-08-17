@@ -10,8 +10,8 @@ function SettingsButton() {
     <>
       <IconButton
         type="button"
-        title="設定"
-        aria-label="設定"
+        title="Settings"
+        aria-label="Settings"
         onClick={() => setOpen(true)}
       >
         <Settings size={20} strokeWidth={2.5} />
@@ -21,6 +21,6 @@ function SettingsButton() {
   );
 }
 
-SettingsButton.toolLabel = '設定';
+SettingsButton.toolLabel = 'Settings';
 
 export default SettingsButton;

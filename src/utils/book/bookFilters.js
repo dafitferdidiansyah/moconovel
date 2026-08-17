@@ -5,18 +5,18 @@ export const EMPTY_BOOK_FILTERS = {
 };
 
 export const STATUS_FILTER_OPTIONS = [
-  { value: '', label: '全部' },
-  { value: 'completed', label: '已完結' },
-  { value: 'ongoing', label: '連載中' },
+  { value: '', label: 'All' },
+  { value: 'completed', label: 'Completed' },
+  { value: 'ongoing', label: 'Ongoing' },
 ];
 
 export const WORD_COUNT_FILTER_OPTIONS = [
-  { value: '', label: '全部' },
-  { value: 'under30', label: '30萬以下' },
-  { value: '30to50', label: '30-50萬' },
-  { value: '50to100', label: '50-100萬' },
-  { value: '100to200', label: '100-200萬' },
-  { value: 'over200', label: '200萬以上' },
+  { value: '', label: 'All' },
+  { value: 'under30', label: '300k-' },
+  { value: '30to50', label: '30-500k' },
+  { value: '50to100', label: '50-1000k' },
+  { value: '100to200', label: '100-2000k' },
+  { value: 'over200', label: '2000k+' },
 ];
 
 const WORD_COUNT_RANGES = {

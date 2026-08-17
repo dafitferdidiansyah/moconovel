@@ -203,11 +203,11 @@ function CollectionManagementModal({
   return (
     <>
       <Modal onClose={onClose} maxWidth="420px">
-        <ModalTitleBar title="管理收藏夾" onClose={onClose} />
+        <ModalTitleBar title="Manage Collections" onClose={onClose} />
         <ModalBody $scroll={false}>
-          <Hint>拖曳左側握把以調整收藏夾順序</Hint>
+          <Hint>Drag left handle to reorder collections</Hint>
           {collections.length === 0 ? (
-            <EmptyHint $compact>尚無收藏夾，請在下方建立一個</EmptyHint>
+            <EmptyHint $compact>No collections yet, please create one below</EmptyHint>
           ) : (
             <ModalScrollRegion>
               <SortableBooks
@@ -218,7 +218,7 @@ function CollectionManagementModal({
                 onReorder={handleReorder}
                 renderItem={(col, sortable) => (
                 <CollectionRow $isDragging={sortable.isDragging}>
-                  <DragHandle {...sortable.dragHandleProps} aria-label="拖曳排序">
+                  <DragHandle {...sortable.dragHandleProps} aria-label="Drag to Reorder">
                     <GripVertical />
                   </DragHandle>
                   <RowMain>
@@ -235,29 +235,29 @@ function CollectionManagementModal({
                     ) : (
                       <>
                         <RowName title={col.name}>{col.name}</RowName>
-                        <RowMeta>{col.bookIds.length} 本</RowMeta>
+                        <RowMeta>{col.bookIds.length}  books</RowMeta>
                       </>
                     )}
                     <RowActions>
                       {editingId === col.id ? (
                         <>
-                          <IconBtn type="button" $variant="confirm" onClick={confirmEdit} title="確認">
+                          <IconBtn type="button" $variant="confirm" onClick={confirmEdit} title="Confirm">
                             <Check />
                           </IconBtn>
-                          <IconBtn type="button" $variant="cancel" onClick={cancelEdit} title="取消">
+                          <IconBtn type="button" $variant="cancel" onClick={cancelEdit} title="Cancel">
                             <X />
                           </IconBtn>
                         </>
                       ) : (
                         <>
-                          <IconBtn type="button" onClick={() => startEdit(col)} title="重新命名">
+                          <IconBtn type="button" onClick={() => startEdit(col)} title="Rename">
                             <Edit2 />
                           </IconBtn>
                           <IconBtn
                             type="button"
                             $variant="delete"
                             onClick={() => setDeleteTarget(col)}
-                            title="刪除收藏夾"
+                            title="Delete Collection"
                           >
                             <Trash2 />
                           </IconBtn>
@@ -275,25 +275,25 @@ function CollectionManagementModal({
           <ModalInput
             value={newName}
             onChange={(e) => setNewName(e.target.value)}
-            placeholder="新增收藏夾…"
+            placeholder="New Collection..."
             onKeyDown={(e) => { if (e.key === 'Enter') handleCreate(); }}
           />
           <ModalPrimaryButton type="button" onClick={handleCreate}>
-            建立
+            Create
           </ModalPrimaryButton>
         </ModalFooter>
       </Modal>
 
       {deleteTarget && (
         <ConfirmModal
-          title="刪除收藏夾"
+          title="Delete Collection"
           message={(
             <ModalText>
-              確定要刪除收藏夾「<strong>{deleteTarget.name}</strong>」嗎？
-              {activeTab === deleteTarget.id && ' 刪除後將返回「全部」分頁。'}
+              Are you sure you want to delete collection "<strong>{deleteTarget.name}</strong>'?
+              {activeTab === deleteTarget.id && ' Will return to All tab after deletion.'}
             </ModalText>
           )}
-          confirmLabel="刪除"
+          confirmLabel="Delete"
           onConfirm={handleConfirmDelete}
           onCancel={() => setDeleteTarget(null)}
         />

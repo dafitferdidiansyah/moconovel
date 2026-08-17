@@ -35,7 +35,7 @@ function CommentStatsHeading({ commentCnt, convertedContext }) {
 
   return (
     <SectionTitle>
-      {commentCnt > 0 && <span>共 {commentCnt} 則評論</span>}
+      {commentCnt > 0 && <span>Total {commentCnt}  comments</span>}
       {commentCnt > 0 && convertedContext && <span> · </span>}
       {convertedContext && <span>{convertedContext}</span>}
     </SectionTitle>
@@ -129,9 +129,9 @@ function CommentsContent({
       <Section>
         <CommentStatsHeading commentCnt={commentCnt} convertedContext={convertedContext} />
         {pageLoading ? (
-          <ListLoading>載入中…</ListLoading>
+          <ListLoading>Loading...</ListLoading>
         ) : comments.length === 0 ? (
-          <EmptyHint>暫無評論</EmptyHint>
+          <EmptyHint>No comments</EmptyHint>
         ) : (
           <CommentList>
               {comments.map((item, idx) => (
@@ -148,16 +148,16 @@ function CommentsContent({
             type="button"
             onClick={onPrevPage}
             disabled={!canGoPrev || pageLoading}
-            title="上一頁"
+            title="Previous Page"
           >
             <ChevronLeft size={18} />
           </PaginationButton>
-          <PageInfo>第 {page} 頁</PageInfo>
+          <PageInfo>No. {page}  pages</PageInfo>
           <PaginationButton
             type="button"
             onClick={onNextPage}
             disabled={!canGoNext || pageLoading}
-            title="下一頁"
+            title="Next Page"
           >
             <ChevronRight size={18} />
           </PaginationButton>

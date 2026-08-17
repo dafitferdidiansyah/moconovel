@@ -7,7 +7,7 @@ import { resolveBookDisplay } from '../book/bookInfo';
 import { fetchHeicCoverAsJpeg, isHeicCoverUrl } from '../book/coverUrl';
 
 /** Shown when export runs but no chapters are cached locally. */
-export const EXPORT_NO_CACHED_CHAPTERS_MSG = '沒有已下載的章節，請先下載後再匯出。';
+export const EXPORT_NO_CACHED_CHAPTERS_MSG = 'No downloaded chapters, please download before exporting.';
 
 export function sanitizeExportFileName(name, fallback) {
   return (name || '').replace(/[<>:"/\\|?*]/g, '_').trim().slice(0, 200) || fallback;

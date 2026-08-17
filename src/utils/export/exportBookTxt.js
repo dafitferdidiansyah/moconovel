@@ -46,7 +46,7 @@ export async function exportBookToTxt({
     '',
     `${author}`,
     '',
-    abstract || '（無簡介）',
+    abstract || '(No Description)',
     '',
     '═══════════════════════════════════════',
     '',

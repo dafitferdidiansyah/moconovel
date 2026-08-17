@@ -6,7 +6,7 @@ import {
   ModalText,
 } from './ModalBase';
 
-function SimpleTextModal({ text, onClose, title = '詳情' }) {
+function SimpleTextModal({ text, onClose, title = 'Details' }) {
   return (
     <ModalRoot onClose={onClose} maxWidth="560px">
       <ModalTitleBar title={title} onClose={onClose} />

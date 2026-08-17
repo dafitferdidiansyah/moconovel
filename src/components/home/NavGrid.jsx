@@ -85,22 +85,22 @@ function NavGrid() {
   return (
     <>
       <Section>
-        <SectionLabel>常用功能</SectionLabel>
+        <SectionLabel>Common Features</SectionLabel>
         <QuickGrid>
-          <QuickButton type="button" onClick={() => navigate(ROUTES.bookshelf)}><BookOpen aria-hidden /><strong>書架</strong><span>閱讀歷史與收藏</span></QuickButton>
-          <QuickButton type="button" onClick={() => navigate(buildDefaultDiscoverUrl())}><Compass aria-hidden /><strong>找書</strong><span>開始一段新閱讀</span></QuickButton>
-          <QuickButton type="button" onClick={() => navigate(ROUTES.download)}><Download aria-hidden /><strong>下載</strong><span>離線閱讀與管理</span></QuickButton>
+          <QuickButton type="button" onClick={() => navigate(ROUTES.bookshelf)}><BookOpen aria-hidden /><strong>Bookshelf</strong><span>Reading History & Collections</span></QuickButton>
+          <QuickButton type="button" onClick={() => navigate(buildDefaultDiscoverUrl())}><Compass aria-hidden /><strong>Find Book</strong><span>Start a new reading</span></QuickButton>
+          <QuickButton type="button" onClick={() => navigate(ROUTES.download)}><Download aria-hidden /><strong>Download</strong><span>Offline Reading & Management</span></QuickButton>
         </QuickGrid>
       </Section>
       <Section>
-        <SectionLabel>工具與資訊</SectionLabel>
+        <SectionLabel>Tools & Info</SectionLabel>
         <UtilityGrid>
-          <UtilityButton type="button" onClick={() => navigate(ROUTES.announcements)}><Megaphone aria-hidden />公告</UtilityButton>
-          <UtilityButton type="button" onClick={() => navigate(ROUTES.status)}><Activity aria-hidden />API 狀態</UtilityButton>
-          <UtilityButton type="button" onClick={() => navigate(ROUTES.export)}><Archive aria-hidden />備份</UtilityButton>
-          <UtilityButton type="button" onClick={() => navigate(ROUTES.terms)}><FileText aria-hidden />使用條款</UtilityButton>
-          <UtilityLink href={GITHUB_ISSUES_URL} target="_blank" rel="noopener noreferrer"><MessageCircleWarning aria-hidden />回報問題</UtilityLink>
-          <UtilityLink href={GITHUB_REPO_URL} target="_blank" rel="noopener noreferrer"><Github aria-hidden />原始碼</UtilityLink>
+          <UtilityButton type="button" onClick={() => navigate(ROUTES.announcements)}><Megaphone aria-hidden />Announcement</UtilityButton>
+          <UtilityButton type="button" onClick={() => navigate(ROUTES.status)}><Activity aria-hidden />API Status</UtilityButton>
+          <UtilityButton type="button" onClick={() => navigate(ROUTES.export)}><Archive aria-hidden />Backup</UtilityButton>
+          <UtilityButton type="button" onClick={() => navigate(ROUTES.terms)}><FileText aria-hidden />Terms of Use</UtilityButton>
+          <UtilityLink href={GITHUB_ISSUES_URL} target="_blank" rel="noopener noreferrer"><MessageCircleWarning aria-hidden />Report Issue</UtilityLink>
+          <UtilityLink href={GITHUB_REPO_URL} target="_blank" rel="noopener noreferrer"><Github aria-hidden />Source Code</UtilityLink>
         </UtilityGrid>
       </Section>
     </>

@@ -121,7 +121,7 @@ function Catalog() {
     <PageWrapper>
       {bookInfo && (
         <NavTopBar
-          pageTitle="目錄"
+          pageTitle="Index"
           navVariant="catalog"
           bookId={bookId}
           lastReadItemId={lastReadItemId}

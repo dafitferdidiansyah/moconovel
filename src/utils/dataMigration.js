@@ -63,13 +63,13 @@ function parseBackupFile(text) {
   try {
     data = JSON.parse(text);
   } catch {
-    throw new Error(`檔案格式無效，請確認上傳的是 ${DATA_BACKUP_EXTENSION} 備份檔。`);
+    throw new Error(`Invalid file format, please confirm you uploaded ${DATA_BACKUP_EXTENSION} backup file.`);
   }
   if (data?.app !== 'fanqietc' || typeof data.indexedDB !== 'object') {
-    throw new Error('此檔案不是有效的番閱備份。');
+    throw new Error('This file is not a valid reader backup.');
   }
   if (data.version !== DATA_BACKUP_VERSION) {
-    throw new Error(`不支援的備份版本（${data.version ?? '未知'}）。請更新網站後再試。`);
+    throw new Error(`Unsupported backup version (${data.version ?? 'Unknown'}). Please update site and try again.`);
   }
   return data;
 }
@@ -81,9 +81,9 @@ function hasBackupExtension(filename) {
 export { hasBackupExtension };
 
 export async function importUserData(file) {
-  if (!file) throw new Error('請選擇備份檔案。');
+  if (!file) throw new Error('Please select a backup file.');
   if (!hasBackupExtension(file.name)) {
-    throw new Error(`請選擇 ${DATA_BACKUP_EXTENSION} 備份檔，不接受其他副檔名。`);
+    throw new Error(`Please select ${DATA_BACKUP_EXTENSION} backup file, other extensions are not accepted.`);
   }
 
   const text = await file.text();

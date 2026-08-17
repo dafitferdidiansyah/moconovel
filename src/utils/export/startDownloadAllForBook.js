@@ -21,14 +21,14 @@ export async function startDownloadAllForBook({ bookId, startDownloadAll, showTo
   const { notifyError, notifyInfo } = createToastHelpers(showToast ?? (() => {}));
   const { ok, uncachedItemIds, uncachedCount } = await getUncachedChaptersForBook(bookId);
   if (!ok) {
-    notifyError(null, '無法取得章節目錄');
+    notifyError(null, 'Failed to get chapter index');
     return { started: false, uncachedCount: 0, ok: false };
   }
 
   if (uncachedCount > 0) {
     startDownloadAll(bookId, uncachedItemIds);
   } else {
-    notifyInfo('所有章節已下載');
+    notifyInfo('All chapters downloaded');
   }
 
   return { started: uncachedCount > 0, uncachedCount, ok: true };
@@ -41,7 +41,7 @@ export async function startDownloadAllForBookSafe({
   bookId,
   startDownloadAll,
   showToast,
-  errorMessage = '無法開始下載，請稍後再試。',
+  errorMessage = 'Failed to start download, please try again later.',
 }) {
   const { notifyError } = createToastHelpers(showToast ?? (() => {}));
   try {

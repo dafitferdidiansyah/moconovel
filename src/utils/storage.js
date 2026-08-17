@@ -155,7 +155,7 @@ export async function setLastReadChapter(bookId, itemId) {
   return saveReadingHistory(history);
 }
 
-/** Add books to reading history (「全部」) without requiring a chapter read. */
+/** Add books to reading history ('All') without requiring a chapter read. */
 export async function addBooksToReadingHistory(bookIds) {
   const bids = [...new Set((Array.isArray(bookIds) ? bookIds : [bookIds]).map(String).filter(Boolean))];
   if (!bids.length) return false;

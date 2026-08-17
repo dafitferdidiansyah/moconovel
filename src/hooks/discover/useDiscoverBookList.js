@@ -49,7 +49,7 @@ export function useDiscoverBookList({
         })
         .catch((err) => {
           if (err.name === 'AbortError') return;
-          console.error('搜尋書籍失敗:', submittedQuery, err);
+          console.error('Book search failed:', submittedQuery, err);
           setError(formatErrorMessage(err, PRIMARY_ERROR_MESSAGES[PRIMARY_TAB_SEARCH]));
           setLoading(false);
         });
@@ -69,7 +69,7 @@ export function useDiscoverBookList({
       })
       .catch((err) => {
         if (err.name === 'AbortError') return;
-        console.error('獲取書籍列表失敗:', activePrimary, activeSecondary, err);
+        console.error('Failed to get book list:', activePrimary, activeSecondary, err);
         setError(formatErrorMessage(err, PRIMARY_ERROR_MESSAGES[activePrimary]));
         setLoading(false);
       });

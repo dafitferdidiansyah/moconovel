@@ -23,14 +23,14 @@ function ExportContent() {
     try {
       const summary = await exportUserData();
       if (summary.totalKeys === 0) {
-        notifyInfo('備份檔已下載，但目前沒有可遷移的資料。');
+        notifyInfo('Backup downloaded, but no data to migrate.');
       } else {
         notifySuccess(
-          `已匯出備份檔（${summary.chapters} 章節、${summary.directories} 本目錄、${summary.details} 本書籍）。`,
+          `Backup file exported (${summary.chapters}  chapters, ${summary.directories}  indexes, ${summary.details}  books).`,
         );
       }
     } catch (err) {
-      notifyError(err, '匯出失敗，請稍後再試。');
+      notifyError(err, 'Export failed, please try again later.');
     } finally {
       setExporting(false);
     }
@@ -39,58 +39,58 @@ function ExportContent() {
   return (
     <PageContent $paddingBottom={48} $paddingBottomMobile={32}>
       <Section>
-        <SectionTitle>資料遷移 — 匯出</SectionTitle>
+        <SectionTitle>Data Migration — Export</SectionTitle>
 
         <StepCard>
-          <b>誰需要匯出？</b>
+          <b>Who needs to export?</b>
           <p>
-            如果您曾在 <HostCodeList hostnames={LEGACY_HOSTNAMES} />{' '}
-            看過書，而且想保留閱讀紀錄和下載的章節，就需要進行匯出。如果您已經在{' '}
-            <code>{CANONICAL_HOSTNAME}</code> 開始使用了，就不需要匯出囉。
+            If you have ever in <HostCodeList hostnames={LEGACY_HOSTNAMES} />{' '}
+            If you've read books and want to keep history/downloads, you need to export. If you are already at{' '}
+            <code>{CANONICAL_HOSTNAME}</code> started using, no need to export.
           </p>
         </StepCard>
 
         <StepCard>
-          <b>第一步：在舊站下載備份</b>
+          <b>Step 1: Download backup from old site</b>
           <ol>
             <li>
-              請先回到您<strong>原本看書</strong>的舊站（
+              Please go back to your<strong>Original reading</strong>'s old site (
               <HostCodeList hostnames={LEGACY_HOSTNAMES} />）。
             </li>
-            <li>進入本頁（<code>/export</code>）或從首頁點擊「前往匯出資料」。</li>
-            <li>點擊下方的「匯出資料」，瀏覽器會下載一個 <code>{DATA_BACKUP_EXTENSION}</code> 的備份檔。</li>
+            <li>Enter this page (<code>/export</code>) or click "Go to Export Data" from Home.</li>
+            <li>Click "Export Data" below, browser will download a <code>{DATA_BACKUP_EXTENSION}</code> backup file.</li>
           </ol>
           {!onLegacySite && (
             <Hint>
-              提醒您：您目前不在舊站喔！請先回到原本看書的網址再匯出，否則只會備份到目前的空資料。
+              Reminder: You aren't on the old site! Please go back to your original reading URL to export, otherwise you'll only backup current empty data.
             </Hint>
           )}
           <ActionRow>
             <GrayButton type="button" onClick={handleExport} disabled={exporting}>
-              {exporting ? '打包中…' : '匯出資料'}
+              {exporting ? 'Packaging...' : 'Export Data'}
             </GrayButton>
           </ActionRow>
         </StepCard>
 
         <StepCard>
-          <b>第二步：到新站匯入</b>
+          <b>Step 2: Import to new site</b>
           <ol>
             <li>
-              前往新站{' '}
+              Go to New Site{' '}
               <a href={CANONICAL_SITE_URL} target="_blank" rel="noopener noreferrer">
                 {CANONICAL_HOSTNAME}
               </a>
-              {' '}的匯入頁面。
+              {' '}import page.
             </li>
-            <li>上傳剛剛下載的 <code>{DATA_BACKUP_EXTENSION}</code> 檔案。</li>
-            <li>匯入成功後，重新整理書架就可以繼續看書囉！</li>
+            <li>Upload recently downloaded <code>{DATA_BACKUP_EXTENSION}</code> file.</li>
+            <li>After successful import, refresh your bookshelf to continue reading!</li>
           </ol>
           <ActionRow>
             <GrayButton
               type="button"
               onClick={() => window.open(CANONICAL_IMPORT_URL, '_blank', 'noopener,noreferrer')}
             >
-              前往 {CANONICAL_HOSTNAME} 匯入
+              Go to {CANONICAL_HOSTNAME} Import
             </GrayButton>
           </ActionRow>
         </StepCard>

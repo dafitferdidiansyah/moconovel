@@ -1,5 +1,5 @@
 export function getChapterTitle(item) {
-  return item?.title || `第 ${item?.item_id} 章`;
+  return item?.title || `No. ${item?.item_id}  chapters`;
 }
 
 export function buildNovelDataFromDirectory(itemId, bookId, itemDataList) {

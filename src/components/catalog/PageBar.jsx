@@ -83,13 +83,13 @@ function PageOptionLabel({ pageNumber, rangeStart, rangeEnd, showRange = false }
   if (showRange) {
     return (
       <OptionLine>
-        第 {pageNumber} 頁{' '}
+        No. {pageNumber}  pages{' '}
         <RangeBracket>( {rangeStart} - {rangeEnd} )</RangeBracket>
       </OptionLine>
     );
   }
 
-  return <PageLine>第 {pageNumber} 頁</PageLine>;
+  return <PageLine>No. {pageNumber}  pages</PageLine>;
 }
 
 function PageDropdown({ pageOptions, currentPage, onPageSelect, openUpward = false }) {
@@ -100,8 +100,8 @@ function PageDropdown({ pageOptions, currentPage, onPageSelect, openUpward = fal
       options={pageOptions}
       value={String(currentPage)}
       onChange={(next) => onPageSelect(Number(next))}
-      ariaLabel={`第 ${selected.pageNumber} 頁，${selected.rangeStart} - ${selected.rangeEnd}`}
-      menuAriaLabel="章節頁面"
+      ariaLabel={`No. ${selected.pageNumber}  pages, ${selected.rangeStart} - ${selected.rangeEnd}`}
+      menuAriaLabel="Chapter Page"
       openUpward={openUpward}
       square
       retro
@@ -136,8 +136,8 @@ function PageBar({
   const manageButton = onManageModeToggle && (
     <NavButton
       type="button"
-      title={manageMode ? '退出管理' : '管理章節'}
-      aria-label={manageMode ? '退出管理' : '管理章節'}
+      title={manageMode ? 'Exit Manage' : 'Manage Chapters'}
+      aria-label={manageMode ? 'Exit Manage' : 'Manage Chapters'}
       aria-pressed={manageMode}
       $active={manageMode}
       onClick={onManageModeToggle}
@@ -149,7 +149,7 @@ function PageBar({
   const sortButton = (
     <NavButton
       type="button"
-      title={sortOrder === 'ascending' ? '升序排列' : '降序排列'}
+      title={sortOrder === 'ascending' ? 'Sort Ascending' : 'Sort Descending'}
       onClick={onSortChange}
       style={sortOrder === 'descending' ? { color: 'var(--accent-color)' } : undefined}
     >
@@ -160,7 +160,7 @@ function PageBar({
   return (
     <Bar>
       <PaginationGroup>
-        <NavButton type="button" title="上一頁" onClick={onPagePrev} disabled={!canGoPrev}>
+        <NavButton type="button" title="Previous Page" onClick={onPagePrev} disabled={!canGoPrev}>
           <ChevronLeft size={18} />
         </NavButton>
         {manageButton}
@@ -171,7 +171,7 @@ function PageBar({
           openUpward={menuOpensUp}
         />
         {sortButton}
-        <NavButton type="button" title="下一頁" onClick={onPageNext} disabled={!canGoNext}>
+        <NavButton type="button" title="Next Page" onClick={onPageNext} disabled={!canGoNext}>
           <ChevronRight size={18} />
         </NavButton>
       </PaginationGroup>

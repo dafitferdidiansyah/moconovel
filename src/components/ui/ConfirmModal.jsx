@@ -12,8 +12,8 @@ import {
 function ConfirmModal({
   title,
   message,
-  confirmLabel = '確認',
-  cancelLabel = '取消',
+  confirmLabel = 'Confirm',
+  cancelLabel = 'Cancel',
   onConfirm,
   onCancel,
 }) {

@@ -26,8 +26,8 @@ function DiscoverBookListCard({ book, conversionMode, onClick, onAddToCollection
         e.stopPropagation();
         onAddToCollection(bookId);
       }}
-      title="加入收藏夾"
-      aria-label="加入收藏夾"
+      title="Add to Collection"
+      aria-label="Add to Collection"
     >
       <FolderInput />
     </CardActionButton>

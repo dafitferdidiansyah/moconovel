@@ -4,7 +4,7 @@ import { formatTimestamp } from '../datetime';
 function formatWordNumber(val) {
   if (val === '0' || !val) return null;
   const n = parseInt(val, 10);
-  return n >= 10000 ? `${(n / 10000).toFixed(1)}萬` : String(n);
+  return n >= 10000 ? `${(n / 10000).toFixed(1)}0k` : String(n);
 }
 
 function pickFirstNonEmpty(...values) {
@@ -28,7 +28,7 @@ export function resolveChapterCount(value) {
 export function resolveBookDisplay(bookInfo, variant = 'new', bookId = null) {
   const data = bookInfo?.book_info || bookInfo || {};
   const id = bookId || data.book_id || bookInfo?.book_id || null;
-  const nameFallback = id ? `書籍 ${id.slice(0, 8)}` : null;
+  const nameFallback = id ? `Books ${id.slice(0, 8)}` : null;
 
   if (variant === 'old') {
     return {
@@ -47,7 +47,7 @@ function normalizeBookMetaFields(bookInfo, bookId) {
   return {
     book_name: bookInfo.book_name || null,
     original_book_name: bookInfo.original_book_name || null,
-    author: bookInfo.author || '未知作者',
+    author: bookInfo.author || 'Unknown Author',
     abstract: bookInfo.abstract || null,
     thumb_url: bookInfo.thumb_url || null,
     audio_thumb_uri: bookInfo.audio_thumb_uri || null,
@@ -57,7 +57,7 @@ function normalizeBookMetaFields(bookInfo, bookId) {
     sub_info: bookInfo.sub_info || null,
     word_number: formatWordNumber(bookInfo.word_number),
     last_publish_time: formatTimestamp(bookInfo.last_publish_time),
-    creation_status: (bookInfo.creation_status === '0') ? '已完結' : (bookInfo.creation_status ? '連載中' : null),
+    creation_status: (bookInfo.creation_status === '0') ? 'Completed' : (bookInfo.creation_status ? 'Ongoing' : null),
     content_chapter_number: (bookInfo.content_chapter_number === '0') ? null : (bookInfo.content_chapter_number || null),
   };
 }

@@ -42,43 +42,43 @@ export const READER_CUSTOM_TEXT_DEFAULT = '#1a1a1a';
 
 /** Reader background presets: { value: hex | 'custom', label, textColor? } */
 export const READER_BACKGROUND_OPTIONS = [
-  { value: '#e8dce4', label: '淡粉', textColor: '#1a1a1a' },
-  { value: '#e4e0e8', label: '薰衣草', textColor: '#1a1a1a' },
-  { value: '#d4ccc8', label: '薄暮', textColor: '#1a1a1a' },
-  { value: '#f0e9e4', label: '暖紙', textColor: '#1a1a1a' },
-  { value: '#fffef5', label: '米白', textColor: '#1a1a1a' },
-  { value: '#ffffff', label: '純白', textColor: '#1a1a1a' },
-  { value: '#e0e0e0', label: '淺灰', textColor: '#1a1a1a' },
-  { value: '#ede5d0', label: '米黃', textColor: '#1a1a1a' },
-  { value: '#c0d0c0', label: '青綠', textColor: '#1a1a1a' },
-  { value: '#2c2630', label: '深夜', textColor: '#e0e0e0' },
-  { value: '#1a1a1a', label: '灰黑', textColor: '#e0e0e0' },
-  { value: '#0a0a0a', label: '深黑', textColor: '#e0e0e0' },
-  { value: READER_BACKGROUND_CUSTOM, label: '自訂' },
+  { value: '#e8dce4', label: 'Pale Pink', textColor: '#1a1a1a' },
+  { value: '#e4e0e8', label: 'Lavender', textColor: '#1a1a1a' },
+  { value: '#d4ccc8', label: 'Twilight', textColor: '#1a1a1a' },
+  { value: '#f0e9e4', label: 'Warm Paper', textColor: '#1a1a1a' },
+  { value: '#fffef5', label: 'Off White', textColor: '#1a1a1a' },
+  { value: '#ffffff', label: 'Pure White', textColor: '#1a1a1a' },
+  { value: '#e0e0e0', label: 'Light Gray', textColor: '#1a1a1a' },
+  { value: '#ede5d0', label: 'Beige', textColor: '#1a1a1a' },
+  { value: '#c0d0c0', label: 'Cyan Green', textColor: '#1a1a1a' },
+  { value: '#2c2630', label: 'Late Night', textColor: '#e0e0e0' },
+  { value: '#1a1a1a', label: 'Gray Black', textColor: '#e0e0e0' },
+  { value: '#0a0a0a', label: 'Deep Black', textColor: '#e0e0e0' },
+  { value: READER_BACKGROUND_CUSTOM, label: 'Custom' },
 ];
 
 /** Chinese conversion modes: { value, label } */
 export const ZH_CONVERSION_OPTIONS = [
-  { value: 'original', label: '原文簡體' },
-  { value: 'tw', label: '臺灣繁體' },
-  { value: 'hk', label: '香港繁體' },
+  { value: 'original', label: 'Original Simplified' },
+  { value: 'tw', label: 'Taiwan Traditional' },
+  { value: 'hk', label: 'Hong Kong Traditional' },
 ];
 
 /** Chapter order for book export: { value, label } */
 export const EXPORT_CHAPTER_ORDER_OPTIONS = [
-  { value: 'ascending', label: '正序（第一章起）' },
-  { value: 'descending', label: '倒序（最新章起）' },
+  { value: 'ascending', label: 'Ascending (First Chapter First)' },
+  { value: 'descending', label: 'Descending (Newest First)' },
 ];
 
 /** Book metadata display: new (current) vs old (original) title and cover */
 export const BOOK_DISPLAY_VARIANT_OPTIONS = [
-  { value: 'new', label: '最新書名及封面' },
-  { value: 'old', label: '原有書名及封面' },
+  { value: 'new', label: 'Latest Title & Cover' },
+  { value: 'old', label: 'Original Title & Cover' },
 ];
 
 export const BOOKSHELF_QUICK_ACTION_OPTIONS = [
-  { value: true, label: '顯示快捷操作按鈕' },
-  { value: false, label: '隱藏快捷操作按鈕' },
+  { value: true, label: 'Show Shortcuts' },
+  { value: false, label: 'Hide Shortcuts' },
 ];
 
 /** API sources: { value: opaque ID (used with proxy), label: display name } - real URLs live in proxy only */
@@ -102,13 +102,13 @@ export const API_OPTIONS = [
 
 /** Chinese fonts for reader: { value: CSS font-family, label: display name, fontFamily: preview in dropdown } */
 export const CHINESE_FONTS = [
-  { value: "'Noto Serif TC', 'Noto Serif SC', sans-serif", label: '思源宋體' },
-  { value: "'PMingLiU', 'Songti TC', 'Songti SC', sans-serif", label: '新細明體' },
-  { value: "'STSong', '华文宋体', 'STFangsong', sans-serif", label: '華文宋體' },
-  { value: "'BiauKai', '標楷體', 'Kaiti TC', 'Kaiti SC', sans-serif", label: '標楷體' },
-  { value: "'LXGW WenKai TC', 'LXGW WenKai', sans-serif", label: '霞鷸文楷' },
-  { value: "'Noto Sans TC', 'Noto Sans SC', sans-serif", label: '思源黑體' },
-  { value: "'Microsoft JhengHei', 'Heiti TC', 'Heiti SC', sans-serif", label: '微軟正黑體' },
+  { value: "'Noto Serif TC', 'Noto Serif SC', sans-serif", label: 'Noto Serif' },
+  { value: "'PMingLiU', 'Songti TC', 'Songti SC', sans-serif", label: 'PMingLiU' },
+  { value: "'STSong', 'STSong', 'STFangsong', sans-serif", label: 'STSong' },
+  { value: "'BiauKai', 'BiauKai', 'Kaiti TC', 'Kaiti SC', sans-serif", label: 'BiauKai' },
+  { value: "'LXGW WenKai TC', 'LXGW WenKai', sans-serif", label: 'LXGW WenKai' },
+  { value: "'Noto Sans TC', 'Noto Sans SC', sans-serif", label: 'Noto Sans' },
+  { value: "'Microsoft JhengHei', 'Heiti TC', 'Heiti SC', sans-serif", label: 'Microsoft JhengHei' },
 ].map((font) => ({ ...font, fontFamily: font.value }));
 
 export const SEARCH_RESULT_LIMIT = 50;

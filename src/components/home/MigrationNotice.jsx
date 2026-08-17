@@ -31,16 +31,16 @@ function MigrationNotice() {
 
   return (
     <Notice role="status">
-      <HomeNoticeLabel>網站搬家囉！</HomeNoticeLabel>
+      <HomeNoticeLabel>Site has moved!</HomeNoticeLabel>
       <Message>
-        我們已經搬到{' '}
+        We have moved to{' '}
         <SiteLink href={CANONICAL_SITE_URL} target="_blank" rel="noopener noreferrer">
           {CANONICAL_HOSTNAME}
         </SiteLink>
-        。記得先匯出資料再到新站匯入，讓您的書架和閱讀紀錄跟著一起搬過去喔！
+        . Remember to export data first, then import it to the new site so your bookshelf and reading history move with you!
       </Message>
       <GrayButton type="button" onClick={() => navigate(ROUTES.export)}>
-        前往匯出資料
+        Go to Export Data
       </GrayButton>
     </Notice>
   );

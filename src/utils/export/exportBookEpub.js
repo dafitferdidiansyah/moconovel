@@ -28,7 +28,7 @@ function textToXhtmlParagraphs(text) {
 }
 
 function buildChapterXhtml(title, content) {
-  return `<?xml version="1.0" encoding="UTF-8"?>
+  return `<?xml version="1.0" encoding="UTF-8'?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh" lang="zh">
   <head>
@@ -48,7 +48,7 @@ function buildChapterXhtml(title, content) {
 }
 
 function buildCoverXhtml(coverFileName, bookName) {
-  return `<?xml version="1.0" encoding="UTF-8"?>
+  return `<?xml version="1.0" encoding="UTF-8'?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" xml:lang="zh" lang="zh">
   <head>
@@ -66,7 +66,7 @@ function buildCoverXhtml(coverFileName, bookName) {
 }
 
 function buildTitleXhtml(bookName, author, abstract) {
-  return `<?xml version="1.0" encoding="UTF-8"?>
+  return `<?xml version="1.0" encoding="UTF-8'?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh" lang="zh">
   <head>
@@ -82,7 +82,7 @@ function buildTitleXhtml(bookName, author, abstract) {
   <body>
     <h1>${escapeXml(bookName)}</h1>
     <p class="author">${escapeXml(author)}</p>
-    <p>${escapeXml(abstract || '（無簡介）')}</p>
+    <p>${escapeXml(abstract || '(No Description)')}</p>
   </body>
 </html>`;
 }
@@ -92,11 +92,11 @@ function buildNavXhtml(bookName, chapterLinks) {
     .map(({ href, title }) => `      <li><a href="${href}">${escapeXml(title)}</a></li>`)
     .join('\n');
 
-  return `<?xml version="1.0" encoding="UTF-8"?>
+  return `<?xml version="1.0" encoding="UTF-8'?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" xml:lang="zh" lang="zh">
   <head>
-    <title>目錄</title>
+    <title>Index</title>
     <meta charset="UTF-8"/>
   </head>
   <body>
@@ -120,7 +120,7 @@ function buildContentOpf({
   spineItems,
   coverMeta = '',
 }) {
-  return `<?xml version="1.0" encoding="UTF-8"?>
+  return `<?xml version="1.0" encoding="UTF-8'?>
 <package xmlns="http://www.idpf.org/2007/opf" version="3.0" unique-identifier="BookId">
   <metadata xmlns:dc="http://purl.org/dc/elements/1.1/">
     <dc:identifier id="BookId">urn:uuid:${bookUuid}</dc:identifier>
@@ -183,7 +183,7 @@ export async function exportBookToEpub({
   zip.file('mimetype', 'application/epub+zip', { compression: 'STORE' });
   zip.folder('META-INF')?.file(
     'container.xml',
-    `<?xml version="1.0" encoding="UTF-8"?>
+    `<?xml version="1.0" encoding="UTF-8'?>
 <container version="1.0" xmlns="urn:oasis:names:tc:opendocument:xmlns:container">
   <rootfiles>
     <rootfile full-path="OEBPS/content.opf" media-type="application/oebps-package+xml"/>

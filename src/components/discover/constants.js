@@ -6,27 +6,27 @@ export const PRIMARY_TAB_OTHERS = 'others';
 export const HOMEPAGE_SECTIONS = new Set(['realtime', 'guess']);
 
 export const PRIMARY_TABS = [
-  { id: PRIMARY_TAB_SEARCH, label: '搜尋' },
-  { id: PRIMARY_TAB_RANK, label: '榜單' },
-  { id: PRIMARY_TAB_RECOMMEND, label: '推薦' },
-  { id: PRIMARY_TAB_OTHERS, label: '其他' },
+  { id: PRIMARY_TAB_SEARCH, label: 'Search' },
+  { id: PRIMARY_TAB_RANK, label: 'Rankings' },
+  { id: PRIMARY_TAB_RECOMMEND, label: 'Recommend' },
+  { id: PRIMARY_TAB_OTHERS, label: 'Other' },
 ];
 
 export const PRIMARY_TAB_IDS = new Set(PRIMARY_TABS.map((tab) => tab.id));
 
 export const RANK_SECONDARY_TABS = [
-  { id: 'recommend', label: '推薦榜' },
-  { id: 'finished', label: '完本榜' },
-  { id: 'new', label: '新書榜' },
-  { id: 'chasing', label: '追更榜' },
-  { id: 'darkhorse', label: '黑馬榜' },
-  { id: 'peak', label: '巔峰榜' },
-  { id: 'reading', label: '閱讀榜' },
+  { id: 'recommend', label: 'Recommendations' },
+  { id: 'finished', label: 'Completed Novels' },
+  { id: 'new', label: 'New Books' },
+  { id: 'chasing', label: 'Updates Ranking' },
+  { id: 'darkhorse', label: 'Dark Horse Ranking' },
+  { id: 'peak', label: 'Peak Ranking' },
+  { id: 'reading', label: 'Reading Ranking' },
 ];
 
 export const RECOMMEND_SECONDARY_TABS = [
-  { id: 'realtime', label: '即時熱度' },
-  { id: 'guess', label: '猜你喜歡' },
+  { id: 'realtime', label: 'Live Trending' },
+  { id: 'guess', label: 'You May Like' },
 ];
 
 export const SECONDARY_TABS_BY_PRIMARY = {
@@ -40,9 +40,9 @@ export const DEFAULT_SECONDARY_BY_PRIMARY = {
 };
 
 export const PRIMARY_ERROR_MESSAGES = {
-  [PRIMARY_TAB_SEARCH]: '搜尋失敗，請稍後再試。',
-  [PRIMARY_TAB_RANK]: '獲取榜單失敗，請稍後再試。',
-  [PRIMARY_TAB_RECOMMEND]: '獲取推薦失敗，請稍後再試。',
+  [PRIMARY_TAB_SEARCH]: 'Search failed, please try again later.',
+  [PRIMARY_TAB_RANK]: 'Failed to get rankings, please try again later.',
+  [PRIMARY_TAB_RECOMMEND]: 'Failed to get recommendations, please try again later.',
 };
 
 export function resolveDiscoverRoute(tab, section) {

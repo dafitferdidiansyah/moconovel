@@ -54,7 +54,7 @@ export function useCollectionModalActions({
       await onReload();
     } catch (err) {
       if (notifyError) {
-        notifyError(err, '更新收藏夾失敗，請稍後再試。');
+        notifyError(err, 'Failed to update collection, please try again later.');
       } else {
         throw err;
       }
@@ -69,7 +69,7 @@ export function useCollectionModalActions({
       setNewCollectionName('');
     } catch (err) {
       if (notifyError) {
-        notifyError(err, '建立收藏夾失敗，請稍後再試。');
+        notifyError(err, 'Failed to create collection, please try again later.');
       } else {
         throw err;
       }

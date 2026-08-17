@@ -2,11 +2,11 @@ import { FolderInput, FolderMinus, Download, FileText, RefreshCw, Trash2, Loader
 import { CardActionButton, CardSpinningIcon } from './CardActionButton';
 
 export function getDeleteLocalDataLabel() {
-  return '刪除此書的本地資料';
+  return "Delete this book's local data";
 }
 
 export function getRemoveFromCollectionLabel() {
-  return '從收藏夾移除';
+  return 'Remove from Collection';
 }
 
 export function getDeleteActionLabel(isAllTab) {
@@ -54,8 +54,8 @@ export function BookQuickActions({
           type="button"
           $variant="collection"
           onClick={wrapClick(() => onAddToCollection(bookId))}
-          title="加入收藏夾"
-          aria-label="加入收藏夾"
+          title="Add to Collection"
+          aria-label="Add to Collection"
         >
           <FolderInput />
         </ButtonComponent>
@@ -65,8 +65,8 @@ export function BookQuickActions({
           type="button"
           $variant="download"
           onClick={wrapClick(() => onDownload(bookId))}
-          title="下載全部"
-          aria-label="下載全部"
+          title="Download All"
+          aria-label="Download All"
         >
           <Download />
         </ButtonComponent>
@@ -76,8 +76,8 @@ export function BookQuickActions({
           type="button"
           $variant="export"
           onClick={wrapClick(() => onExport(bookId))}
-          title="匯出書籍"
-          aria-label="匯出書籍"
+          title="Export Books"
+          aria-label="Export Books"
         >
           <FileText />
         </ButtonComponent>
@@ -87,8 +87,8 @@ export function BookQuickActions({
         $variant="refresh"
         disabled={isRefreshing}
         onClick={wrapClick((e) => (onRefreshClick ?? refetch)(e, bookId))}
-        title="刷新目錄與書籍資料"
-        aria-label="刷新目錄與書籍資料"
+        title="Refresh Index and Book Data"
+        aria-label="Refresh Index and Book Data"
       >
         {isRefreshing ? (
           <CardSpinningIcon><Loader2 size={18} /></CardSpinningIcon>

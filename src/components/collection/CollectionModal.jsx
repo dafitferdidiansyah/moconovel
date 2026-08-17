@@ -135,7 +135,7 @@ function CollectionModal({
 }) {
   const ids = (Array.isArray(bookIds) ? bookIds : [bookIds]).map(String);
   const isMulti = ids.length > 1;
-  const title = isMulti ? `加入收藏夾（${ids.length} 本）` : '加入收藏夾';
+  const title = isMulti ? `Add to Collection (${ids.length}  books)` : 'Add to Collection';
   const [multiAction, setMultiAction] = useState({});
   const allLocked = showAllOption && ids.some((id) =>
     collections.some((col) => col.bookIds.includes(id))
@@ -182,22 +182,22 @@ function CollectionModal({
     isMulti ? (
       allLocked ? (
         <MultiCollectionRow key="__all__">
-          <MultiCollectionName title="全部">
-            <span>全部</span>
+          <MultiCollectionName title='All'>
+            <span>All</span>
             <Check className="check" />
           </MultiCollectionName>
         </MultiCollectionRow>
       ) : (
         <MultiCollectionRow key="__all__">
-          <MultiCollectionName title="全部">全部</MultiCollectionName>
+          <MultiCollectionName title='All'>All</MultiCollectionName>
           <MultiActionGroup>
             <MultiActionBtn
               type="button"
               $tone="add"
               $active={multiAction.__all__ === 'add'}
               onClick={handleMultiAllAdd}
-              title="加入「全部」"
-              aria-label="將所選書籍加入「全部」"
+              title="Add to All"
+              aria-label="Add selected books to All"
               aria-pressed={multiAction.__all__ === 'add'}
             >
               <Plus />
@@ -207,8 +207,8 @@ function CollectionModal({
               $tone="remove"
               $active={multiAction.__all__ === 'remove'}
               onClick={handleMultiAllRemove}
-              title="從「全部」移除"
-              aria-label="將所選書籍從「全部」移除"
+              title="Remove from All"
+              aria-label="Remove selected books from All"
               aria-pressed={multiAction.__all__ === 'remove'}
             >
               <Minus />
@@ -226,7 +226,7 @@ function CollectionModal({
         disabled={allLocked}
         aria-disabled={allLocked}
       >
-        全部
+        All
         {allChecked && <Check className="check" />}
       </CollectionOption>
     )
@@ -237,7 +237,7 @@ function CollectionModal({
       <ModalTitleBar title={title} onClose={onClose} />
       <ModalBody>
         {collections.length === 0 && !showAllOption ? (
-          <EmptyHint>尚無收藏夾，請先建立一個</EmptyHint>
+          <EmptyHint>No collections yet, please create one first</EmptyHint>
         ) : (
           <>
             {allOption}
@@ -253,8 +253,8 @@ function CollectionModal({
                       $tone="add"
                       $active={action === 'add'}
                       onClick={() => handleMultiAdd(col)}
-                      title="加入此收藏夾"
-                      aria-label={`將所選書籍加入「${col.name}」`}
+                      title="Add to this Collection"
+                      aria-label={`Add selected books to "${col.name}」`}
                       aria-pressed={action === 'add'}
                     >
                       <Plus />
@@ -264,8 +264,8 @@ function CollectionModal({
                       $tone="remove"
                       $active={action === 'remove'}
                       onClick={() => handleMultiRemove(col)}
-                      title="從此收藏夾移除"
-                      aria-label={`將所選書籍從「${col.name}」移除`}
+                      title="Remove from this Collection"
+                      aria-label={`Remove selected books from "${col.name}' removed`}
                       aria-pressed={action === 'remove'}
                     >
                       <Minus />
@@ -294,11 +294,11 @@ function CollectionModal({
         <ModalInput
           value={newCollectionName}
           onChange={(e) => onNewCollectionNameChange(e.target.value)}
-          placeholder="新增收藏夾…"
+          placeholder="New Collection..."
           onKeyDown={(e) => { if (e.key === 'Enter') onCreateCollection(); }}
         />
         <ModalPrimaryButton type="button" onClick={onCreateCollection}>
-          建立
+          Create
         </ModalPrimaryButton>
       </ModalFooter>
     </Modal>

@@ -3,7 +3,7 @@ import { BookOpen } from 'lucide-react';
 import { IconButton } from '../ui/IconButton';
 import { ROUTES } from '../../utils/navigation';
 
-export const BOOKSHELF_BUTTON_TITLE = '前往書架';
+export const BOOKSHELF_BUTTON_TITLE = 'Go to Bookshelf';
 
 function BookshelfButton({ title = BOOKSHELF_BUTTON_TITLE, disabled: disabledProp }) {
   const navigate = useNavigate();
@@ -22,6 +22,6 @@ function BookshelfButton({ title = BOOKSHELF_BUTTON_TITLE, disabled: disabledPro
   );
 }
 
-BookshelfButton.toolLabel = '書架';
+BookshelfButton.toolLabel = 'Bookshelf';
 
 export default BookshelfButton;

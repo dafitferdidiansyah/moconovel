@@ -129,7 +129,7 @@ const HiddenReplyHint = styled.p`
 
 function formatScore(score) {
   if (score === undefined || score === null || score === '') return null;
-  return score === '0' || score === 0 ? '暫無' : score;
+  return score === '0' || score === 0 ? 'None yet' : score;
 }
 
 function formatDiggCount(count) {
@@ -148,7 +148,7 @@ function Stat({ icon: Icon, value, label }) {
 }
 
 function ReplyBlock({ reply, conversionMode }) {
-  const user = reply.user_info?.user_name ?? '匿名';
+  const user = reply.user_info?.user_name ?? 'Anonymous';
   const text = reply.text ?? '';
   const convertedUser = maybeConvert(user, conversionMode);
   const convertedText = maybeConvert(text, conversionMode);
@@ -163,7 +163,7 @@ function ReplyBlock({ reply, conversionMode }) {
           <CommentUser>{convertedUser}</CommentUser>
           {diggCount != null && (
             <HeaderStats>
-              <Stat icon={ThumbsUp} value={diggCount} label="讚" />
+              <Stat icon={ThumbsUp} value={diggCount} label="Like" />
             </HeaderStats>
           )}
         </CommentHeaderRow>
@@ -188,7 +188,7 @@ function ReplyBlock({ reply, conversionMode }) {
 }
 
 function CommentThread({ comment, conversionMode }) {
-  const user = comment.user_info?.user_name ?? '匿名';
+  const user = comment.user_info?.user_name ?? 'Anonymous';
   const score = comment.score ?? '';
   const text = comment.text ?? '';
   const convertedUser = maybeConvert(user, conversionMode);
@@ -206,7 +206,7 @@ function CommentThread({ comment, conversionMode }) {
         <CommentHeaderRow>
           <CommentUser>{convertedUser}</CommentUser>
           {formattedScore != null && (
-            <ScoreBadge title={`評分 ${formattedScore}`}>
+            <ScoreBadge title={`Rating ${formattedScore}`}>
               <Star aria-hidden />
               {formattedScore}
             </ScoreBadge>
@@ -214,10 +214,10 @@ function CommentThread({ comment, conversionMode }) {
           {(replyCount > 0 || diggCount != null) && (
             <HeaderStats>
               {replyCount > 0 && (
-                <Stat icon={MessageCircle} value={replyCount} label="回覆" />
+                <Stat icon={MessageCircle} value={replyCount} label="Reply" />
               )}
               {diggCount != null && (
-                <Stat icon={ThumbsUp} value={diggCount} label="讚" />
+                <Stat icon={ThumbsUp} value={diggCount} label="Like" />
               )}
             </HeaderStats>
           )}
@@ -242,7 +242,7 @@ function CommentThread({ comment, conversionMode }) {
 
       {hiddenReplyCount > 0 && (
         <HiddenReplyHint>
-          還有 {hiddenReplyCount} 則回覆未顯示
+          and  {hiddenReplyCount}  replies not shown
         </HiddenReplyHint>
       )}
     </ThreadItem>

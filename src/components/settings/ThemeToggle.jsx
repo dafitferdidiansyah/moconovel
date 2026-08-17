@@ -9,8 +9,8 @@ function ThemeToggle() {
   return (
     <IconButton
       type="button"
-      title={isDark ? '切換淺色模式' : '切換深色模式'}
-      aria-label={isDark ? '切換淺色模式' : '切換深色模式'}
+      title={isDark ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
+      aria-label={isDark ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
       onClick={toggleTheme}
     >
       {isDark ? <Sun size={20} strokeWidth={2.5} /> : <Moon size={20} strokeWidth={2.5} />}
@@ -18,6 +18,6 @@ function ThemeToggle() {
   );
 }
 
-ThemeToggle.toolLabel = '主題';
+ThemeToggle.toolLabel = 'Theme';
 
 export default ThemeToggle;

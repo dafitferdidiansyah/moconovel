@@ -5,7 +5,7 @@ import { HorizontalScrollInner } from '../ui/HorizontalScrollArea';
 export const TOOLBAR_CONTROL_HEIGHT = '44px';
 
 export const TOOLBAR_SORT_DROPDOWN_PROPS = {
-  attachedLabel: '排序',
+  attachedLabel: 'Sort',
   hideAttachedLabelOnMobile: true,
   embedded: true,
   square: true,

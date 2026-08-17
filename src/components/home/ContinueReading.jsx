@@ -41,11 +41,11 @@ const ContinueButton = styled.button`
 const Cover = styled.img`width: 148px; height: 100%; max-height: 220px; object-fit: cover; align-self: center; border-radius: var(--border-radius-xs); box-shadow: var(--retro-shadow); background: var(--cover-bg); @media (max-width: 480px) { width: 100px; max-height: 160px; }`;
 
 function formatLastRead(timestamp) {
-  if (!timestamp) return '已加入書架';
+  if (!timestamp) return 'Added to Bookshelf';
   const days = Math.floor((Date.now() - timestamp) / 86400000);
-  if (days <= 0) return '今天閱讀';
-  if (days === 1) return '昨天閱讀';
-  return `${days} 天前閱讀`;
+  if (days <= 0) return 'Read Today';
+  if (days === 1) return 'Read Yesterday';
+  return `${days}  days ago`;
 }
 
 function pickMostRecentEntry(history) {
@@ -76,10 +76,10 @@ function ContinueReading() {
   return (
     <Hero>
       <HeroContent>
-        <Eyebrow>{hasHistory ? '繼續閱讀' : '私人書架'}</Eyebrow>
-        <Heading>{hasHistory ? (convertedBookName || '最近閱讀') : '從一個故事開始'}</Heading>
-        <Meta>{hasHistory ? formatLastRead(entry.lastReadAt) : '搜尋書名或輸入書籍 ID，建立你的私人書架。'}</Meta>
-        <ContinueButton type="button" onClick={handleContinue}>{hasHistory ? '繼續閱讀' : '開始找書'}{hasHistory ? <ArrowRight aria-hidden /> : <Compass aria-hidden />}</ContinueButton>
+        <Eyebrow>{hasHistory ? 'Continue Reading' : 'Private Bookshelf'}</Eyebrow>
+        <Heading>{hasHistory ? (convertedBookName || 'Recently Read') : 'Start with a story'}</Heading>
+        <Meta>{hasHistory ? formatLastRead(entry.lastReadAt) : 'Search title or enter book ID, create your private bookshelf.'}</Meta>
+        <ContinueButton type="button" onClick={handleContinue}>{hasHistory ? 'Continue Reading' : 'Start Finding Books'}{hasHistory ? <ArrowRight aria-hidden /> : <Compass aria-hidden />}</ContinueButton>
       </HeroContent>
       {hasHistory && thumbUrl && <BookCoverImg url={thumbUrl} fallbackUrl={fallbackThumbUrl} ImgComponent={Cover} alt="" />}
     </Hero>

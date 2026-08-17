@@ -18,7 +18,7 @@ async function resolveExportBookData(bookId, bookInfo) {
   }
   const itemDataList = directory?.item_data_list ?? [];
   if (!itemDataList.length) {
-    throw new Error('無法取得章節目錄');
+    throw new Error('Failed to get chapter index');
   }
   return { bookInfo: { book_info: detail }, itemDataList };
 }
@@ -79,7 +79,7 @@ export function runBookTxtExport({
     conversionMode,
     displayVariant,
     exportFn: exportBookToTxt,
-    errorMessage: '匯出 TXT 失敗，請稍後再試。',
+    errorMessage: 'Export TXT Failed, please try again later.',
   });
 }
 
@@ -108,6 +108,6 @@ export function runBookEpubExport({
     conversionMode,
     displayVariant,
     exportFn: exportBookToEpub,
-    errorMessage: '匯出 EPUB 失敗，請稍後再試。',
+    errorMessage: 'Export EPUB Failed, please try again later.',
   });
 }

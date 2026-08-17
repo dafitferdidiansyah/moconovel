@@ -8,21 +8,21 @@ function ListGridViewToggle({ viewMode, onViewModeChange }) {
         type="button"
         $active={viewMode === 'list'}
         onClick={() => onViewModeChange('list')}
-        title="列表視圖"
-        aria-label="列表視圖"
+        title="List View"
+        aria-label="List View"
       >
         <LayoutList />
-        <BtnLabel>列表</BtnLabel>
+        <BtnLabel>List</BtnLabel>
       </ToggleBtn>
       <ToggleBtn
         type="button"
         $active={viewMode === 'grid'}
         onClick={() => onViewModeChange('grid')}
-        title="格狀視圖"
-        aria-label="格狀視圖"
+        title="Grid View"
+        aria-label="Grid View"
       >
         <Grid2X2 />
-        <BtnLabel>格狀</BtnLabel>
+        <BtnLabel>Grid</BtnLabel>
       </ToggleBtn>
     </ViewToggle>
   );

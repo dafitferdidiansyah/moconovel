@@ -30,21 +30,21 @@ export function formatErrorMessage(error, defaultMessage) {
   const name = error.name ?? '';
 
   if (error.status === 429) {
-    return '請求過於頻繁，請稍後再試。';
+    return 'Requests too frequent, please try again later.';
   }
 
   if (error.status === 403) {
-    return `請求過於頻繁，您已被暫時封禁 ${AUTO_BAN_DURATION_MINUTES} 分鐘，請稍後再試。`;
+    return `Requests too frequent, you have been temporarily banned ${AUTO_BAN_DURATION_MINUTES}  minutes, please try again later.`;
   }
 
   if (msg.includes('timed out')) {
-    return `請求超時，請稍後再試。`;
+    return `Request timed out, please try again later.`;
   }
   if (msg.includes('Invalid book ID') || msg.includes('book not found')) {
-    return '書籍 ID 無效或找不到該書籍，請檢查後重試。';
+    return 'Books ID Invalid or book not found, please check and try again.';
   }
   if (msg.includes('Failed to decode')) {
-    return '回傳資料無效，請稍後再試。';
+    return 'Invalid response data, please try again later.';
   }
   if (
     msg.includes('Failed to fetch') ||
@@ -53,10 +53,10 @@ export function formatErrorMessage(error, defaultMessage) {
     msg.includes('network') ||
     name === 'NetworkError'
   ) {
-    return '請求失敗，請稍後再試。';
+    return 'Request failed, please try again later.';
   }
   if (name === 'SyntaxError' || msg.includes('Unexpected token')) {
-    return '回傳格式錯誤，請稍後再試。';
+    return 'Response format error, please try again later.';
   }
   return defaultMessage;
 }

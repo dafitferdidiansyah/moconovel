@@ -49,13 +49,13 @@ function BookshelfBookList({
   if (sortedDisplayBooks.length === 0) {
     return (
       <EmptyHint>
-        {activeTab === ALL_TAB ? '書架仍然是空的，從下一本故事開始吧。' : '這個收藏夾暫時沒有書籍。'}
-        {activeTab === ALL_TAB && <EmptyAction type="button" onClick={onDiscover}>開始找書</EmptyAction>}
+        {activeTab === ALL_TAB ? 'Bookshelf is empty, start with a new story.' : 'This collection currently has no books.'}
+        {activeTab === ALL_TAB && <EmptyAction type="button" onClick={onDiscover}>Start Finding Books</EmptyAction>}
       </EmptyHint>
     );
   }
 
-  if (booksForDisplay.length === 0) return <EmptyHint>找不到符合目前搜尋或篩選條件的書籍。</EmptyHint>;
+  if (booksForDisplay.length === 0) return <EmptyHint>No books found matching current search or filters.</EmptyHint>;
 
   const selectionMode = manageMode && !reorderMode;
   const showQuickActions = bookshelfQuickAction && !selectionMode && !reorderMode;

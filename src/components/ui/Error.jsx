@@ -27,9 +27,9 @@ const StyledHomeButton = styled(GrayButton)`
 `;
 
 function getBackLabel(href) {
-  if (href === '/') return '返回首頁';
-  if (/^\/catalog\/.+/.test(href)) return '返回目錄';
-  return '返回';
+  if (href === '/') return 'Back to Home';
+  if (/^\/catalog\/.+/.test(href)) return 'Back to Index';
+  return 'Back';
 }
 
 function Error({ message, href = '/' }) {

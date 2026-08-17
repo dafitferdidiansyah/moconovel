@@ -27,7 +27,7 @@ function Status() {
 
   return (
     <NavPageLayout>
-      <NavTopBar pageTitle="API 狀態" />
+      <NavTopBar pageTitle="API Status" />
       <StatusContent />
     </NavPageLayout>
   );

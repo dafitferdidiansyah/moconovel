@@ -3,7 +3,7 @@ import { Bookmark } from 'lucide-react';
 import { IconButton } from '../ui/IconButton';
 import { buildChapterUrl } from '../../utils/navigation';
 
-export const CHAPTER_BUTTON_TITLE = '返回章節';
+export const CHAPTER_BUTTON_TITLE = 'Back to Chapter';
 
 function ChapterButton({ bookId, itemId, title = CHAPTER_BUTTON_TITLE, disabled: disabledProp }) {
   const navigate = useNavigate();

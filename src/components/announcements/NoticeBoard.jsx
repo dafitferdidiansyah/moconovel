@@ -33,7 +33,7 @@ const NoticeCard = styled.div`
 `;
 
 function NoticeBoard({ announcements }) {
-  if (!announcements.length) return <EmptyHint>暫無公告</EmptyHint>;
+  if (!announcements.length) return <EmptyHint>No announcements</EmptyHint>;
 
   return (
     <Section>

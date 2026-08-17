@@ -28,7 +28,7 @@ function Announcements() {
 
   return (
     <NavPageLayout>
-      <NavTopBar pageTitle="公告" />
+      <NavTopBar pageTitle="Announcement" />
       <PageContent $paddingBottom={48} $paddingBottomMobile={32}>
         <NoticeBoard announcements={announcements ?? []} />
       </PageContent>
