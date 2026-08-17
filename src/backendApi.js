@@ -138,7 +138,7 @@ export const fetchNovels = async (params = {}) => {
   if (config.mode === "local") {
     const query = new URLSearchParams(params).toString();
     const url = `${config.localApiUrl}/api/novels/${query ? `?${query}` : ''}`;
-    const res = await fetch(url);
+    const res = await fetch(url, { headers: { 'ngrok-skip-browser-warning': 'true' } });
     if (!res.ok) throw new Error("Failed to fetch novels from local API");
     return await res.json();
   } else {
@@ -149,7 +149,7 @@ export const fetchNovels = async (params = {}) => {
 export const fetchNovel = async (id) => {
   const config = getApiConfig();
   if (config.mode === "local") {
-    const res = await fetch(`${config.localApiUrl}/api/novels/${id}/`);
+    const res = await fetch(`${config.localApiUrl}/api/novels/${id}/`, { headers: { 'ngrok-skip-browser-warning': 'true' } });
     if (!res.ok) throw new Error("Failed to fetch novel details");
     return await res.json();
   } else {
@@ -160,7 +160,7 @@ export const fetchNovel = async (id) => {
 export const fetchChapter = async (novelId, chapterNumber) => {
   const config = getApiConfig();
   if (config.mode === "local") {
-    const res = await fetch(`${config.localApiUrl}/api/novels/${novelId}/chapters/${chapterNumber}/`);
+    const res = await fetch(`${config.localApiUrl}/api/novels/${novelId}/chapters/${chapterNumber}/`, { headers: { 'ngrok-skip-browser-warning': 'true' } });
     if (!res.ok) throw new Error("Failed to fetch chapter content");
     return await res.json();
   } else {
