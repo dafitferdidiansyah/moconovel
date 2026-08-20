@@ -130,13 +130,24 @@ export async function fetchApiStatus({ signal } = {}) {
 
 export async function fetchAnnouncements({ signal } = {}) {
   const config = getApiConfig();
+  console.log("fetchAnnouncements: config =", config);
   if (config.mode === "local") {
-    const res = await fetch(`${config.localApiUrl}/api/announcements/`, { 
-      headers: { 'ngrok-skip-browser-warning': 'true' },
-      signal
-    });
-    if (!res.ok) throw new Error("Failed to fetch announcements");
-    return await res.json();
+    const url = `${config.localApiUrl}/api/announcements/`;
+    console.log("fetchAnnouncements: fetching from", url);
+    try {
+      const res = await fetch(url, { 
+        headers: { 'ngrok-skip-browser-warning': 'true' },
+        signal
+      });
+      console.log("fetchAnnouncements: response status =", res.status);
+      if (!res.ok) throw new Error("Failed to fetch announcements, status=" + res.status);
+      const data = await res.json();
+      console.log("fetchAnnouncements: data parsed =", data);
+      return data;
+    } catch (err) {
+      console.error("fetchAnnouncements: failed to fetch/parse announcements:", err);
+      throw err;
+    }
   }
   return [];
 }
