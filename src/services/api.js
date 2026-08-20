@@ -1,4 +1,5 @@
 import { fetchNovels, fetchNovel, fetchChapter } from '../backendApi';
+import { directoryCache, chapterCache, detailCache } from '../utils/cache';
 
 // Mock API Service toggles
 export function getApiService() {
@@ -43,14 +44,21 @@ export async function fetchSearchBooks(query, { signal } = {}) {
 }
 
 export async function fetchBookDetail(bookId, { forceRefresh = false, signal } = {}) {
+  if (!forceRefresh) {
+    const cached = await detailCache.get(bookId);
+    if (cached) return cached;
+  }
   const novel = await fetchNovel(bookId);
-  return {
-    book_info: mapNovelToBook(novel),
-    statistics: { read_count: 0, like_count: 0 } // Mock
-  };
+  const result = mapNovelToBook(novel);
+  await detailCache.set(bookId, result);
+  return result;
 }
 
 export async function fetchBookDirectory(bookId, { forceRefresh = false, signal } = {}) {
+  if (!forceRefresh) {
+    const cached = await directoryCache.get(bookId);
+    if (cached) return cached;
+  }
   const novel = await fetchNovel(bookId);
   const items = novel.chapters.map(ch => ({
     item_id: `${novel.id}_${ch.chapter_number}`, // composite ID
@@ -58,13 +66,23 @@ export async function fetchBookDirectory(bookId, { forceRefresh = false, signal 
     is_vip: 0,
     word_count: ch.content ? ch.content.length : 0
   }));
-  return { item_data_list: items };
+  const result = { item_data_list: items };
+  await directoryCache.set(bookId, result);
+  return result;
 }
 
 export async function fetchItem(itemId, { forceRefresh = false, signal } = {}) {
+  if (!forceRefresh) {
+    const cached = await chapterCache.get(itemId);
+    if (cached != null) {
+      return { content: cached };
+    }
+  }
   const [novelId, chapterNum] = itemId.split("_");
   const chapter = await fetchChapter(novelId, chapterNum);
-  return { content: chapter.content };
+  const content = chapter.content;
+  await chapterCache.set(itemId, content);
+  return { content };
 }
 
 export async function fetchComments(bookId, { page = 1, signal } = {}) {
@@ -78,4 +96,3 @@ export async function fetchApiStatus({ signal } = {}) {
 export async function fetchAnnouncements({ signal } = {}) {
   return []; // Mock announcements
 }
-
