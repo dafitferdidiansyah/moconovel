@@ -64,16 +64,7 @@ export async function fetchBookDirectory(bookId, { forceRefresh = false, signal 
 export async function fetchItem(itemId, { forceRefresh = false, signal } = {}) {
   const [novelId, chapterNum] = itemId.split("_");
   const chapter = await fetchChapter(novelId, chapterNum);
-  
-  // Format content as HTML paragraphs if it's plain text
-  const formattedContent = chapter.content
-    .split("\n")
-    .map(p => p.trim())
-    .filter(p => p.length > 0)
-    .map(p => `<p>${p}</p>`)
-    .join("");
-
-  return { content: formattedContent };
+  return { content: chapter.content };
 }
 
 export async function fetchComments(bookId, { page = 1, signal } = {}) {
