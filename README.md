@@ -1,139 +1,63 @@
-# 🍅 番茄極簡閱讀
+# 🍅 Moconovel - Web Novel Reader
 
 <p align="left">
-  <img src="https://img.shields.io/github/stars/denniemok/fanqie-novel-reader?style=for-the-badge&color=yellow" alt="Stars">
-  <img src="https://img.shields.io/github/v/release/denniemok/fanqie-novel-reader?style=for-the-badge&color=blue" alt="Release">
-  <img src="https://img.shields.io/badge/license-MIT-green.svg?style=for-the-badge" alt="License">
-  <img src="https://img.shields.io/badge/demo-fanqietc.com-orange.svg?style=for-the-badge" alt="Demo">
+  <img src="https://img.shields.io/github/stars/dafitferdidiansyah/moconovel?style=for-the-badge&color=yellow" alt="Stars">
+  <img src="https://img.shields.io/github/license/dafitferdidiansyah/moconovel?style=for-the-badge&color=green" alt="License">
+  <img src="https://img.shields.io/badge/Original%20Creator-Dennie%20Mok-blueviolet.svg?style=for-the-badge" alt="Original Creator">
+  <img src="https://img.shields.io/badge/Customized%20By-Dafit%20Fernandus-blue.svg?style=for-the-badge" alt="Customizer">
+  <img src="https://img.shields.io/badge/Backend-Django%20REST-orange.svg?style=for-the-badge" alt="Backend">
+  <img src="https://img.shields.io/badge/Hosting-Proxmox%20VE-red.svg?style=for-the-badge" alt="Hosting">
 </p>
 
-### 🌟 專為追求純粹的你打造的番茄閱讀器
+### 🌟 Aplikasi Pembaca Novel Web Bebas Iklan & Responsif
 
-這是一款專為受夠廣告干擾、追求高品質閱讀體驗所打造的網頁版閱讀工具。
+**Moconovel** adalah aplikasi web pembaca novel (*web novel reader*) bebas iklan yang di-fork dari proyek open-source luar biasa [fanqie-novel-reader](https://github.com/denniemok/fanqie-novel-reader) yang dibuat oleh **[Dennie Mok](https://github.com/denniemok)**.
 
-透過深度優化的排版與字體，我們為追求純粹的你，打造了一個安靜、精緻且數據完全保留在本地的閱讀空間。針對不同習慣的讀者，我們也內建了詞彙級別的繁簡轉換功能，讓閱讀更自然流暢。
+Proyek ini dimodifikasi dan disesuaikan secara kustom oleh **[Dafit Fernandus (Dapet)](https://dafitferdidiansyah.github.io)** untuk diintegrasikan secara penuh dengan API Server pribadi berbasis Django.
 
-### 👉 **立即體驗**：[https://fanqietc.com](https://fanqietc.com)
+---
 
-<br>
+## 🚀 Fitur Hasil Kustomisasi
 
-## 📸 介面預覽
+- **☁️ Integrasi Django REST API (Self-Hosted):** Mengganti mock API bawaan agar terhubung ke server backend Django di **Proxmox VE (LXC Ubuntu)** melalui tunnel publik Ngrok.
+- **📥 EPUB Direct Import System:** Backend Django admin dilengkapi parser EPUB otomatis untuk memasukkan judul, penulis, deskripsi, gambar cover, dan bab novel ke database SQLite secara instan.
+- **🌐 Lokalisasi Bahasa:** Antarmuka dasar dan metadata SEO disesuaikan ke Bahasa Indonesia agar lebih ramah bagi pembaca lokal.
+- **⚡ HashRouter Deployment:** Mengubah sistem routing React Router ke HashRouter untuk mencegah error 404 (Page Not Found) saat halaman di-refresh di GitHub Pages.
 
-> [!TIP]
-> 專為電子書愛好者深度優化的「黑夜模式」與精緻的閱讀排版。
+---
 
-<p align="center">
-  <img src="https://i.imgur.com/9qHDfgT.png" width="97%" alt="書架">
-</p>
+## 🏗️ Arsitektur Proyek
 
-<br>
+```
+[ FRONTEND CLIENT (Forked) ] ──( HTTPS via Ngrok )──► [ BACKEND SERVER ]
+(React, Vite, HashRouter)                            (Django REST API)
+                                                             │
+                                                     [ PROXMOX VE LXC ]
+                                                     (Ubuntu Container)
+```
 
-## ✨ 核心優勢
+- **Frontend Client (Repository ini):** Dikembangkan berbasis React 18 + Vite, menggunakan kode dasar dari `fanqie-novel-reader`.
+- **Backend Server:** API Django kustom untuk parser buku, serving chapter, dan manajemen database admin.
 
-- **零門檻：** 無需註冊安裝，不受應用程式商店地域封鎖限制，網頁開啟即讀。
-- **探索新書：** 內建搜尋、榜單與推薦，也可直接貼上網址或書籍 ID 開始閱讀。
-- **專業繁簡轉換：** 提供詞彙級別精準轉換，支援臺灣繁體、香港繁體與原文簡體三種模式。
-- **護眼深度優化：** 預設高品質暗黑模式，字體、背景與亮度均可微調，適合長時間沈浸閱讀。
-- **徹底零廣告：** 物理性過濾所有廣告與追蹤器，還你一個更純淨、更專注的閱讀空間。
-- **下載與匯出：** 支援背景異步預載，並可將小說匯出為 TXT 或 EPUB，方便放入 Kindle、Kobo 等電子書閱讀器。
-- **API 狀態監控：** 即時檢測各鏡像源健康狀態，並可在設定中手動切換 API 來源。
-- **PWA 支援：** 可安裝至手機桌面或電腦，享受類原生 App 的流暢操作與離線閱讀功能。
-- **本地數據隱私：** 閱讀紀錄與下載章節皆儲存在您的設備中，隱私百分之百由您掌控。
+---
 
-<br>
-
-## 🧩 快速上手
-
-無需複雜操作，以下任一方式即可開始閱讀：
-
-**方式一：探索新書**
-1. 從首頁進入「新書」頁面。
-2. 透過搜尋、榜單或推薦找到感興趣的小說，點擊即可開讀。
-
-**方式二：貼上網址或 ID**
-1. 在 [番茄小說網](https://fanqienovel.com) 或 [Tomato MTL](https://tomatomtl.com) 複製小說網址（或記下書籍 ID）。
-2. 進入「新書」→「其他」，將網址或 ID 貼入輸入框，點擊「開始閱讀」。
-
-閱讀紀錄會自動保存於書架。
-
-<br>
-
-## 🚢 部署與開發
-
-> [!CAUTION]
-> 為確保第三方 API 的服務安全與穩定，後端代理服務暫不公開。前端可獨立構建部署，但需自行配置可用的後端位址。
-
-本專案基於 **Vite + React 18** 構建，需要 **Node.js ≥ 16**。
+## 🛠️ Pembangunan & Pengembangan Lokal
 
 ```bash
-# 安裝依賴
+# Clone repositori
+git clone https://github.com/dafitferdidiansyah/moconovel.git
+cd moconovel
+
+# Instalasi dependensi
 npm install
 
-# 複製環境變數範本並填入後端位址
-cp .env.example .env
-
-# 本地開發（預設 http://localhost:5173）
+# Jalankan server pengembangan lokal (http://localhost:5173)
 npm run dev
-
-# 構建生產版本（靜態檔案位於 dist/）
-npm run build
 ```
 
-**技術細節**：受 [fanqienovel-book](https://github.com/kailous/fanqienovel-book) 啟發重寫。前端透過後端代理中轉請求，調用多個番茄小說 API 鏡像進行資料檢索與處理。繁簡轉換由 [OpenCC](https://github.com/BYVoid/OpenCC) 在前端完成。
+---
 
-<br>
+## 📝 Lisensi & Kredit Asli
 
-## 📁 專案結構
-
-```
-src/
-├── components/         # UI 元件
-│   ├── bookshelf/      # 書架與收藏
-│   ├── catalog/        # 章節目錄
-│   ├── chapter/        # 閱讀器
-│   ├── discover/       # 新書探索（搜尋、榜單、推薦）
-│   ├── settings/       # 設定面板
-│   └── …
-├── contexts/           # React Context（主題、下載、轉換模式等）
-├── hooks/              # 自訂 Hooks（api、book、discover 等）
-├── pages/              # 路由頁面
-├── services/           # API 與探索服務
-└── utils/              # 工具函式（匯出、快取、繁簡轉換等）
-```
-
-<br>
-
-## 💡 注意事項
-
-> [!IMPORTANT]
-> 本專案依賴第三方 API 提供服務，請在使用前詳閱以下說明。資源珍貴，請節制使用。
-
-- 由於使用第三方接口，服務可能隨時變更或失效。若發現應用無法正常運行，可至 [Issues](https://github.com/denniemok/fanqie-novel-reader/issues) 頁面回報。
-- 若遇到章節下載失敗，可能是 API 暫時性過載或維護中，請稍候再試。
-- 請勿短時間內頻繁調用，建議單次下載不超過 **500 章**，以減輕伺服器壓力。
-
-<br>
-
-## ⚠️ 免責聲明
-
-- 本專案為非商業性質之個人學習專案，不含廣告、不進行任何形式的營利。
-- 本專案內容取自第三方 API，僅供個人閱讀時顯示與繁簡轉換。章節可按需要暫存於本機，以便離線閱讀或匯出個人備份。本專案不會在伺服器託管小說原文，亦不作任何商業再散佈。
-- 所有小說內容之著作權均歸原作者及番茄小說所有，請支持正版閱讀。
-- 使用者應自行遵守當地法律法規及番茄小說服務條款，因使用本專案所生之法律責任由使用者自行承擔。
-- 若著作權人認為本專案侵害其權益，請透過 [Issues](https://github.com/denniemok/fanqie-novel-reader/issues) 頁面聯繫，我們將儘速處理相關內容或功能。
-
-<br>
-
-## 📋 授權條款
-
-本專案採用 [MIT 授權](LICENSE)。使用本專案原始碼時請保留授權聲明並註明出處。
-
-<br>
-
-## 💡 開發者碎碎念
-
-官方 App 雖然方便，但時不時跳出的廣告總是在精彩處讓人出戲，內建的繁簡轉換有時也稍顯生硬。這個專案的初衷，就是為了營造一個更舒適、專注且純粹的閱讀空間。
-
-**如果你也喜歡這份純粹，請點個 ⭐ 支持我的持續維護！**
-
-歡迎至 [Issues](https://github.com/denniemok/fanqie-novel-reader/issues) 提出建議或回報問題。
+- **Pembuat Kode Asli (Original Author):** **[Dennie Mok](https://github.com/denniemok)** (Lisensi MIT).
+- **Kustomisasi & Integrasi Backend:** **[Dafit Fernandus (Dapet)](https://dafitferdidiansyah.github.io)**.
