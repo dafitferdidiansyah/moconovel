@@ -129,5 +129,10 @@ export async function fetchApiStatus({ signal } = {}) {
 }
 
 export async function fetchAnnouncements({ signal } = {}) {
-  return []; // Mock announcements
+  return [
+    {
+      date: "2026-08-20",
+      message: "Selamat datang di Moconovel! Aplikasi ini dikembangkan oleh Dafit Fernandus sebagai pembaca novel web terjemahan bebas iklan yang terhubung dengan Django REST API backend di Proxmox VE."
+    }
+  ];
 }

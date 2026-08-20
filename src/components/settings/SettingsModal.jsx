@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Activity, BookImage, Globe, Languages, Moon, Sun } from 'lucide-react';
+import { Activity, BookImage, Globe, Moon, Sun } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { Modal, ModalTitleBar, ModalBody, ModalText } from '../ui/ModalBase';
 import { MODAL_SELECT_PROPS, Section, SectionHeader, SelectField } from '../ui/ModalFormSection';
@@ -10,13 +10,11 @@ import { useApiBase } from '../../hooks/api/useApiBase';
 import { useApiStatus } from '../../hooks/api/useApiStatus';
 import { useBookDisplayVariant } from '../../contexts/BookDisplayVariantContext';
 import { useBookshelfQuickAction } from '../../contexts/BookshelfQuickActionContext';
-import { useConversionMode } from '../../hooks/useConversionMode';
 import { useTheme } from '../../contexts/ThemeContext';
 import {
   API_OPTIONS,
   BOOK_DISPLAY_VARIANT_OPTIONS,
   BOOKSHELF_QUICK_ACTION_OPTIONS,
-  ZH_CONVERSION_OPTIONS,
 } from '../../utils/constants';
 import { ROUTES } from '../../utils/navigation';
 
@@ -90,7 +88,6 @@ function SettingsModal({ onClose }) {
   const statusByApi = useApiStatus();
   const { variant, setVariant } = useBookDisplayVariant();
   const { enabled: bookshelfQuickAction, setEnabled: setBookshelfQuickAction } = useBookshelfQuickAction();
-  const [conversionMode, setConversionMode] = useConversionMode();
   const { theme, setTheme } = useTheme();
 
   const [customUrl, setCustomUrl] = useState(() => getApiConfig().localApiUrl || '');
@@ -194,22 +191,7 @@ function SettingsModal({ onClose }) {
           </StatusLink>
         </Section>
 
-        <Section>
-          <SectionHeader>
-            <Languages size={16} strokeWidth={2.5} aria-hidden />
-            <span>Chinese Conversion</span>
-          </SectionHeader>
-          <SelectField>
-            <SelectDropdown
-              options={ZH_CONVERSION_OPTIONS}
-              value={conversionMode}
-              onChange={setConversionMode}
-              ariaLabel="Select Conversion"
-              {...MODAL_SELECT_PROPS}
-            />
-          </SelectField>
-          <ModalText>Only affects reading content (title, text, comments, etc.), interface remains unchanged.</ModalText>
-        </Section>
+
 
         <Section>
           <SectionHeader>
