@@ -1,5 +1,5 @@
 export const EMPTY_BOOK_FILTERS = {
-  category: '',
+  categories: {}, // maps category/genre name -> 'include' | 'exclude' | 'neutral'
   status: '',
   wordCount: '',
 };
@@ -28,7 +28,8 @@ const WORD_COUNT_RANGES = {
 };
 
 export function hasActiveBookFilters(filters = EMPTY_BOOK_FILTERS) {
-  return Boolean(filters.category || filters.status || filters.wordCount);
+  const hasActiveCategories = filters.categories && Object.values(filters.categories).some(state => state === 'include' || state === 'exclude');
+  return Boolean(hasActiveCategories || filters.status || filters.wordCount);
 }
 
 const STATUS_FILTER_VALUES = new Set(STATUS_FILTER_OPTIONS.map((option) => option.value));
@@ -36,8 +37,16 @@ const WORD_COUNT_FILTER_VALUES = new Set(WORD_COUNT_FILTER_OPTIONS.map((option) 
 
 export function normalizeBookFilters(raw) {
   if (!raw || typeof raw !== 'object') return { ...EMPTY_BOOK_FILTERS };
+  
+  let categories = {};
+  if (raw.categories && typeof raw.categories === 'object') {
+    categories = raw.categories;
+  } else if (typeof raw.category === 'string' && raw.category) {
+    categories = { [raw.category]: 'include' };
+  }
+  
   return {
-    category: typeof raw.category === 'string' ? raw.category : '',
+    categories,
     status: STATUS_FILTER_VALUES.has(raw.status) ? raw.status : '',
     wordCount: WORD_COUNT_FILTER_VALUES.has(raw.wordCount) ? raw.wordCount : '',
   };
@@ -78,8 +87,13 @@ export function extractDiscoverBookFilterMeta(book) {
 export function collectCategoriesFromItems(items, getMeta) {
   const categories = new Set();
   items.forEach((item) => {
-    const category = getMeta(item)?.category;
-    if (category) categories.add(category);
+    const categoryStr = getMeta(item)?.category;
+    if (categoryStr) {
+      categoryStr.split(',').forEach(c => {
+        const trimmed = c.trim();
+        if (trimmed) categories.add(trimmed);
+      });
+    }
   });
   return [...categories].sort((a, b) => a.localeCompare(b, 'zh-Hant'));
 }
@@ -101,9 +115,17 @@ function matchesStatusFilter(creationStatus, filterKey) {
   return true;
 }
 
-function matchesCategoryFilter(category, filterKey) {
-  if (!filterKey) return true;
-  return category === filterKey;
+function matchesCategoryFilter(categoryStr, filterCategories = {}) {
+  const bookGenres = categoryStr ? categoryStr.split(',').map(c => c.trim()) : [];
+  
+  for (const [catName, state] of Object.entries(filterCategories)) {
+    if (state === 'include') {
+      if (!bookGenres.includes(catName)) return false;
+    } else if (state === 'exclude') {
+      if (bookGenres.includes(catName)) return false;
+    }
+  }
+  return true;
 }
 
 /** @param {object|null|undefined} meta */
@@ -112,7 +134,7 @@ export function bookMatchesFilters(meta, filters = EMPTY_BOOK_FILTERS) {
   if (!meta) return true;
 
   return (
-    matchesCategoryFilter(meta.category, filters.category)
+    matchesCategoryFilter(meta.category, filters.categories)
     && matchesStatusFilter(meta.creationStatus, filters.status)
     && matchesWordCountFilter(meta.wordCount, filters.wordCount)
   );
@@ -122,7 +144,17 @@ export function bookMatchesFilters(meta, filters = EMPTY_BOOK_FILTERS) {
 export function computeBookFilterOptionCounts(items, getMeta, filters, options, filterKey) {
   const counts = {};
   for (const option of options) {
-    const testFilters = { ...filters, [filterKey]: option.value };
+    let testFilters = { ...filters };
+    if (filterKey === 'category') {
+      if (option.value) {
+        testFilters.categories = { ...filters.categories, [option.value]: 'include' };
+      } else {
+        testFilters.categories = {};
+      }
+    } else {
+      testFilters[filterKey] = option.value;
+    }
+    
     let count = 0;
     for (const item of items) {
       if (bookMatchesFilters(getMeta(item), testFilters)) count += 1;

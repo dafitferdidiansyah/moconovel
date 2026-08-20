@@ -30,12 +30,6 @@ export function useDiscoverBookList({
     }
 
     if (activePrimary === PRIMARY_TAB_SEARCH) {
-      if (!submittedQuery) {
-        setLoading(false);
-        setError(null);
-        setBooks([]);
-        return undefined;
-      }
 
       const controller = new AbortController();
       setLoading(true);

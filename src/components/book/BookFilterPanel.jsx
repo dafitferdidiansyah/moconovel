@@ -139,6 +139,33 @@ const Options = styled.div`
   min-width: 0;
 `;
 
+const CategoryChip = styled.button`
+  padding: 5px 12px;
+  border: 1px solid var(--border-color);
+  background: ${(p) => {
+    if (p.$state === 'include') return 'var(--accent-color)';
+    if (p.$state === 'exclude') return 'var(--danger-color)';
+    return 'var(--background-color2)';
+  }};
+  color: ${(p) => (p.$state ? 'var(--text-on-accent)' : 'var(--text-color-secondary)')};
+  font-size: 13px;
+  font-weight: 600;
+  font-family: var(--ui-font-family);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+
+  &:hover {
+    background: ${(p) => {
+      if (p.$state === 'include') return 'var(--accent-hover)';
+      if (p.$state === 'exclude') return 'var(--danger-hover)';
+      return 'var(--hover-background-color)';
+    }};
+    color: ${(p) => (p.$state ? 'var(--text-on-accent)' : 'var(--text-color)')};
+    border-color: var(--accent-color);
+  }
+`;
+
 const Chip = styled.button`
   padding: 5px 12px;
   border: 1px solid var(--border-color);
@@ -185,10 +212,19 @@ function FilterRow({ label, options, value, onChange, optionCounts }) {
 function getActiveFilterLabels(filters, categoryOptions, conversionMode) {
   const labels = [];
 
-  if (filters.category) {
-    const category = categoryOptions.find((option) => option.value === filters.category);
-    labels.push(category?.label || maybeConvert(filters.category, conversionMode));
+  // Category include/exclude labels
+  if (filters.categories) {
+    Object.entries(filters.categories).forEach(([cat, state]) => {
+      const option = categoryOptions.find((opt) => opt.value === cat);
+      const label = option ? option.label : maybeConvert(cat, conversionMode);
+      if (state === 'include') {
+        labels.push(`${label} (incl)`);
+      } else if (state === 'exclude') {
+        labels.push(`${label} (exc)`);
+      }
+    });
   }
+
   if (filters.status) {
     const status = STATUS_FILTER_OPTIONS.find((option) => option.value === filters.status);
     if (status) labels.push(maybeConvert(status.label, conversionMode));
@@ -305,13 +341,40 @@ function BookFilterPanel({
 
       {expanded && (
         <Body id="book-filter-panel">
-          <FilterRow
-            label="Category"
-            options={categoryOptions}
-            value={filters.category}
-            onChange={(value) => setFilter('category', value)}
-            optionCounts={categoryCounts}
-          />
+          {/* Category filter with three-state include/exclude/neutral */}
+          <div>
+            <Label>Category：</Label>
+            <Options>
+              {categoryOptions.map((option) => {
+                const state = filters.categories?.[option.value]; // 'include' | 'exclude' | undefined
+                const handleToggle = () => {
+                  const newCategories = { ...(filters.categories || {}) };
+                  if (!state) {
+                    newCategories[option.value] = 'include';
+                  } else if (state === 'include') {
+                    newCategories[option.value] = 'exclude';
+                  } else {
+                    delete newCategories[option.value];
+                  }
+                  onFiltersChange({ ...filters, categories: newCategories });
+                };
+                const count = categoryCounts?.[option.value || ''];
+                return (
+                  <CategoryChip
+                    key={option.value || 'all'}
+                    type="button"
+                    $state={state}
+                    onClick={handleToggle}
+                  >
+                    {option.label}
+                    {count != null && ` (${count})`}
+                    {state === 'include' && ' ✓'}
+                    {state === 'exclude' && ' ✕'}
+                  </CategoryChip>
+                );
+              })}
+            </Options>
+          </div>
           <FilterRow
             label="Status"
             options={STATUS_FILTER_OPTIONS}

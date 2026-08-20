@@ -263,9 +263,7 @@ function DiscoverBooks({ conversionMode = 'tw' }) {
         </OthersPanel>
       )}
 
-      {showSearchContent && !submittedQuery && (
-        <EmptyHint>Enter keyword and press Search</EmptyHint>
-      )}
+
 
       {showListContent && loading && (
         <DiscoverBookSkeletons viewMode={viewMode} />
