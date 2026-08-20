@@ -129,10 +129,14 @@ export async function fetchApiStatus({ signal } = {}) {
 }
 
 export async function fetchAnnouncements({ signal } = {}) {
-  return [
-    {
-      date: "2026-08-20",
-      message: "Selamat datang di Moconovel! Aplikasi ini dikembangkan oleh Dafit Fernandus sebagai pembaca novel web terjemahan bebas iklan yang terhubung dengan Django REST API backend di Proxmox VE."
-    }
-  ];
+  const config = getApiConfig();
+  if (config.mode === "local") {
+    const res = await fetch(`${config.localApiUrl}/api/announcements/`, { 
+      headers: { 'ngrok-skip-browser-warning': 'true' },
+      signal
+    });
+    if (!res.ok) throw new Error("Failed to fetch announcements");
+    return await res.json();
+  }
+  return [];
 }
