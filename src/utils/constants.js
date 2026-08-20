@@ -123,9 +123,9 @@ export const TEXT_BRIGHTNESS_MAX = 100;
 export const TEXT_BRIGHTNESS_DEFAULT = 90;
 export const TEXT_BRIGHTNESS_STEP = 5;
 
-export const GITHUB_ISSUES_URL = 'https://github.com/denniemok/fanqie-novel-reader/issues';
-export const GITHUB_REPO_URL = 'https://github.com/denniemok/fanqie-novel-reader';
-export const GITHUB_README_URL = 'https://github.com/denniemok/fanqie-novel-reader/blob/main/README.md';
+export const GITHUB_ISSUES_URL = 'https://github.com/dafitferdidiansyah/moconovel/issues';
+export const GITHUB_REPO_URL = 'https://github.com/dafitferdidiansyah/moconovel';
+export const GITHUB_README_URL = 'https://github.com/dafitferdidiansyah/moconovel/blob/main/README.md';
 
 export const MAX_CONCURRENT_DOWNLOADS = 5;
 export const BATCH_COOLDOWN_MS = 5000;

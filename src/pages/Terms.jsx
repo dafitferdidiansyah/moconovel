@@ -56,7 +56,7 @@ function Terms() {
           <SectionTitle>Copyright Infringement Notice</SectionTitle>
           <Paragraph>
             If you are a copyright owner and believe content infringes your rights, please use{' '}
-            <ExternalLink href="https://github.com/denniemok/fanqie-novel-reader/issues" target="_blank" rel="noreferrer">GitHub Issues</ExternalLink>{' '}
+            <ExternalLink href="https://github.com/dafitferdidiansyah/moconovel/issues" target="_blank" rel="noreferrer">GitHub Issues</ExternalLink>{' '}
             Contact us, we will process relevant content or features ASAP.
           </Paragraph>
         </Section>
