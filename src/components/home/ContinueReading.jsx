@@ -30,7 +30,18 @@ const Hero = styled.section`
 `;
 const HeroContent = styled.div`display: flex; flex-direction: column; align-items: flex-start; justify-content: center; min-width: 0;`;
 const Eyebrow = styled.p`margin: 0 0 8px; color: var(--accent-color); font-size: 12px; font-weight: 700; letter-spacing: 0.08em;`;
-const Heading = styled.h2`margin: 0; font-family: var(--display-font-family); font-size: clamp(24px, 4vw, 32px); font-weight: 600; line-height: 1.25;`;
+const Heading = styled.h2`
+  margin: 0;
+  font-family: var(--display-font-family);
+  font-size: clamp(24px, 4vw, 32px);
+  font-weight: 600;
+  line-height: 1.25;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+`;
 const Meta = styled.p`margin: 10px 0 20px; color: var(--text-color-secondary); font-size: 14px;`;
 const ContinueButton = styled.button`
   display: inline-flex; align-items: center; gap: 8px; border: 0; border-radius: 999px; padding: 10px 16px;
