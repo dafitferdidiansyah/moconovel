@@ -96,7 +96,7 @@ export async function fetchApiStatus({ signal } = {}) {
     apis: [
       {
         id: "Django REST API",
-        overall: "normal",
+        overall: "up",
         endpoints: {
           detail: { ok: true, latency_ms: 50 },
           directory: { ok: true, latency_ms: 70 },
