@@ -13,7 +13,7 @@ export const getApiConfig = () => {
   }
   return {
     mode: "local", // "local" or "telegram"
-    localApiUrl: "http://localhost:8000",
+    localApiUrl: import.meta.env.VITE_BACKEND_URL || "http://localhost:8000",
     telegramToken: "",
     telegramChatId: ""
   };
