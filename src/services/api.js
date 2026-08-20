@@ -13,9 +13,11 @@ export function setApiService(apiId) {
 function mapNovelToBook(novel) {
   return {
     book_id: novel.id.toString(),
+    book_name: novel.title,
     title: novel.title,
-    author: novel.author || "Unknown",
+    author: novel.author || "Unknown Author",
     cover: novel.cover_image || "https://via.placeholder.com/150",
+    thumb_url: novel.cover_image || null,
     category: novel.genres ? Object.keys(novel.genres).join(", ") : "Uncategorized",
     word_count: 0, // Mock
     abstract: novel.description || "No description available.",
@@ -56,7 +58,7 @@ export async function fetchBookDirectory(bookId, { forceRefresh = false, signal 
     is_vip: 0,
     word_count: ch.content ? ch.content.length : 0
   }));
-  return { item_list: items };
+  return { item_data_list: items };
 }
 
 export async function fetchItem(itemId, { forceRefresh = false, signal } = {}) {
