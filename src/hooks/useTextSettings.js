@@ -68,21 +68,6 @@ export function useFontFamily() {
   return [fontFamily, handleFontFamilyChange];
 }
 
-export function useTextBrightness() {
-  const [textBrightness, setTextBrightnessState] = useState(getTextBrightness);
-
-  const handleTextBrightnessChange = (delta) => {
-    setTextBrightnessState((prev) => {
-      const next = prev + delta * TEXT_BRIGHTNESS_STEP;
-      const clamped = Math.max(TEXT_BRIGHTNESS_MIN, Math.min(TEXT_BRIGHTNESS_MAX, next));
-      setTextBrightness(clamped);
-      return clamped;
-    });
-  };
-
-  return [textBrightness, handleTextBrightnessChange];
-}
-
 export function useReaderBackground() {
   const [readerBackground, setReaderBackgroundState] = useState(getReaderBackground);
   const [customColors, setCustomColorsState] = useState(getReaderCustomColors);

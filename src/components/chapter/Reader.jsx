@@ -22,7 +22,7 @@ const ReaderWrapper = styled.div`
   p {
     line-height: ${(p) => p.$lineHeight ?? LINE_HEIGHT_DEFAULT};
     font-size: ${(p) => p.$fontSize ?? FONT_SIZE_DEFAULT}px;
-    color: color-mix(in srgb, ${(p) => p.$textColor ?? 'var(--text-color)'} ${(p) => p.$textBrightness ?? TEXT_BRIGHTNESS_DEFAULT}%, transparent);
+    color: ${(p) => p.$textColor ?? 'var(--text-color)'};
     margin-bottom: 1.8em;
     text-align: justify;
     letter-spacing: 0.05em;
@@ -39,7 +39,6 @@ function Reader({
   fontSize = FONT_SIZE_DEFAULT,
   lineHeight = LINE_HEIGHT_DEFAULT,
   fontFamily = "'Noto Serif TC', 'Noto Serif SC', sans-serif",
-  textBrightness = TEXT_BRIGHTNESS_DEFAULT,
   readerTextColor,
   conversionMode = 'tw',
 }) {
@@ -57,7 +56,6 @@ function Reader({
       $fontSize={fontSize}
       $lineHeight={lineHeight}
       $fontFamily={fontFamily}
-      $textBrightness={textBrightness}
       $textColor={readerTextColor}
     >
       {paragraphs.map((text, index) => (

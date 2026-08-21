@@ -1,6 +1,6 @@
 import { createPortal } from 'react-dom';
 import styled from 'styled-components';
-import { Minus, Plus, Sun, Moon, SunMoon, Type, Palette, RefreshCw, ArrowUpDown } from 'lucide-react';
+import { Minus, Plus, Sun, Moon, Type, Palette, RefreshCw, ArrowUpDown } from 'lucide-react';
 import { ModalOverlay } from '../ui/ModalBase';
 import { IconButton } from '../ui/IconButton';
 import IconDropdown from '../ui/IconDropdown';
@@ -147,8 +147,6 @@ function ReaderControlsPanel({
   onLineHeightChange,
   fontFamily,
   onFontFamilyChange,
-  textBrightness,
-  onTextBrightnessChange,
   readerBackground,
   onReaderBackgroundChange,
   readerCustomBg,
@@ -157,7 +155,7 @@ function ReaderControlsPanel({
   onCustomTextChange,
 }) {
   const isCustom = readerBackground === READER_BACKGROUND_CUSTOM;
-  const { toggleTheme } = useTheme();
+  const { setTheme, theme } = useTheme();
 
   if (!open) return null;
 
@@ -217,26 +215,34 @@ function ReaderControlsPanel({
               menuPlacement="left"
             />
           )}
-          {onTextBrightnessChange && (
+          <ControlGroup>
             <IconButton
               type="button"
-              title="Darken"
-              disabled={textBrightness <= TEXT_BRIGHTNESS_MIN}
-              onClick={() => onTextBrightnessChange(-1)}
-            >
-              <Moon size={20} strokeWidth={2.5} />
-            </IconButton>
-          )}
-          {onTextBrightnessChange && (
-            <IconButton
-              type="button"
-              title="Brighten"
-              disabled={textBrightness >= TEXT_BRIGHTNESS_MAX}
-              onClick={() => onTextBrightnessChange(1)}
+              title="Light Mode"
+              $active={theme === 'light'}
+              onClick={() => {
+                setTheme('light');
+                if (onReaderBackgroundChange && readerBackground !== '#f0e9e4' && readerBackground !== '#ffffff') {
+                  onReaderBackgroundChange('#f0e9e4');
+                }
+              }}
             >
               <Sun size={20} strokeWidth={2.5} />
             </IconButton>
-          )}
+            <IconButton
+              type="button"
+              title="Dark Mode"
+              $active={theme === 'dark'}
+              onClick={() => {
+                setTheme('dark');
+                if (onReaderBackgroundChange && readerBackground !== '#1a1a1a' && readerBackground !== '#0a0a0a' && readerBackground !== '#2c2630') {
+                  onReaderBackgroundChange('#1a1a1a');
+                }
+              }}
+            >
+              <Moon size={20} strokeWidth={2.5} />
+            </IconButton>
+          </ControlGroup>
           {onReaderBackgroundChange && (
             <IconDropdown
               icon={<Palette size={20} strokeWidth={2.5} />}
@@ -272,9 +278,6 @@ function ReaderControlsPanel({
           </Section>
         )}
         <Section>
-          <IconButton type="button" title="Toggle App Theme" onClick={toggleTheme}>
-            <SunMoon size={20} strokeWidth={2.5} />
-          </IconButton>
           {onRefresh && (
             <IconButton type="button" title="Refresh Chapter" onClick={onRefresh}>
               <RefreshCw size={20} strokeWidth={2.5} />

@@ -23,7 +23,6 @@ function Chapter() {
   const [fontSize, handleFontSizeChange] = useFontSize();
   const [lineHeight, handleLineHeightChange] = useLineHeight();
   const [fontFamily, handleFontFamilyChange] = useFontFamily();
-  const [textBrightness, handleTextBrightnessChange] = useTextBrightness();
   const {
     readerBackground,
     readerBackgroundColor,
@@ -63,8 +62,8 @@ function Chapter() {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
       
-      if (currentScrollY > lastScrollY && currentScrollY > 50) {
-        // Scrolling down -> hide toolbars
+      // If we scroll down more than 50px, hide toolbars
+      if (currentScrollY > lastScrollY + 50) {
         setShowToolbars(false);
       }
       
@@ -120,8 +119,6 @@ function Chapter() {
                 onLineHeightChange={handleLineHeightChange}
                 fontFamily={fontFamily}
                 onFontFamilyChange={handleFontFamilyChange}
-                textBrightness={textBrightness}
-                onTextBrightnessChange={handleTextBrightnessChange}
                 readerBackground={readerBackground}
                 onReaderBackgroundChange={handleReaderBackgroundChange}
                 readerCustomBg={readerCustomBg}
@@ -141,7 +138,6 @@ function Chapter() {
                   fontSize={fontSize}
                   lineHeight={lineHeight}
                   fontFamily={fontFamily}
-                  textBrightness={textBrightness}
                   readerTextColor={readerTextColor}
                   conversionMode={conversionMode}
                 />
