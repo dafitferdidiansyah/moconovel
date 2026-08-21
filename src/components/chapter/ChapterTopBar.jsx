@@ -22,6 +22,8 @@ const TopBarWrapper = styled.div`
   right: 0;
   z-index: 1000;
   border-bottom: 1px solid var(--border-color);
+  transition: transform 0.3s ease;
+  transform: translateY(${(p) => (p.$show ? '0' : '-100%')});
 
   @media (max-width: 480px) {
     padding: 9px 16px;
@@ -125,6 +127,7 @@ function ChapterTopBar({
   conversionMode = 'tw',
   readerControlsOpen,
   onReaderControlsToggle,
+  show = true,
 }) {
   const { variant } = useBookDisplayVariant();
   const novelData = chapterData?.novel_data;
@@ -136,12 +139,13 @@ function ChapterTopBar({
 
   const displayTitle = convertedTitle || (itemId ? `No. ${itemId}  chapters` : 'Chapter');
   const { order, serial_count } = novelData ?? {};
+  
   const progress = order && serial_count
     ? ((parseInt(order, 10) / parseInt(serial_count, 10)) * 100).toFixed(1)
     : null;
 
   return (
-    <TopBarWrapper>
+    <TopBarWrapper $show={show}>
       <InfoRow>
         <TitleBlock>
           <h1>{displayTitle}</h1>

@@ -17,6 +17,8 @@ const BottomBarWrapper = styled.div`
   align-items: center;
   z-index: 1000;
   border-top: 1px solid var(--border-color);
+  transition: transform 0.3s ease;
+  transform: translateY(${(p) => (p.$show ? '0' : '100%')});
 
   a,
   span {
@@ -51,13 +53,13 @@ const IconWrapper = styled.span`
   }
 `;
 
-function BottomBar({ chapterData, bookId }) {
+function BottomBar({ chapterData, bookId, show = true }) {
   if (!chapterData) return null;
 
   const { pre_item_id, next_item_id } = chapterData.novel_data ?? {};
 
   return (
-    <BottomBarWrapper>
+    <BottomBarWrapper $show={show}>
       {pre_item_id ? (
         <Link to={buildChapterUrl(pre_item_id, bookId)} title="Previous Chapter">
           <IconWrapper>

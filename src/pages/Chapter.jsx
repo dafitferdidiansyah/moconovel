@@ -34,6 +34,7 @@ function Chapter() {
   } = useReaderBackground();
   const [conversionMode] = useConversionMode();
   const [readerControlsOpen, setReaderControlsOpen] = useState(false);
+  const [showToolbars, setShowToolbars] = useState(true);
 
   const handleRefresh = useCallback(() => {
     loadChapter(true);
@@ -45,7 +46,30 @@ function Chapter() {
 
   useEffect(() => {
     setReaderControlsOpen(false);
+    setShowToolbars(true);
   }, [itemId]);
+
+  useEffect(() => {
+    let lastScrollY = window.scrollY;
+    
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      
+      if (currentScrollY > lastScrollY && currentScrollY > 50) {
+        // Scrolling down -> hide toolbars
+        setShowToolbars(false);
+      }
+      // If we wanted to show on scroll up:
+      // else if (currentScrollY < lastScrollY) {
+      //   setShowToolbars(true);
+      // }
+      
+      lastScrollY = currentScrollY;
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   if (!itemId) {
     return bookId ? <Navigate to={buildCatalogUrl(bookId)} replace /> : <Navigate to={ROUTES.home} replace />;
@@ -66,6 +90,7 @@ function Chapter() {
           {chapterData && (
             <>
               <ChapterTopBar
+                show={showToolbars}
                 chapterData={chapterData}
                 bookInfo={bookInfo}
                 bookId={bookId}
@@ -91,15 +116,23 @@ function Chapter() {
                 onCustomBgChange={handleCustomBgChange}
                 onCustomTextChange={handleCustomTextChange}
               />
-              <Reader
-                chapterData={chapterData}
-                fontSize={fontSize}
-                fontFamily={fontFamily}
-                textBrightness={textBrightness}
-                readerTextColor={readerTextColor}
-                conversionMode={conversionMode}
-              />
-              <BottomBar chapterData={chapterData} bookId={bookId} />
+              <div 
+                onClick={(e) => {
+                  // Only toggle if they aren't selecting text
+                  if (window.getSelection().toString().length > 0) return;
+                  setShowToolbars((prev) => !prev);
+                }}
+              >
+                <Reader
+                  chapterData={chapterData}
+                  fontSize={fontSize}
+                  fontFamily={fontFamily}
+                  textBrightness={textBrightness}
+                  readerTextColor={readerTextColor}
+                  conversionMode={conversionMode}
+                />
+              </div>
+              <BottomBar show={showToolbars} chapterData={chapterData} bookId={bookId} />
             </>
           )}
         </>
