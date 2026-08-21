@@ -7,6 +7,7 @@ import ReaderControlsPanel from '../components/chapter/ReaderControlsPanel';
 import Error from '../components/ui/Error';
 import Loading from '../components/ui/Loading';
 import PageWrapper from '../components/layout/PageWrapper';
+import ScrollToTop from '../components/ui/ScrollToTop';
 import { useConversionMode } from '../hooks/useConversionMode';
 import { useFontSize, useFontFamily, useTextBrightness, useReaderBackground } from '../hooks/useTextSettings';
 import { useChapterLoader } from '../hooks/book/useChapterLoader';
@@ -35,10 +36,15 @@ function Chapter() {
   const [conversionMode] = useConversionMode();
   const [readerControlsOpen, setReaderControlsOpen] = useState(false);
   const [showToolbars, setShowToolbars] = useState(true);
+  const [showScrollTop, setShowScrollTop] = useState(false);
 
   const handleRefresh = useCallback(() => {
     loadChapter(true);
   }, [loadChapter]);
+
+  const scrollToTop = useCallback(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, []);
 
   useLayoutEffect(() => {
     window.scrollTo(0, 0);
@@ -47,6 +53,7 @@ function Chapter() {
   useEffect(() => {
     setReaderControlsOpen(false);
     setShowToolbars(true);
+    setShowScrollTop(false);
   }, [itemId]);
 
   useEffect(() => {
@@ -59,10 +66,13 @@ function Chapter() {
         // Scrolling down -> hide toolbars
         setShowToolbars(false);
       }
-      // If we wanted to show on scroll up:
-      // else if (currentScrollY < lastScrollY) {
-      //   setShowToolbars(true);
-      // }
+      
+      // Show scroll-to-top when scrolled down more than 500px
+      if (currentScrollY > 500) {
+        setShowScrollTop(true);
+      } else {
+        setShowScrollTop(false);
+      }
       
       lastScrollY = currentScrollY;
     };
@@ -132,6 +142,11 @@ function Chapter() {
                   conversionMode={conversionMode}
                 />
               </div>
+              <ScrollToTop 
+                visible={showScrollTop} 
+                showBottomBar={showToolbars} 
+                onClick={scrollToTop} 
+              />
               <BottomBar show={showToolbars} chapterData={chapterData} bookId={bookId} />
             </>
           )}
