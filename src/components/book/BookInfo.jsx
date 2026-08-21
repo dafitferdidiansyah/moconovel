@@ -194,10 +194,16 @@ const TitleBlock = styled.div`
   gap: 6px;
   width: 100%;
 
+  .variant-compact & {
+    padding-right: 48px;
+
+    @media (max-width: 768px) {
+      padding-right: 0;
+    }
+  }
+
   .variant-compact & h1 {
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 1;
+    display: block;
     align-self: stretch;
     overflow: hidden;
     color: var(--text-color);
@@ -208,6 +214,7 @@ const TitleBlock = styled.div`
     font-family: var(--display-font-family);
     text-transform: none;
     white-space: nowrap;
+    text-overflow: ellipsis;
 
     @media (max-width: 480px) {
       font-size: 18px;
@@ -215,9 +222,7 @@ const TitleBlock = styled.div`
   }
 
   .variant-compact & h3 {
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 1;
+    display: block;
     align-self: stretch;
     overflow: hidden;
     color: var(--accent-color);
@@ -226,6 +231,8 @@ const TitleBlock = styled.div`
     line-height: 1;
     margin: 0;
     font-family: inherit;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 
     @media (max-width: 480px) {
       font-size: 13px;
