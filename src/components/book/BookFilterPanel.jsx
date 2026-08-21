@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import { ChevronDown, SlidersHorizontal, X } from 'lucide-react';
 import styled from 'styled-components';
 import { toolbarRetroUnit } from '../../utils/styled/retro';
@@ -144,10 +144,14 @@ const CategoryChip = styled.button`
   border: 1px solid var(--border-color);
   background: ${(p) => {
     if (p.$state === 'include') return 'var(--accent-color)';
-    if (p.$state === 'exclude') return 'var(--danger-color)';
+    if (p.$state === 'exclude') return 'var(--danger-color)'; // solid red background for exclude
     return 'var(--background-color2)';
   }};
-  color: ${(p) => (p.$state ? 'var(--text-on-accent)' : 'var(--text-color-secondary)')};
+  color: ${(p) => (p.$state ? (p.$state === 'include' ? 'var(--text-on-accent)' : 'white') : 'var(--text-color-secondary)')};
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 150px; // limit long genre names
+
   font-size: 13px;
   font-weight: 600;
   font-family: var(--ui-font-family);
@@ -158,10 +162,10 @@ const CategoryChip = styled.button`
   &:hover {
     background: ${(p) => {
       if (p.$state === 'include') return 'var(--accent-hover)';
-      if (p.$state === 'exclude') return 'var(--danger-hover)';
+      if (p.$state === 'exclude') return 'var(--danger-hover, #ff4d4f)';
       return 'var(--hover-background-color)';
     }};
-    color: ${(p) => (p.$state ? 'var(--text-on-accent)' : 'var(--text-color)')};
+    color: ${(p) => (p.$state ? (p.$state === 'include' ? 'var(--text-on-accent)' : 'white') : 'var(--text-color)')};
     border-color: var(--accent-color);
   }
 `;
@@ -248,6 +252,9 @@ function BookFilterPanel({
   getFilterMeta,
   filteredCount,
 }) {
+  const INITIAL_VISIBLE_COUNT = 10;
+  const [showAllGenres, setShowAllGenres] = useState(false);
+
   const categoryOptions = [
     { value: '', label: 'All' },
     ...categories.map((category) => ({
@@ -345,7 +352,9 @@ function BookFilterPanel({
           <div>
             <Label>Category：</Label>
             <Options>
-              {categoryOptions.map((option) => {
+              {categoryOptions
+                .slice(0, showAllGenres ? undefined : INITIAL_VISIBLE_COUNT)
+                .map((option) => {
                 const state = filters.categories?.[option.value]; // 'include' | 'exclude' | undefined
                 const handleToggle = () => {
                   const newCategories = { ...(filters.categories || {}) };
@@ -374,6 +383,15 @@ function BookFilterPanel({
                 );
               })}
             </Options>
+            {categoryOptions.length > INITIAL_VISIBLE_COUNT && (
+              <ToggleBtn 
+                type="button" 
+                onClick={() => setShowAllGenres(!showAllGenres)}
+                style={{ marginTop: '8px', alignSelf: 'flex-start' }}
+              >
+                {showAllGenres ? 'Show less' : 'Show more'}
+              </ToggleBtn>
+            )}
           </div>
           <FilterRow
             label="Status"
