@@ -35,9 +35,10 @@ function buildChapterXhtml(title, content) {
     <title>${escapeXml(title)}</title>
     <meta charset="UTF-8"/>
     <style>
-      body { font-family: serif; line-height: 1.8; margin: 1.2em; }
+      html, body { font-size: 100%; }
+      body { font-size: 1em; font-family: serif; line-height: 1.8; margin: 1.2em; }
       h1 { font-size: 1.2em; margin-bottom: 1em; }
-      p { margin: 0 0 0.8em; text-indent: 2em; }
+      p { font-size: 1em; margin: 0 0 0.8em; text-indent: 2em; }
     </style>
   </head>
   <body>
@@ -73,10 +74,11 @@ function buildTitleXhtml(bookName, author, abstract) {
     <title>${escapeXml(bookName)}</title>
     <meta charset="UTF-8"/>
     <style>
-      body { font-family: serif; line-height: 1.7; margin: 1.2em; }
+      html, body { font-size: 100%; }
+      body { font-size: 1em; font-family: serif; line-height: 1.7; margin: 1.2em; }
       h1 { font-size: 1.5em; margin-bottom: 0.4em; }
-      .author { color: #555; margin-bottom: 1.2em; }
-      p { margin: 0 0 0.8em; }
+      .author { font-size: 1em; color: #555; margin-bottom: 1.2em; }
+      p { font-size: 1em; margin: 0 0 0.8em; }
     </style>
   </head>
   <body>
