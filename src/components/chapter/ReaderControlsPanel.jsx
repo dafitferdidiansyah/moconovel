@@ -1,13 +1,16 @@
 import { createPortal } from 'react-dom';
 import styled from 'styled-components';
-import { Minus, Plus, Sun, Moon, Type, Palette, RefreshCw } from 'lucide-react';
+import { Minus, Plus, Sun, Moon, SunMoon, Type, Palette, RefreshCw, ArrowUpDown } from 'lucide-react';
 import { ModalOverlay } from '../ui/ModalBase';
 import { IconButton } from '../ui/IconButton';
 import IconDropdown from '../ui/IconDropdown';
 import SettingsButton from '../settings/SettingsButton';
+import { useTheme } from '../../contexts/ThemeContext';
 import {
   FONT_SIZE_MIN,
   FONT_SIZE_MAX,
+  LINE_HEIGHT_MIN,
+  LINE_HEIGHT_MAX,
   TEXT_BRIGHTNESS_MIN,
   TEXT_BRIGHTNESS_MAX,
   CHINESE_FONTS,
@@ -117,12 +120,31 @@ const ColorInput = styled.input`
   padding: 0;
 `;
 
+const ControlGroup = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  width: 100%;
+  padding-bottom: 8px;
+  margin-bottom: 4px;
+  border-bottom: 1px solid var(--border-color);
+
+  &:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+    margin-bottom: 0;
+  }
+`;
+
 function ReaderControlsPanel({
   open,
   onClose,
   onRefresh,
   fontSize,
   onFontSizeChange,
+  lineHeight,
+  onLineHeightChange,
   fontFamily,
   onFontFamilyChange,
   textBrightness,
@@ -135,6 +157,7 @@ function ReaderControlsPanel({
   onCustomTextChange,
 }) {
   const isCustom = readerBackground === READER_BACKGROUND_CUSTOM;
+  const { toggleTheme } = useTheme();
 
   if (!open) return null;
 
@@ -144,24 +167,44 @@ function ReaderControlsPanel({
       <Panel $open role="dialog" aria-modal="true" aria-label="Reading Settings">
         <Section>
           {onFontSizeChange && (
-            <IconButton
-              type="button"
-              title="Decrease Font Size"
-              disabled={fontSize <= FONT_SIZE_MIN}
-              onClick={() => onFontSizeChange(-1)}
-            >
-              <Minus size={20} strokeWidth={2.5} />
-            </IconButton>
+            <ControlGroup>
+              <IconButton
+                type="button"
+                title="Increase Font Size"
+                disabled={fontSize >= FONT_SIZE_MAX}
+                onClick={() => onFontSizeChange(1)}
+              >
+                <Plus size={20} strokeWidth={2.5} />
+              </IconButton>
+              <IconButton
+                type="button"
+                title="Decrease Font Size"
+                disabled={fontSize <= FONT_SIZE_MIN}
+                onClick={() => onFontSizeChange(-1)}
+              >
+                <Minus size={20} strokeWidth={2.5} />
+              </IconButton>
+            </ControlGroup>
           )}
-          {onFontSizeChange && (
-            <IconButton
-              type="button"
-              title="Increase Font Size"
-              disabled={fontSize >= FONT_SIZE_MAX}
-              onClick={() => onFontSizeChange(1)}
-            >
-              <Plus size={20} strokeWidth={2.5} />
-            </IconButton>
+          {onLineHeightChange && (
+            <ControlGroup>
+              <IconButton
+                type="button"
+                title="Increase Line Spacing"
+                disabled={lineHeight >= LINE_HEIGHT_MAX}
+                onClick={() => onLineHeightChange(1)}
+              >
+                <ArrowUpDown size={20} strokeWidth={2.5} />
+              </IconButton>
+              <IconButton
+                type="button"
+                title="Decrease Line Spacing"
+                disabled={lineHeight <= LINE_HEIGHT_MIN}
+                onClick={() => onLineHeightChange(-1)}
+              >
+                <Minus size={14} strokeWidth={3} />
+              </IconButton>
+            </ControlGroup>
           )}
           {onFontFamilyChange && (
             <IconDropdown
@@ -229,6 +272,9 @@ function ReaderControlsPanel({
           </Section>
         )}
         <Section>
+          <IconButton type="button" title="Toggle App Theme" onClick={toggleTheme}>
+            <SunMoon size={20} strokeWidth={2.5} />
+          </IconButton>
           {onRefresh && (
             <IconButton type="button" title="Refresh Chapter" onClick={onRefresh}>
               <RefreshCw size={20} strokeWidth={2.5} />

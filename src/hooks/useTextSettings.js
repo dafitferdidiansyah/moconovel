@@ -4,6 +4,8 @@ import {
   setFontSize,
   getFontFamily,
   setFontFamily,
+  getLineHeight,
+  setLineHeight,
   getTextBrightness,
   setTextBrightness,
   getReaderBackground,
@@ -15,6 +17,9 @@ import {
   FONT_SIZE_MIN,
   FONT_SIZE_MAX,
   FONT_SIZE_STEP,
+  LINE_HEIGHT_MIN,
+  LINE_HEIGHT_MAX,
+  LINE_HEIGHT_STEP,
   TEXT_BRIGHTNESS_MIN,
   TEXT_BRIGHTNESS_MAX,
   TEXT_BRIGHTNESS_STEP,
@@ -34,6 +39,22 @@ export function useFontSize() {
   };
 
   return [fontSize, handleFontSizeChange];
+}
+
+export function useLineHeight() {
+  const [lineHeight, setLineHeightState] = useState(getLineHeight);
+
+  const handleLineHeightChange = (delta) => {
+    setLineHeightState((prev) => {
+      const next = prev + delta * LINE_HEIGHT_STEP;
+      // Use parseFloat(next.toFixed(1)) to avoid floating point precision issues
+      const clamped = Math.max(LINE_HEIGHT_MIN, Math.min(LINE_HEIGHT_MAX, parseFloat(next.toFixed(1))));
+      setLineHeight(clamped);
+      return clamped;
+    });
+  };
+
+  return [lineHeight, handleLineHeightChange];
 }
 
 export function useFontFamily() {

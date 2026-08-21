@@ -27,6 +27,7 @@ export const CATALOG_SORT_DIRECTION_KEY = 'catalogSortDir';
 export const CATALOG_MANAGE_MODE_KEY = 'catalogManageMode';
 export const FONT_SIZE_KEY = 'fontSize';
 export const FONT_FAMILY_KEY = 'fontFamily';
+export const LINE_HEIGHT_KEY = 'lineHeight';
 export const TEXT_BRIGHTNESS_KEY = 'textBrightness';
 export const READER_BACKGROUND_KEY = 'readerBackground';
 export const READER_CUSTOM_BG_KEY = 'readerCustomBg';
@@ -116,8 +117,14 @@ export const SEARCH_RESULT_LIMIT = 50;
 
 export const FONT_SIZE_MIN = 18;
 export const FONT_SIZE_MAX = 56;
-export const FONT_SIZE_DEFAULT = 32;
 export const FONT_SIZE_STEP = 2;
+export const FONT_SIZE_DEFAULT = 32;
+
+export const LINE_HEIGHT_MIN = 1.2;
+export const LINE_HEIGHT_MAX = 3.0;
+export const LINE_HEIGHT_STEP = 0.2;
+export const LINE_HEIGHT_DEFAULT = 2.0;
+
 export const TEXT_BRIGHTNESS_MIN = 20;
 export const TEXT_BRIGHTNESS_MAX = 100;
 export const TEXT_BRIGHTNESS_DEFAULT = 90;

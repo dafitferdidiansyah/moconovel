@@ -18,6 +18,10 @@ import {
   FONT_SIZE_MAX,
   FONT_SIZE_DEFAULT,
   FONT_FAMILY_KEY,
+  LINE_HEIGHT_KEY,
+  LINE_HEIGHT_MIN,
+  LINE_HEIGHT_MAX,
+  LINE_HEIGHT_DEFAULT,
   CHINESE_FONTS,
   TRADITIONAL_CHINESE_KEY,
   BOOK_DISPLAY_VARIANT_KEY,
@@ -202,6 +206,18 @@ export function getFontSize() {
 export function setFontSize(size) {
   const clamped = Math.max(FONT_SIZE_MIN, Math.min(FONT_SIZE_MAX, size));
   return safeSetItem(FONT_SIZE_KEY, String(clamped));
+}
+
+export function getLineHeight() {
+  const raw = safeGetItem(LINE_HEIGHT_KEY);
+  if (raw == null) return LINE_HEIGHT_DEFAULT;
+  const n = parseFloat(raw);
+  return Number.isNaN(n) ? LINE_HEIGHT_DEFAULT : Math.max(LINE_HEIGHT_MIN, Math.min(LINE_HEIGHT_MAX, n));
+}
+
+export function setLineHeight(size) {
+  const clamped = Math.max(LINE_HEIGHT_MIN, Math.min(LINE_HEIGHT_MAX, size));
+  return safeSetItem(LINE_HEIGHT_KEY, String(clamped));
 }
 
 export function getFontFamily() {

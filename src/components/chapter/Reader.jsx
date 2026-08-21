@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { maybeConvert } from '../../utils/text/zh-convert';
-import { FONT_SIZE_DEFAULT, TEXT_BRIGHTNESS_DEFAULT } from '../../utils/constants';
+import { FONT_SIZE_DEFAULT, TEXT_BRIGHTNESS_DEFAULT, LINE_HEIGHT_DEFAULT } from '../../utils/constants';
 import { minViewportHeight } from '../../utils/styled/viewport';
 
 const ReaderWrapper = styled.div`
@@ -20,7 +20,7 @@ const ReaderWrapper = styled.div`
   }
 
   p {
-    line-height: 2;
+    line-height: ${(p) => p.$lineHeight ?? LINE_HEIGHT_DEFAULT};
     font-size: ${(p) => p.$fontSize ?? FONT_SIZE_DEFAULT}px;
     color: color-mix(in srgb, ${(p) => p.$textColor ?? 'var(--text-color)'} ${(p) => p.$textBrightness ?? TEXT_BRIGHTNESS_DEFAULT}%, transparent);
     margin-bottom: 1.8em;
@@ -37,6 +37,7 @@ const ReaderWrapper = styled.div`
 function Reader({
   chapterData,
   fontSize = FONT_SIZE_DEFAULT,
+  lineHeight = LINE_HEIGHT_DEFAULT,
   fontFamily = "'Noto Serif TC', 'Noto Serif SC', sans-serif",
   textBrightness = TEXT_BRIGHTNESS_DEFAULT,
   readerTextColor,
@@ -54,6 +55,7 @@ function Reader({
   return (
     <ReaderWrapper
       $fontSize={fontSize}
+      $lineHeight={lineHeight}
       $fontFamily={fontFamily}
       $textBrightness={textBrightness}
       $textColor={readerTextColor}

@@ -9,7 +9,7 @@ import Loading from '../components/ui/Loading';
 import PageWrapper from '../components/layout/PageWrapper';
 import ScrollToTop from '../components/ui/ScrollToTop';
 import { useConversionMode } from '../hooks/useConversionMode';
-import { useFontSize, useFontFamily, useTextBrightness, useReaderBackground } from '../hooks/useTextSettings';
+import { useFontSize, useLineHeight, useFontFamily, useTextBrightness, useReaderBackground } from '../hooks/useTextSettings';
 import { useChapterLoader } from '../hooks/book/useChapterLoader';
 import { buildCatalogUrl, ROUTES } from '../utils/navigation';
 
@@ -21,6 +21,7 @@ function Chapter() {
   
   const { error, chapterData, bookInfo, loading, loadChapter } = useChapterLoader(itemId, bookId);
   const [fontSize, handleFontSizeChange] = useFontSize();
+  const [lineHeight, handleLineHeightChange] = useLineHeight();
   const [fontFamily, handleFontFamilyChange] = useFontFamily();
   const [textBrightness, handleTextBrightnessChange] = useTextBrightness();
   const {
@@ -115,6 +116,8 @@ function Chapter() {
                 onRefresh={handleRefresh}
                 fontSize={fontSize}
                 onFontSizeChange={handleFontSizeChange}
+                lineHeight={lineHeight}
+                onLineHeightChange={handleLineHeightChange}
                 fontFamily={fontFamily}
                 onFontFamilyChange={handleFontFamilyChange}
                 textBrightness={textBrightness}
@@ -136,6 +139,7 @@ function Chapter() {
                 <Reader
                   chapterData={chapterData}
                   fontSize={fontSize}
+                  lineHeight={lineHeight}
                   fontFamily={fontFamily}
                   textBrightness={textBrightness}
                   readerTextColor={readerTextColor}
