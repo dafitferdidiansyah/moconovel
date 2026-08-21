@@ -240,15 +240,19 @@ const TitleBlock = styled.div`
   }
 `;
 
-const TitleText = styled.span`
-  white-space: nowrap;
-  flex-shrink: 0;
+const TitleText = styled.h1`
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
   color: var(--text-color);
   font-size: 22px;
   font-family: var(--display-font-family);
   font-weight: 600;
   line-height: 1.3;
   text-transform: none;
+  margin: 0;
 
   @media (max-width: 480px) {
     font-size: 18px;
@@ -462,9 +466,7 @@ function BookInfo({ bookInfo, conversionMode = 'tw', variant, footer, showChapte
             </>
           ) : (
             <>
-              <HorizontalScrollArea as={HorizontalScrollRow} role="group" aria-label="Title">
-                <TitleText>{convertedBookName}</TitleText>
-              </HorizontalScrollArea>
+              <TitleText title={convertedBookName}>{convertedBookName}</TitleText>
               {convertedAuthor && <AuthorText>{convertedAuthor}</AuthorText>}
             </>
           )}
