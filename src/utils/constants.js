@@ -30,6 +30,7 @@ export const FONT_FAMILY_KEY = 'fontFamily';
 export const LINE_HEIGHT_KEY = 'lineHeight';
 export const TEXT_BRIGHTNESS_KEY = 'textBrightness';
 export const READER_BACKGROUND_KEY = 'readerBackground';
+export const READER_WIDTH_KEY = 'readerWidth';
 export const READER_CUSTOM_BG_KEY = 'readerCustomBg';
 export const READER_CUSTOM_TEXT_KEY = 'readerCustomText';
 export const TRADITIONAL_CHINESE_KEY = 'traditionalChinese';
@@ -43,19 +44,23 @@ export const READER_CUSTOM_TEXT_DEFAULT = '#1a1a1a';
 
 /** Reader background presets: { value: hex | 'custom', label, textColor? } */
 export const READER_BACKGROUND_OPTIONS = [
-  { value: '#e8dce4', label: 'Pale Pink', textColor: '#1a1a1a' },
-  { value: '#e4e0e8', label: 'Lavender', textColor: '#1a1a1a' },
-  { value: '#d4ccc8', label: 'Twilight', textColor: '#1a1a1a' },
-  { value: '#f0e9e4', label: 'Warm Paper', textColor: '#1a1a1a' },
-  { value: '#fffef5', label: 'Off White', textColor: '#1a1a1a' },
-  { value: '#ffffff', label: 'Pure White', textColor: '#1a1a1a' },
-  { value: '#e0e0e0', label: 'Light Gray', textColor: '#1a1a1a' },
-  { value: '#ede5d0', label: 'Beige', textColor: '#1a1a1a' },
-  { value: '#c0d0c0', label: 'Cyan Green', textColor: '#1a1a1a' },
-  { value: '#2c2630', label: 'Late Night', textColor: '#e0e0e0' },
+  { value: '#121212', label: 'WTR Dark', textColor: '#d4d4d4' },
+  { value: '#000000', label: 'OLED Black', textColor: '#cccccc' },
+  { value: '#f4ecd8', label: 'Sepia', textColor: '#3d3120' },
+  { value: '#fbf0d9', label: 'Cream Paper', textColor: '#2b261f' },
   { value: '#1a1a1a', label: 'Gray Black', textColor: '#e0e0e0' },
-  { value: '#0a0a0a', label: 'Deep Black', textColor: '#e0e0e0' },
+  { value: '#ffffff', label: 'Pure White', textColor: '#1a1a1a' },
+  { value: '#f0e9e4', label: 'Warm Paper', textColor: '#1a1a1a' },
+  { value: '#e8dce4', label: 'Pale Pink', textColor: '#1a1a1a' },
+  { value: '#c0d0c0', label: 'Cyan Green', textColor: '#1a1a1a' },
   { value: READER_BACKGROUND_CUSTOM, label: 'Custom' },
+];
+
+export const READER_WIDTH_OPTIONS = [
+  { value: '600px', label: 'Narrow (600px)' },
+  { value: '800px', label: 'Medium (800px)' },
+  { value: '1000px', label: 'Wide (1000px)' },
+  { value: '100%', label: 'Full Width (100%)' },
 ];
 
 /** Chinese conversion modes: { value, label } */

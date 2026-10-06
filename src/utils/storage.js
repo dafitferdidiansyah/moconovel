@@ -597,6 +597,15 @@ export function getStoredTheme() {
   return raw === 'light' || raw === 'dark' ? raw : null;
 }
 
+export function getReaderWidth() {
+  const raw = safeGetItem('readerWidth');
+  return raw || '800px';
+}
+
+export function setReaderWidth(width) {
+  return safeSetItem('readerWidth', width);
+}
+
 export function setTheme(theme) {
   if (theme !== 'light' && theme !== 'dark') return false;
   return safeSetItem(THEME_KEY, theme);

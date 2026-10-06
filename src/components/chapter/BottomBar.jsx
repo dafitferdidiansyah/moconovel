@@ -1,92 +1,151 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { ChevronLeft, ChevronRight, List, Settings, Play, Pause } from 'lucide-react';
 import styled from 'styled-components';
 import { buildChapterUrl } from '../../utils/navigation';
-import { fixedBottomBar } from '../../utils/styled/viewport';
 
-const BottomBarWrapper = styled.div`
+const FloatingBar = styled.div`
   position: fixed;
-  left: 0;
-  right: 0;
-  ${fixedBottomBar(56)}
+  left: 50%;
+  transform: translateX(-50%) translateY(${(p) => (p.$show ? '0' : '150%')});
+  bottom: calc(16px + var(--safe-area-bottom, env(safe-area-inset-bottom, 0px)));
+  height: 52px;
+  background: var(--card-bg, #1e1e1e);
+  color: var(--text-color, #ffffff);
+  border: 1px solid var(--border-color, #333);
+  border-radius: 26px;
   display: flex;
-  background-color: var(--topbar-bg);
-  backdrop-filter: blur(12px);
-  justify-content: space-around;
   align-items: center;
+  justify-content: space-between;
+  padding: 4px 12px;
+  gap: 8px;
   z-index: 1000;
-  border-top: 1px solid var(--border-color);
-  transition: transform 0.3s ease;
-  transform: translateY(${(p) => (p.$show ? '0' : '100%')});
-
-  a,
-  span {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-decoration: none;
-    color: var(--text-color-secondary);
-    width: 100%;
-    min-height: 44px;
-    height: 100%;
-    transition: all 0.2s ease;
-  }
-
-  a:hover {
-    color: var(--accent-color);
-    background-color: var(--hover-background-color);
-  }
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(12px);
+  transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  max-width: 92%;
+  width: 440px;
 `;
 
-const IconWrapper = styled.span`
+const NavButton = styled(Link)`
   display: flex;
-  flex-direction: column;
-  justify-content: center;
   align-items: center;
-  opacity: ${(p) => (p.$disabled ? 0.2 : 1)};
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  color: var(--text-color, #fff);
+  text-decoration: none;
+  transition: background 0.15s ease;
 
-  svg {
-    width: 28px;
-    height: 28px;
+  &:hover {
+    background: rgba(255, 255, 255, 0.12);
+    color: var(--accent-color, #e06c75);
+  }
+
+  &.disabled {
+    opacity: 0.3;
+    pointer-events: none;
   }
 `;
 
-function BottomBar({ chapterData, bookId, show = true }) {
+const ActionButton = styled.button`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--border-color, #333);
+  color: var(--text-color, #fff);
+  height: 38px;
+  padding: 0 14px;
+  border-radius: 19px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  font-weight: 500;
+  transition: all 0.15s ease;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: var(--accent-color, #e06c75);
+  }
+
+  &.icon-only {
+    padding: 0;
+    width: 38px;
+    border-radius: 50%;
+  }
+
+  &.active {
+    background: var(--accent-color, #e06c75);
+    border-color: var(--accent-color, #e06c75);
+    color: #fff;
+  }
+`;
+
+function BottomBar({
+  chapterData,
+  bookId,
+  show = true,
+  onOpenJumpModal,
+  onOpenSettings,
+  isAutoScrolling,
+  onToggleAutoScroll,
+}) {
   if (!chapterData) return null;
 
-  const { pre_item_id, next_item_id } = chapterData.novel_data ?? {};
+  const { pre_item_id, next_item_id, title } = chapterData.novel_data ?? {};
 
   return (
-    <BottomBarWrapper $show={show}>
+    <FloatingBar $show={show}>
+      {/* Prev Chapter */}
       {pre_item_id ? (
-        <Link to={buildChapterUrl(pre_item_id, bookId)} title="Previous Chapter">
-          <IconWrapper>
-            <ChevronLeft size={28} strokeWidth={2} />
-          </IconWrapper>
-        </Link>
+        <NavButton to={buildChapterUrl(pre_item_id, bookId)} title="Bab Sebelumnya">
+          <ChevronLeft size={22} />
+        </NavButton>
       ) : (
-        <span>
-          <IconWrapper $disabled>
-            <ChevronLeft size={28} strokeWidth={2} />
-          </IconWrapper>
-        </span>
+        <NavButton to="#" className="disabled" title="Bab Pertama">
+          <ChevronLeft size={22} />
+        </NavButton>
       )}
+
+      {/* Chapter Jump Dropdown */}
+      <ActionButton onClick={onOpenJumpModal} title="Buka Daftar Bab">
+        <List size={16} />
+        <span style={{ maxWidth: 140, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+          {title ? title : 'Daftar Bab'}
+        </span>
+      </ActionButton>
+
+      {/* Auto Scroll Toggle */}
+      {onToggleAutoScroll && (
+        <ActionButton
+          className={`icon-only ${isAutoScrolling ? 'active' : ''}`}
+          onClick={onToggleAutoScroll}
+          title={isAutoScrolling ? 'Hentikan Auto-Scroll' : 'Mulai Auto-Scroll'}
+        >
+          {isAutoScrolling ? <Pause size={16} /> : <Play size={16} />}
+        </ActionButton>
+      )}
+
+      {/* Settings Panel */}
+      {onOpenSettings && (
+        <ActionButton className="icon-only" onClick={onOpenSettings} title="Pengaturan Tampilan Reader">
+          <Settings size={18} />
+        </ActionButton>
+      )}
+
+      {/* Next Chapter */}
       {next_item_id ? (
-        <Link to={buildChapterUrl(next_item_id, bookId)} title="Next Chapter">
-          <IconWrapper>
-            <ChevronRight size={28} strokeWidth={2} />
-          </IconWrapper>
-        </Link>
+        <NavButton to={buildChapterUrl(next_item_id, bookId)} title="Bab Selanjutnya">
+          <ChevronRight size={22} />
+        </NavButton>
       ) : (
-        <span>
-          <IconWrapper $disabled>
-            <ChevronRight size={28} strokeWidth={2} />
-          </IconWrapper>
-        </span>
+        <NavButton to="#" className="disabled" title="Bab Terakhir">
+          <ChevronRight size={22} />
+        </NavButton>
       )}
-    </BottomBarWrapper>
+    </FloatingBar>
   );
 }
 

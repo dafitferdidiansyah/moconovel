@@ -68,6 +68,20 @@ export function useFontFamily() {
   return [fontFamily, handleFontFamilyChange];
 }
 
+export function useReaderWidth() {
+  const [readerWidth, setReaderWidthState] = useState(() => {
+    if (typeof window === 'undefined') return '800px';
+    return localStorage.getItem('readerWidth') || '800px';
+  });
+
+  const handleReaderWidthChange = (value) => {
+    localStorage.setItem('readerWidth', value);
+    setReaderWidthState(value);
+  };
+
+  return [readerWidth, handleReaderWidthChange];
+}
+
 export function useReaderBackground() {
   const [readerBackground, setReaderBackgroundState] = useState(getReaderBackground);
   const [customColors, setCustomColorsState] = useState(getReaderCustomColors);

@@ -1,143 +1,155 @@
+import React from 'react';
 import { createPortal } from 'react-dom';
 import styled from 'styled-components';
-import { Minus, Plus, Sun, Moon, Type, Palette, RefreshCw, ArrowUpDown } from 'lucide-react';
-import { ModalOverlay } from '../ui/ModalBase';
-import { IconButton } from '../ui/IconButton';
-import IconDropdown from '../ui/IconDropdown';
-import SettingsButton from '../settings/SettingsButton';
-import { useTheme } from '../../contexts/ThemeContext';
+import { Minus, Plus, Type, Palette, RefreshCw, X, Maximize2, Monitor } from 'lucide-react';
 import {
   FONT_SIZE_MIN,
   FONT_SIZE_MAX,
   LINE_HEIGHT_MIN,
   LINE_HEIGHT_MAX,
-  TEXT_BRIGHTNESS_MIN,
-  TEXT_BRIGHTNESS_MAX,
   CHINESE_FONTS,
   READER_BACKGROUND_OPTIONS,
-  READER_BACKGROUND_CUSTOM,
+  READER_WIDTH_OPTIONS,
 } from '../../utils/constants';
-import { catalogPanelShell } from '../../utils/styled/retro';
-import { thinScrollbarStyles } from '../../utils/styled/scrollbars';
 
-const Overlay = styled(ModalOverlay)`
-  display: block;
-  padding: 0;
-  z-index: 950;
-  background: transparent;
-`;
-
-const Panel = styled.aside`
+const Overlay = styled.div`
   position: fixed;
-  right: max(12px, env(safe-area-inset-right));
-  top: calc(128px + env(safe-area-inset-top));
-  bottom: calc(8px + var(--chapter-bottom-bar-height, 56px) + var(--safe-area-bottom, env(safe-area-inset-bottom, 0px)));
-  z-index: 960;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: safe center;
-  gap: 8px;
-  overflow-y: auto;
-  overflow-x: hidden;
-  overscroll-behavior: contain;
-  -webkit-overflow-scrolling: touch;
-  padding: 4px 0;
-  ${thinScrollbarStyles}
-
-  @media (max-width: 480px) {
-    right: max(8px, env(safe-area-inset-right));
-    top: calc(118px + env(safe-area-inset-top));
-    gap: 6px;
-  }
-
-  @media (max-height: 500px) {
-    top: calc(72px + env(safe-area-inset-top));
-    bottom: calc(var(--chapter-bottom-bar-height, 56px) - 8px + var(--safe-area-bottom, env(safe-area-inset-bottom, 0px)));
-    gap: 4px;
-    padding: 2px 0;
-  }
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  z-index: 1050;
 `;
 
-const Section = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
-  padding: 10px 8px;
-  flex-shrink: 0;
-  ${catalogPanelShell}
-
-  @media (max-width: 480px) {
-    gap: 6px;
-    padding: 8px 6px;
-  }
-
-  @media (max-height: 500px) {
-    gap: 4px;
-    padding: 6px 4px;
-  }
-`;
-
-const ColorPickerLabel = styled.label`
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 4px;
-  cursor: pointer;
-`;
-
-const ColorSwatch = styled.span`
-  display: block;
-  width: 44px;
-  height: 44px;
-  border-radius: var(--border-radius-sm);
-  background-color: ${(p) => p.$color};
-  border: var(--retro-border-width) solid var(--border-color);
-  box-shadow: var(--retro-shadow);
-  transition: var(--transition-default);
-  pointer-events: none;
-
-  ${ColorPickerLabel}:hover &,
-  ${ColorPickerLabel}:focus-within & {
-    border-color: var(--accent-color);
-    transform: translate(-1px, -1px);
-    box-shadow: var(--retro-shadow-hover);
-  }
-`;
-
-const ColorInput = styled.input`
-  position: absolute;
-  top: 0;
+const Modal = styled.div`
+  position: fixed;
   left: 50%;
-  width: 44px;
-  height: 44px;
+  bottom: calc(75px + var(--safe-area-bottom, env(safe-area-inset-bottom, 0px)));
   transform: translateX(-50%);
-  opacity: 0;
-  cursor: pointer;
-  border: none;
-  padding: 0;
-`;
-
-const ControlGroup = styled.div`
+  width: 92%;
+  max-width: 520px;
+  background: var(--card-bg, #1a1a1a);
+  color: var(--text-color, #ffffff);
+  border: 1px solid var(--border-color, #333);
+  border-radius: 16px;
+  padding: 18px 20px;
+  z-index: 1060;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5);
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 4px;
-  width: 100%;
-  padding-bottom: 8px;
-  margin-bottom: 4px;
-  border-bottom: 1px solid var(--border-color);
+  gap: 16px;
+`;
 
-  &:last-child {
-    border-bottom: none;
-    padding-bottom: 0;
-    margin-bottom: 0;
+const Header = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  h4 {
+    margin: 0;
+    font-size: 1.05rem;
+    font-weight: 600;
+  }
+
+  button {
+    background: transparent;
+    border: none;
+    color: var(--text-color-secondary, #888);
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 6px;
+    &:hover {
+      color: #fff;
+      background: rgba(255, 255, 255, 0.1);
+    }
   }
 `;
 
-function ReaderControlsPanel({
+const Row = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+
+  .label {
+    font-size: 0.88rem;
+    color: var(--text-color-secondary, #aaa);
+    min-width: 100px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+`;
+
+const ButtonGroup = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+
+  button {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid var(--border-color, #333);
+    color: var(--text-color, #fff);
+    padding: 6px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.82rem;
+    transition: all 0.15s ease;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.16);
+    }
+
+    &.active {
+      background: var(--accent-color, #e06c75);
+      border-color: var(--accent-color, #e06c75);
+      color: #fff;
+      font-weight: 600;
+    }
+
+    &:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+  }
+`;
+
+const ThemeSwatches = styled.div`
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+
+  .swatch {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: transform 0.15s ease, border-color 0.15s ease;
+
+    &:hover {
+      transform: scale(1.1);
+    }
+
+    &.active {
+      border-color: var(--accent-color, #e06c75);
+      transform: scale(1.15);
+      box-shadow: 0 0 8px rgba(224, 108, 117, 0.5);
+    }
+  }
+`;
+
+const Select = styled.select`
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid var(--border-color, #333);
+  color: var(--text-color, #fff);
+  padding: 6px 10px;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  outline: none;
+`;
+
+export default function ReaderControlsPanel({
   open,
   onClose,
   onRefresh,
@@ -147,148 +159,123 @@ function ReaderControlsPanel({
   onLineHeightChange,
   fontFamily,
   onFontFamilyChange,
+  readerWidth = '800px',
+  onReaderWidthChange,
   readerBackground,
   onReaderBackgroundChange,
-  readerCustomBg,
-  readerCustomText,
-  onCustomBgChange,
-  onCustomTextChange,
 }) {
-  const isCustom = readerBackground === READER_BACKGROUND_CUSTOM;
-  const { setTheme, theme } = useTheme();
-
   if (!open) return null;
 
   return createPortal(
     <>
-      <Overlay onClick={onClose} aria-hidden="false" />
-      <Panel $open role="dialog" aria-modal="true" aria-label="Reading Settings">
-        <Section>
-          {onFontSizeChange && (
-            <ControlGroup>
-              <IconButton
-                type="button"
-                title="Increase Font Size"
-                disabled={fontSize >= FONT_SIZE_MAX}
-                onClick={() => onFontSizeChange(1)}
-              >
-                <Plus size={20} strokeWidth={2.5} />
-              </IconButton>
-              <IconButton
-                type="button"
-                title="Decrease Font Size"
-                disabled={fontSize <= FONT_SIZE_MIN}
-                onClick={() => onFontSizeChange(-1)}
-              >
-                <Minus size={20} strokeWidth={2.5} />
-              </IconButton>
-            </ControlGroup>
-          )}
-          {onLineHeightChange && (
-            <ControlGroup>
-              <IconButton
-                type="button"
-                title="Increase Line Spacing"
-                disabled={lineHeight >= LINE_HEIGHT_MAX}
-                onClick={() => onLineHeightChange(1)}
-              >
-                <ArrowUpDown size={20} strokeWidth={2.5} />
-              </IconButton>
-              <IconButton
-                type="button"
-                title="Decrease Line Spacing"
-                disabled={lineHeight <= LINE_HEIGHT_MIN}
-                onClick={() => onLineHeightChange(-1)}
-              >
-                <Minus size={14} strokeWidth={3} />
-              </IconButton>
-            </ControlGroup>
-          )}
-          {onFontFamilyChange && (
-            <IconDropdown
-              icon={<Type size={20} strokeWidth={2.5} />}
-              title="Font"
-              ariaLabel="Select Font"
-              options={CHINESE_FONTS}
-              value={fontFamily}
-              onChange={onFontFamilyChange}
-              menuPlacement="left"
-            />
-          )}
-          <ControlGroup>
-            <IconButton
-              type="button"
-              title="Light Mode"
-              $active={theme === 'light'}
-              onClick={() => {
-                setTheme('light');
-                if (onReaderBackgroundChange && readerBackground !== '#f0e9e4' && readerBackground !== '#ffffff') {
-                  onReaderBackgroundChange('#f0e9e4');
-                }
-              }}
-            >
-              <Sun size={20} strokeWidth={2.5} />
-            </IconButton>
-            <IconButton
-              type="button"
-              title="Dark Mode"
-              $active={theme === 'dark'}
-              onClick={() => {
-                setTheme('dark');
-                if (onReaderBackgroundChange && readerBackground !== '#1a1a1a' && readerBackground !== '#0a0a0a' && readerBackground !== '#2c2630') {
-                  onReaderBackgroundChange('#1a1a1a');
-                }
-              }}
-            >
-              <Moon size={20} strokeWidth={2.5} />
-            </IconButton>
-          </ControlGroup>
-          {onReaderBackgroundChange && (
-            <IconDropdown
-              icon={<Palette size={20} strokeWidth={2.5} />}
-              title="Reading Background"
-              ariaLabel="Select Reading Background Color"
-              options={READER_BACKGROUND_OPTIONS}
-              value={readerBackground}
-              onChange={onReaderBackgroundChange}
-              menuPlacement="left"
-            />
-          )}
-        </Section>
-        {isCustom && onCustomBgChange && onCustomTextChange && (
-          <Section>
-            <ColorPickerLabel title="Background Color">
-              <ColorSwatch $color={readerCustomBg} aria-hidden="true" />
-              <ColorInput
-                type="color"
-                value={readerCustomBg}
-                onChange={(e) => onCustomBgChange(e.target.value)}
-                aria-label="Custom Background Color"
-              />
-            </ColorPickerLabel>
-            <ColorPickerLabel title="Text Color">
-              <ColorSwatch $color={readerCustomText} aria-hidden="true" />
-              <ColorInput
-                type="color"
-                value={readerCustomText}
-                onChange={(e) => onCustomTextChange(e.target.value)}
-                aria-label="Custom Text Color"
-              />
-            </ColorPickerLabel>
-          </Section>
+      <Overlay onClick={onClose} />
+      <Modal>
+        <Header>
+          <h4>Pengaturan Pembaca (WTR-Lab Tools)</h4>
+          <button onClick={onClose}>
+            <X size={18} />
+          </button>
+        </Header>
+
+        {/* Font Size */}
+        <Row>
+          <span className="label">
+            <Type size={16} /> Ukuran Font
+          </span>
+          <ButtonGroup>
+            <button disabled={fontSize <= FONT_SIZE_MIN} onClick={() => onFontSizeChange(-1)}>
+              <Minus size={14} />
+            </button>
+            <span style={{ fontSize: '0.9rem', fontWeight: 600, minWidth: 32, textAlign: 'center' }}>
+              {fontSize}px
+            </span>
+            <button disabled={fontSize >= FONT_SIZE_MAX} onClick={() => onFontSizeChange(1)}>
+              <Plus size={14} />
+            </button>
+          </ButtonGroup>
+        </Row>
+
+        {/* Reading Width */}
+        {onReaderWidthChange && (
+          <Row>
+            <span className="label">
+              <Maximize2 size={16} /> Lebar Teks
+            </span>
+            <ButtonGroup>
+              {READER_WIDTH_OPTIONS.map((opt) => (
+                <button
+                  key={opt.value}
+                  className={readerWidth === opt.value ? 'active' : ''}
+                  onClick={() => onReaderWidthChange(opt.value)}
+                >
+                  {opt.label.split(' ')[0]}
+                </button>
+              ))}
+            </ButtonGroup>
+          </Row>
         )}
-        <Section>
-          {onRefresh && (
-            <IconButton type="button" title="Refresh Chapter" onClick={onRefresh}>
-              <RefreshCw size={20} strokeWidth={2.5} />
-            </IconButton>
-          )}
-          <SettingsButton />
-        </Section>
-      </Panel>
+
+        {/* Font Family */}
+        {onFontFamilyChange && (
+          <Row>
+            <span className="label">
+              <Monitor size={16} /> Jenis Font
+            </span>
+            <Select value={fontFamily} onChange={(e) => onFontFamilyChange(e.target.value)}>
+              {CHINESE_FONTS.map((font) => (
+                <option key={font.value} value={font.value}>
+                  {font.label}
+                </option>
+              ))}
+            </Select>
+          </Row>
+        )}
+
+        {/* Reading Themes */}
+        {onReaderBackgroundChange && (
+          <Row>
+            <span className="label">
+              <Palette size={16} /> Tema Warna
+            </span>
+            <ThemeSwatches>
+              {READER_BACKGROUND_OPTIONS.filter((opt) => opt.value !== 'custom').map((opt) => (
+                <div
+                  key={opt.value}
+                  className={`swatch ${readerBackground === opt.value ? 'active' : ''}`}
+                  style={{ background: opt.value }}
+                  title={opt.label}
+                  onClick={() => onReaderBackgroundChange(opt.value)}
+                />
+              ))}
+            </ThemeSwatches>
+          </Row>
+        )}
+
+        {/* Refresh Chapter */}
+        {onRefresh && (
+          <Row style={{ paddingTop: 8, borderTop: '1px solid var(--border-color, #333)' }}>
+            <span className="label">Ulangi Muat Bab</span>
+            <button
+              onClick={onRefresh}
+              style={{
+                background: 'rgba(255,255,255,0.08)',
+                border: 'none',
+                color: '#fff',
+                padding: '6px 12px',
+                borderRadius: 8,
+                cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                gap: 6,
+                fontSize: '0.85rem',
+              }}
+            >
+              <RefreshCw size={14} /> Refresh
+            </button>
+          </Row>
+        )}
+      </Modal>
     </>,
     document.body,
   );
 }
-
-export default ReaderControlsPanel;
